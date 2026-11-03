@@ -1,0 +1,183 @@
+{
+  "company": {
+    "name": "Abyss Holdings",
+    "tagline": "Group of Companies",
+    "description": "A diversified group of companies driving innovation across multiple sectors — from construction and technology to investments and lifestyle.",
+    "email": "info@abyssholdings.com",
+    "phone": "+91 22 1234 5678",
+    "address": "Mumbai, Maharashtra, India",
+    "website": "abyssholding.com",
+    "primaryColor": "#E84545",
+    "secondaryColor": "#1a1a2e",
+    "logoUrl": "",
+    "socialLinks": {
+      "facebook": "https://facebook.com",
+      "instagram": "https://instagram.com",
+      "twitter": "https://twitter.com",
+      "linkedin": "https://linkedin.com"
+    }
+  },
+  "services": [
+    {
+      "id": "1",
+      "title": "Construction",
+      "description": "Building sustainable structures with innovation and precision.",
+      "imageUrl": "/images/services/construction.webp",
+      "order": 1,
+      "active": true
+    },
+    {
+      "id": "2",
+      "title": "Investments",
+      "description": "Delivering strategic financial solutions for sustainable growth.",
+      "imageUrl": "/images/services/investments.webp",
+      "order": 2,
+      "active": true
+    },
+    {
+      "id": "3",
+      "title": "realities",
+      "description": "Transforming spaces into vibrant, thriving communities.",
+      "imageUrl": "/images/services/realities.webp",
+      "order": 3,
+      "active": true
+    },
+    {
+      "id": "4",
+      "title": "Automobiles",
+      "description": "Revolutionizing mobility with cutting-edge automotive solutions.",
+      "imageUrl": "/images/services/automobiles.webp",
+      "order": 4,
+      "active": true
+    },
+    {
+      "id": "5",
+      "title": "Earth Movers",
+      "description": "Providing reliable equipment for infrastructure development projects.",
+      "imageUrl": "/images/services/earth-movers.webp",
+      "order": 5,
+      "active": true
+    },
+    {
+      "id": "6",
+      "title": "Technologies",
+      "description": "Innovating modern solutions to drive industry-wide transformations.",
+      "imageUrl": "/images/services/technologies.webp",
+      "order": 6,
+      "active": true
+    },
+    {
+      "id": "7",
+      "title": "Apparels",
+      "description": "Creating stylish, high-quality apparel for every lifestyle.",
+      "imageUrl": "/images/services/apparels.webp",
+      "order": 7,
+      "active": true
+    }
+  ],
+  "locations": [
+    {
+      "id": "1",
+      "country": "India",
+      "city": "Mumbai",
+      "address": "Mumbai Office (Headquarters)",
+      "phone": "+91 22 1234 5678",
+      "email": "mumbai@abyssholdings.com",
+      "isHeadquarter": true,
+      "order": 1
+    },
+    {
+      "id": "2",
+      "country": "India",
+      "city": "Hyderabad",
+      "address": "Hyderabad Office",
+      "phone": "+91 40 0000 0000",
+      "email": "hyderabad@abyssholdings.com",
+      "isHeadquarter": false,
+      "order": 2
+    },
+    {
+      "id": "3",
+      "country": "India",
+      "city": "Trivandrum",
+      "address": "Trivandrum Office",
+      "phone": "+91 471 000 0000",
+      "email": "trivandrum@abyssholdings.com",
+      "isHeadquarter": false,
+      "order": 3
+    },
+    {
+      "id": "4",
+      "country": "India",
+      "city": "Madhya Pradesh",
+      "address": "Madhya Pradesh Office",
+      "phone": "+91 755 000 0000",
+      "email": "mp@abyssholdings.com",
+      "isHeadquarter": false,
+      "order": 4
+    },
+    {
+      "id": "5",
+      "country": "India",
+      "city": "Bengaluru",
+      "address": "Bengaluru Office",
+      "phone": "+91 80 0000 0000",
+      "email": "bengaluru@abyssholdings.com",
+      "isHeadquarter": false,
+      "order": 5
+    },
+    {
+      "id": "6",
+      "country": "India",
+      "city": "Gujarat",
+      "address": "Gujarat Office",
+      "phone": "+91 79 0000 0000",
+      "email": "gujarat@abyssholdings.com",
+      "isHeadquarter": false,
+      "order": 6
+    }
+  ],
+  "projects": [
+    {
+      "id": "1",
+      "title": "Al Mussafah Industrial Complex",
+      "description": "A state-of-the-art industrial complex serving over 200 businesses.",
+      "imageUrl": "https://images.unsplash.com/photo-1486325212027-8081e485255e?w=600&q=80",
+      "category": "Construction",
+      "status": "Completed",
+      "year": 2023,
+      "order": 1
+    },
+    {
+      "id": "2",
+      "title": "GreenTech Investment Fund",
+      "description": "A sustainable investment portfolio focused on renewable energy.",
+      "imageUrl": "https://images.unsplash.com/photo-1466611653911-95081537e5b7?w=600&q=80",
+      "category": "Investments",
+      "status": "Ongoing",
+      "year": 2024,
+      "order": 2
+    },
+    {
+      "id": "3",
+      "title": "Urban Living Residences",
+      "description": "Premium residential community with 500+ units across Abu Dhabi.",
+      "imageUrl": "https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?w=600&q=80",
+      "category": "realities",
+      "status": "Ongoing",
+      "year": 2024,
+      "order": 3
+    }
+  ],
+  "messages": [
+    {
+      "id": "6012fabc-005e-453a-a622-01da58b6e6c2",
+      "name": "asdfaf",
+      "email": "at00@gmail.com",
+      "phone": "0955758372",
+      "message": "cncvhdvfhxdgfhcvgbhxd cg hxdgghdgdf dfgh dd d h",
+      "createdAt": "2026-11-02T16:08:24.019Z",
+      "read": true
+    }
+  ]
+}
