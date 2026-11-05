@@ -1,351 +1,279 @@
-'use client';
-
-import { useState, useEffect, Suspense } from 'react';
-import { useSearchParams } from 'next/navigation';
-import { sendMessage } from '@/lib/api';
 import Footer from '@/components/Footer';
 import Link from 'next/link';
 
-function ContactFormInner() {
-  const searchParams = useSearchParams();
-  const initialSector = searchParams ? searchParams.get('sector') || '' : '';
+export const metadata = {
+  title: 'Direct Contact | Abyss Holdings Group',
+  description: 'Connect directly with Abyss Holdings via our official email inboxes and telephone switchboards.',
+};
 
-  const [form, setForm] = useState({
-    name: '',
-    email: '',
-    phone: '',
-    sector: initialSector || 'General Corporate Inquiry',
-    subject: '',
-    message: '',
-  });
-
-  useEffect(() => {
-    if (initialSector) {
-      setForm((prev) => ({ ...prev, sector: initialSector }));
-    }
-  }, [initialSector]);
-
-  const [status, setStatus] = useState<'idle' | 'sending' | 'success' | 'error'>('idle');
-  const [err, setErr] = useState('');
-
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setStatus('sending');
-    try {
-      await sendMessage({
-        name: form.name,
-        email: form.email,
-        phone: form.phone,
-        message: `[Sector: ${form.sector}] [Subject: ${form.subject || 'Inquiry'}] ${form.message}`,
-      });
-      setStatus('success');
-      setForm({
-        name: '',
-        email: '',
-        phone: '',
-        sector: 'General Corporate Inquiry',
-        subject: '',
-        message: '',
-      });
-    } catch {
-      setStatus('error');
-      setErr('Failed to submit message to the server. You can also email us directly at info@abyssholdings.com or investments@abyssholdings.com.');
-    }
-  };
-
-  return (
-    <div className="bg-white p-8 sm:p-10 rounded-3xl border border-gray-200/80 shadow-sm">
-      <div className="mb-8">
-        <h2 className="text-2xl font-bold text-dark">Send Online Message</h2>
-        <p className="text-xs text-gray-500 mt-1">
-          Fill in the details below. Messages are routed directly to the accountable department leadership.
-        </p>
-      </div>
-
-      {status === 'success' ? (
-        <div className="flex flex-col items-center justify-center text-center py-16 animate-in fade-in">
-          <div className="w-16 h-16 rounded-full bg-emerald-50 text-emerald-600 flex items-center justify-center text-3xl mb-4">
-            ✓
-          </div>
-          <h3 className="font-bold text-dark text-2xl mb-2">Message Successfully Dispatched</h3>
-          <p className="text-gray-500 text-sm max-w-md mb-6 leading-relaxed">
-            Thank you for reaching out to Abyss Holdings. Your message has been logged and forwarded to our corporate communications officers.
-          </p>
-          <button
-            onClick={() => setStatus('idle')}
-            className="px-6 py-3 bg-primary text-white rounded-xl text-xs font-semibold hover:bg-red-600 transition-colors"
-          >
-            Send Another Message
-          </button>
-        </div>
-      ) : (
-        <form onSubmit={handleSubmit} className="space-y-5">
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
-            <div>
-              <label className="text-xs font-bold text-gray-700 mb-1.5 block">
-                Full Name <span className="text-primary">*</span>
-              </label>
-              <input
-                type="text"
-                required
-                value={form.name}
-                onChange={(e) => setForm({ ...form, name: e.target.value })}
-                className="w-full border border-gray-200 rounded-xl px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all"
-                placeholder="e.g. Vikram Mehta"
-              />
-            </div>
-
-            <div>
-              <label className="text-xs font-bold text-gray-700 mb-1.5 block">
-                Corporate Email Address <span className="text-primary">*</span>
-              </label>
-              <input
-                type="email"
-                required
-                value={form.email}
-                onChange={(e) => setForm({ ...form, email: e.target.value })}
-                className="w-full border border-gray-200 rounded-xl px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all"
-                placeholder="e.g. v.mehta@enterprise.com"
-              />
-            </div>
-          </div>
-
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
-            <div>
-              <label className="text-xs font-bold text-gray-700 mb-1.5 block">
-                Phone / Mobile
-              </label>
-              <input
-                type="tel"
-                value={form.phone}
-                onChange={(e) => setForm({ ...form, phone: e.target.value })}
-                className="w-full border border-gray-200 rounded-xl px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all"
-                placeholder="+91 98765 43210"
-              />
-            </div>
-
-            <div>
-              <label className="text-xs font-bold text-gray-700 mb-1.5 block">
-                Target Business Sector / Division
-              </label>
-              <select
-                value={form.sector}
-                onChange={(e) => setForm({ ...form, sector: e.target.value })}
-                className="w-full border border-gray-200 rounded-xl px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all bg-white"
-              >
-                <option value="General Corporate Inquiry">General Corporate Inquiry</option>
-                <option value="Investments & Capital">Investments & Capital</option>
-                <option value="Construction & Engineering">Construction & Engineering</option>
-                <option value="Realities & Urban Spaces">Realities & Urban Spaces</option>
-                <option value="Technologies & Digital Systems">Technologies & Digital Systems</option>
-                <option value="Automobiles & Mobility">Automobiles & Mobility</option>
-                <option value="Earth Movers & Heavy Machinery">Earth Movers & Heavy Machinery</option>
-                <option value="Apparels & Textile Manufacturing">Apparels & Textile Manufacturing</option>
-              </select>
-            </div>
-          </div>
-
-          <div>
-            <label className="text-xs font-bold text-gray-700 mb-1.5 block">
-              Subject / Mandate Title
-            </label>
-            <input
-              type="text"
-              value={form.subject}
-              onChange={(e) => setForm({ ...form, subject: e.target.value })}
-              className="w-full border border-gray-200 rounded-xl px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all"
-              placeholder="e.g. Infrastructure EPC Partnership Mandate"
-            />
-          </div>
-
-          <div>
-            <label className="text-xs font-bold text-gray-700 mb-1.5 block">
-              Detailed Message / Requirements <span className="text-primary">*</span>
-            </label>
-            <textarea
-              required
-              rows={5}
-              value={form.message}
-              onChange={(e) => setForm({ ...form, message: e.target.value })}
-              className="w-full border border-gray-200 rounded-xl px-4 py-3 text-sm resize-none focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all"
-              placeholder="Please outline the scope, timeline, and strategic requirements of your inquiry..."
-            />
-          </div>
-
-          {status === 'error' && (
-            <div className="p-3 rounded-xl bg-red-50 text-red-600 text-xs">
-              {err}
-            </div>
-          )}
-
-          <button
-            type="submit"
-            disabled={status === 'sending'}
-            className="w-full py-4 bg-primary text-white rounded-xl font-semibold text-sm hover:bg-red-600 transition-all shadow-md shadow-red-500/20 disabled:opacity-50"
-          >
-            {status === 'sending' ? 'Transmitting to Corporate Desk…' : 'Submit Official Inquiry →'}
-          </button>
-        </form>
-      )}
-    </div>
-  );
-}
+const REGIONAL_OFFICES = [
+  {
+    city: 'Mumbai',
+    role: 'Corporate Headquarters',
+    address: 'Bandra Kurla Complex (BKC), Mumbai, Maharashtra 400051',
+    phone: '+91 22 1234 5678',
+    email: 'Admin@abyssholding.com',
+    isHq: true,
+  },
+  {
+    city: 'Hyderabad',
+    role: 'Tech & Infrastructure Hub',
+    address: 'HITEC City, Madhapur, Hyderabad, Telangana 500081',
+    phone: '+91 40 1234 5678',
+    email: 'Admin@abyssholding.com',
+    isHq: false,
+  },
+  {
+    city: 'Bengaluru',
+    role: 'Innovation & Operations Center',
+    address: 'Outer Ring Road (ORR) Tech Corridor, Bengaluru, Karnataka 560103',
+    phone: '+91 80 1234 5678',
+    email: 'HR@abyssholding.com',
+    isHq: false,
+  },
+  {
+    city: 'Trivandrum',
+    role: 'Textiles & Regional Operations',
+    address: 'Technopark Phase III, Trivandrum, Kerala 695583',
+    phone: '+91 471 123 4567',
+    email: 'HR@abyssholding.com',
+    isHq: false,
+  },
+  {
+    city: 'Gujarat',
+    role: 'Heavy Machinery & Logistics Base',
+    address: 'GIDC Mega Industrial Estate, Ahmedabad, Gujarat 382445',
+    phone: '+91 79 1234 5678',
+    email: 'Admin@abyssholding.com',
+    isHq: false,
+  },
+  {
+    city: 'Madhya Pradesh',
+    role: 'Civil Engineering Hub',
+    address: 'Arera Hills Industrial Area, Bhopal, Madhya Pradesh 462011',
+    phone: '+91 755 123 4567',
+    email: 'Admin@abyssholding.com',
+    isHq: false,
+  },
+];
 
 export default function ContactPage() {
   return (
     <>
       <main className="min-h-screen bg-white">
-        {/* ── Corporate Hero Header ─────────────────────────── */}
-        <section className="bg-slate-950 text-white px-6 sm:px-12 lg:px-16 py-16 relative overflow-hidden">
+        {/* ── Hero Header ─────────────────────────────────────── */}
+        <section className="bg-slate-950 text-white px-6 sm:px-12 lg:px-16 py-16 sm:py-20 relative overflow-hidden">
           <div className="max-w-7xl mx-auto">
             <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-red-500/10 border border-red-500/20 text-red-400 text-xs font-semibold tracking-wider uppercase mb-4">
               <span className="w-1.5 h-1.5 rounded-full bg-primary" />
-              Corporate Inquiries & Liaison
+              Direct Communication Channels
             </div>
-            <h1 className="text-4xl sm:text-5xl font-black tracking-tight text-white mb-3">
-              Contact Abyss Holdings
+            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-black tracking-tight text-white mb-4">
+              Direct Contact & Switchboards
             </h1>
-            <p className="text-gray-400 text-sm sm:text-base max-w-2xl leading-relaxed">
-              Connect with our corporate communications desk, investor relations team, or specific sector heads.
-              Our leadership is committed to prompt, accountable correspondence across all business verticals.
+            <p className="text-gray-400 text-base sm:text-lg max-w-2xl leading-relaxed">
+              We provide direct, unfiltered access to our leadership and department heads.
+              Connect immediately via our 2 official email inboxes or dedicated direct telephone lines below.
             </p>
           </div>
         </section>
 
-        {/* ── Official Dual Inboxes Banner ──────────────────── */}
-        <section className="bg-gray-50 border-b border-gray-100 py-10 px-6 sm:px-12 lg:px-16">
-          <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-6">
-            {/* Box 1: General Desk */}
-            <div className="bg-white p-7 rounded-3xl border border-gray-200/80 shadow-sm hover:border-primary/50 transition-all flex flex-col justify-between">
-              <div>
-                <div className="flex items-center justify-between mb-3">
-                  <span className="w-10 h-10 rounded-2xl bg-red-50 text-primary flex items-center justify-center text-lg">
-                    ✉️
-                  </span>
-                  <span className="text-[10px] font-bold px-2.5 py-1 rounded-full bg-emerald-50 text-emerald-700 uppercase tracking-wider">
-                    General Inquiries
-                  </span>
-                </div>
-                <h3 className="font-bold text-dark text-lg mb-1">General & Corporate Desk</h3>
-                <p className="text-xs text-gray-500 mb-4">
-                  For corporate affairs, vendor submissions, public relations, and general communication.
-                </p>
-                <p className="text-base sm:text-lg font-mono font-bold text-dark">
-                  info@abyssholdings.com
-                </p>
-              </div>
-              <div className="mt-6 pt-4 border-t border-gray-100 flex items-center justify-between">
-                <span className="text-[11px] text-gray-400">Response within 24 hours</span>
-                <a
-                  href="mailto:info@abyssholdings.com?subject=Corporate%20Inquiry%20-%20Abyss%20Holdings"
-                  className="px-4 py-2 rounded-xl bg-gray-100 hover:bg-primary hover:text-white text-xs font-semibold text-dark transition-colors"
-                >
-                  Compose Mail →
-                </a>
-              </div>
+        {/* ── 2 Official Email Desks (Primary Connection) ────── */}
+        <section className="px-6 sm:px-12 lg:px-16 py-16 bg-gray-50 border-b border-gray-100">
+          <div className="max-w-7xl mx-auto">
+            <div className="mb-10 text-center max-w-2xl mx-auto">
+              <span className="text-xs font-bold text-primary uppercase tracking-widest block mb-2">
+                Official Inboxes (2 Email IDs Only)
+              </span>
+              <h2 className="text-3xl sm:text-4xl font-black text-dark tracking-tight">
+                Connect Directly via Email
+              </h2>
+              <p className="text-gray-500 text-xs sm:text-sm mt-2">
+                All communications are routed directly to responsible executive officers. Choose the appropriate desk below:
+              </p>
             </div>
 
-            {/* Box 2: Investment Desk */}
-            <div className="bg-white p-7 rounded-3xl border border-gray-200/80 shadow-sm hover:border-primary/50 transition-all flex flex-col justify-between">
-              <div>
-                <div className="flex items-center justify-between mb-3">
-                  <span className="w-10 h-10 rounded-2xl bg-red-50 text-primary flex items-center justify-center text-lg">
-                    💼
-                  </span>
-                  <span className="text-[10px] font-bold px-2.5 py-1 rounded-full bg-blue-50 text-blue-700 uppercase tracking-wider">
-                    Investor Relations
-                  </span>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-5xl mx-auto">
+              {/* Desk 1: Admin */}
+              <div className="bg-white p-8 sm:p-10 rounded-3xl border-2 border-gray-200/90 shadow-sm hover:border-primary hover:shadow-xl transition-all duration-300 flex flex-col justify-between">
+                <div>
+                  <div className="flex items-center justify-between mb-4">
+                    <span className="w-12 h-12 rounded-2xl bg-red-50 text-primary flex items-center justify-center text-2xl">
+                      ✉️
+                    </span>
+                    <span className="text-[11px] font-bold px-3 py-1 rounded-full bg-emerald-50 text-emerald-700 uppercase tracking-wider">
+                      Administration Desk
+                    </span>
+                  </div>
+
+                  <h3 className="font-black text-dark text-2xl mb-2">
+                    Admin@abyssholding.com
+                  </h3>
+                  <p className="text-sm text-gray-500 mb-6 leading-relaxed">
+                    Primary inbox for corporate inquiries, business partnerships, executive mandates,
+                    tenders, investments, and operational correspondence.
+                  </p>
+
+                  <div className="bg-gray-50 p-4 rounded-2xl border border-gray-100 space-y-1.5 text-xs text-gray-600 mb-6">
+                    <p className="flex items-center gap-2">
+                      <span className="text-emerald-600 font-bold">✓</span> Corporate Governance & Liaison
+                    </p>
+                    <p className="flex items-center gap-2">
+                      <span className="text-emerald-600 font-bold">✓</span> Commercial & Project Proposals
+                    </p>
+                    <p className="flex items-center gap-2">
+                      <span className="text-emerald-600 font-bold">✓</span> Vendor Empanelment & Procurement
+                    </p>
+                  </div>
                 </div>
-                <h3 className="font-bold text-dark text-lg mb-1">Business & Investments Desk</h3>
-                <p className="text-xs text-gray-500 mb-4">
-                  For private equity co-investments, institutional debt, project partnerships, and M&A opportunities.
-                </p>
-                <p className="text-base sm:text-lg font-mono font-bold text-dark">
-                  investments@abyssholdings.com
-                </p>
+
+                <div className="pt-6 border-t border-gray-100 flex flex-col sm:flex-row items-center gap-3">
+                  <a
+                    href="mailto:Admin@abyssholding.com?subject=Corporate%20Inquiry%20-%20Abyss%20Holdings"
+                    className="w-full sm:w-auto flex-1 text-center py-3.5 px-6 rounded-xl bg-primary hover:bg-red-600 text-white text-xs font-bold transition-all shadow-md shadow-red-500/20"
+                  >
+                    Compose Email to Admin →
+                  </a>
+                </div>
               </div>
-              <div className="mt-6 pt-4 border-t border-gray-100 flex items-center justify-between">
-                <span className="text-[11px] text-gray-400">Executive Priority Review</span>
-                <a
-                  href="mailto:investments@abyssholdings.com?subject=Strategic%20Investment%20Partnership%20-%20Abyss%20Holdings"
-                  className="px-4 py-2 rounded-xl bg-gray-100 hover:bg-primary hover:text-white text-xs font-semibold text-dark transition-colors"
-                >
-                  Compose Mail →
-                </a>
+
+              {/* Desk 2: HR */}
+              <div className="bg-white p-8 sm:p-10 rounded-3xl border-2 border-gray-200/90 shadow-sm hover:border-primary hover:shadow-xl transition-all duration-300 flex flex-col justify-between">
+                <div>
+                  <div className="flex items-center justify-between mb-4">
+                    <span className="w-12 h-12 rounded-2xl bg-red-50 text-primary flex items-center justify-center text-2xl">
+                      💼
+                    </span>
+                    <span className="text-[11px] font-bold px-3 py-1 rounded-full bg-blue-50 text-blue-700 uppercase tracking-wider">
+                      Human Resources Desk
+                    </span>
+                  </div>
+
+                  <h3 className="font-black text-dark text-2xl mb-2">
+                    HR@abyssholding.com
+                  </h3>
+                  <p className="text-sm text-gray-500 mb-6 leading-relaxed">
+                    Dedicated inbox for career applications, talent acquisition, recruitment inquiries,
+                    internships, employment verification, and human capital affairs.
+                  </p>
+
+                  <div className="bg-gray-50 p-4 rounded-2xl border border-gray-100 space-y-1.5 text-xs text-gray-600 mb-6">
+                    <p className="flex items-center gap-2">
+                      <span className="text-blue-600 font-bold">✓</span> Careers & Executive Hiring
+                    </p>
+                    <p className="flex items-center gap-2">
+                      <span className="text-blue-600 font-bold">✓</span> Resume & CV Submissions
+                    </p>
+                    <p className="flex items-center gap-2">
+                      <span className="text-blue-600 font-bold">✓</span> Academic & Institutional Partnerships
+                    </p>
+                  </div>
+                </div>
+
+                <div className="pt-6 border-t border-gray-100 flex flex-col sm:flex-row items-center gap-3">
+                  <a
+                    href="mailto:HR@abyssholding.com?subject=Job%20Application%20%2F%20HR%20Inquiry%20-%20Abyss%20Holdings"
+                    className="w-full sm:w-auto flex-1 text-center py-3.5 px-6 rounded-xl bg-slate-900 hover:bg-dark text-white text-xs font-bold transition-all shadow-md"
+                  >
+                    Compose Email to HR →
+                  </a>
+                </div>
               </div>
             </div>
           </div>
         </section>
 
-        {/* ── Main Form & HQ Coordinates ────────────────────── */}
+        {/* ── Telephone Hotlines & Corporate Switchboards ─────── */}
         <section className="px-6 sm:px-12 lg:px-16 py-16 bg-white">
-          <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
-            {/* Left: Interactive Form wrapped in Suspense */}
-            <div className="lg:col-span-7">
-              <Suspense fallback={<div className="h-96 bg-gray-50 rounded-3xl animate-pulse" />}>
-                <ContactFormInner />
-              </Suspense>
+          <div className="max-w-7xl mx-auto">
+            <div className="mb-12">
+              <span className="text-xs font-bold text-primary uppercase tracking-widest block mb-2">
+                Voice Telephone Connections
+              </span>
+              <h2 className="text-3xl sm:text-4xl font-black text-dark tracking-tight">
+                Direct Telephony Lines
+              </h2>
+              <p className="text-gray-500 text-sm mt-2 max-w-xl">
+                Call our headquarters or regional hubs directly during business hours (Monday – Friday, 09:00 – 18:30 IST).
+              </p>
             </div>
 
-            {/* Right: Corporate Coordinates & Network */}
-            <div className="lg:col-span-5 space-y-6">
-              {/* Headquarters Box */}
-              <div className="bg-slate-900 text-white p-8 rounded-3xl relative overflow-hidden shadow-xl">
-                <div className="absolute top-0 right-0 -mr-10 -mt-10 w-40 h-40 rounded-full bg-primary/20 blur-2xl pointer-events-none" />
-                <span className="text-[10px] font-bold px-3 py-1 rounded-full bg-white/10 text-red-400 uppercase tracking-wider mb-4 inline-block">
-                  Global Headquarters
+            {/* Central Switchboard Feature Box */}
+            <div className="mb-12 bg-slate-900 text-white rounded-3xl p-8 sm:p-12 relative overflow-hidden shadow-2xl">
+              <div className="absolute top-0 right-0 -mr-16 -mt-16 w-64 h-64 rounded-full bg-primary/20 blur-3xl pointer-events-none" />
+              <div className="relative max-w-3xl">
+                <span className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/10 text-red-400 text-xs font-bold uppercase tracking-wider mb-4">
+                  <span>📍</span> Central Global Switchboard
                 </span>
-                <h3 className="text-2xl font-black text-white mb-2">Mumbai Office</h3>
-                <p className="text-xs text-gray-400 mb-6 leading-relaxed">
-                  Bandra Kurla Complex (BKC), Mumbai, Maharashtra, India.
+                <h3 className="text-3xl sm:text-4xl font-black text-white mb-2">
+                  Mumbai Corporate Headquarters
+                </h3>
+                <p className="text-gray-400 text-sm mb-6 leading-relaxed">
+                  Bandra Kurla Complex (BKC), Mumbai, Maharashtra 400051, India.
                 </p>
 
-                <div className="space-y-3.5 text-xs border-t border-white/10 pt-5 text-gray-300">
-                  <div className="flex items-center gap-3">
-                    <span className="text-primary font-bold">📞</span>
-                    <span>General Switchboard: +91 22 1234 5678</span>
-                  </div>
-                  <div className="flex items-center gap-3">
-                    <span className="text-primary font-bold">✉️</span>
-                    <span>Corporate Desk: info@abyssholdings.com</span>
-                  </div>
-                  <div className="flex items-center gap-3">
-                    <span className="text-primary font-bold">💼</span>
-                    <span>Investments Desk: investments@abyssholdings.com</span>
-                  </div>
-                  <div className="flex items-center gap-3">
-                    <span className="text-primary font-bold">🕒</span>
-                    <span>Office Hours: Mon - Fri | 09:00 - 18:30 IST</span>
+                <div className="flex flex-col sm:flex-row items-start sm:items-center gap-6">
+                  <a
+                    href="tel:+912212345678"
+                    className="inline-flex items-center gap-3 px-8 py-4 rounded-2xl bg-primary hover:bg-red-600 text-white font-black text-lg transition-all shadow-xl shadow-red-500/30"
+                  >
+                    <span>📞</span>
+                    <span>+91 22 1234 5678</span>
+                  </a>
+                  <div className="text-xs text-gray-400 space-y-1">
+                    <p className="text-white font-semibold">Hours: 09:00 - 18:30 IST</p>
+                    <p>English, Hindi & Regional Languages</p>
                   </div>
                 </div>
               </div>
+            </div>
 
-              {/* Pan-India Presence Teaser */}
-              <div className="bg-gray-50 p-6 rounded-3xl border border-gray-100">
-                <p className="text-[10px] font-bold text-primary uppercase tracking-widest mb-1">
-                  National Footprint
-                </p>
-                <h4 className="font-bold text-dark text-base mb-2">
-                  6 Operational Hubs Across India
-                </h4>
-                <p className="text-xs text-gray-500 mb-4 leading-relaxed">
-                  Our regional offices anchor local operations, engineering teams, and client liaison across major industrial corridors.
-                </p>
-                <div className="grid grid-cols-2 gap-2 text-xs text-gray-700 font-medium mb-4">
-                  <span className="flex items-center gap-1.5"><span>📍</span> Mumbai HQ</span>
-                  <span className="flex items-center gap-1.5"><span>📍</span> Hyderabad</span>
-                  <span className="flex items-center gap-1.5"><span>📍</span> Bengaluru</span>
-                  <span className="flex items-center gap-1.5"><span>📍</span> Trivandrum</span>
-                  <span className="flex items-center gap-1.5"><span>📍</span> Gujarat Hub</span>
-                  <span className="flex items-center gap-1.5"><span>📍</span> Madhya Pradesh</span>
-                </div>
-                <Link
-                  href="/locations"
-                  className="inline-flex items-center gap-1.5 text-xs font-semibold text-primary hover:underline"
-                >
-                  <span>Explore Interactive Office Map</span>
-                  <span>→</span>
-                </Link>
+            {/* Regional Offices Directory */}
+            <div>
+              <h3 className="font-bold text-xl text-dark mb-6">Regional Hub Direct Numbers</h3>
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                {REGIONAL_OFFICES.map((office, idx) => (
+                  <div
+                    key={idx}
+                    className="p-6 rounded-2xl bg-gray-50 border border-gray-200/80 hover:border-gray-300 hover:shadow-md transition-all flex flex-col justify-between"
+                  >
+                    <div>
+                      <div className="flex items-center justify-between mb-2">
+                        <h4 className="font-black text-lg text-dark">{office.city}</h4>
+                        {office.isHq && (
+                          <span className="px-2 py-0.5 rounded-full bg-primary text-white text-[9px] font-bold uppercase">
+                            HQ
+                          </span>
+                        )}
+                      </div>
+                      <p className="text-xs text-primary font-semibold mb-3">{office.role}</p>
+                      <p className="text-xs text-gray-500 leading-relaxed mb-4">{office.address}</p>
+                    </div>
+
+                    <div className="pt-4 border-t border-gray-200/60 space-y-2 text-xs">
+                      <a
+                        href={`tel:${office.phone.replace(/\s+/g, '')}`}
+                        className="flex items-center justify-between text-dark font-bold hover:text-primary py-1"
+                      >
+                        <span className="flex items-center gap-1.5">
+                          <span>📞</span>
+                          <span>{office.phone}</span>
+                        </span>
+                        <span className="text-[11px] text-primary">Call →</span>
+                      </a>
+                      <a
+                        href={`mailto:${office.email}`}
+                        className="flex items-center justify-between text-gray-600 hover:text-primary py-1 font-mono text-[11px]"
+                      >
+                        <span className="flex items-center gap-1.5">
+                          <span>✉️</span>
+                          <span>{office.email}</span>
+                        </span>
+                        <span className="text-gray-400">Email</span>
+                      </a>
+                    </div>
+                  </div>
+                ))}
               </div>
             </div>
           </div>

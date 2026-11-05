@@ -133,30 +133,30 @@ export default function Footer() {
           {/* Official Inboxes & Contact (Col 4 - 3) */}
           <div className="lg:col-span-3">
             <h4 className="font-bold text-sm mb-4 text-white tracking-wide uppercase text-xs">
-              Official Correspondence
+              Official Inboxes
             </h4>
             <div className="space-y-4 text-xs">
               <div className="p-3.5 rounded-xl bg-white/5 border border-white/10">
                 <p className="text-[10px] font-bold text-gray-400 uppercase tracking-wider mb-1">
-                  General & Corporate Enquiries
+                  Administration & Corporate
                 </p>
                 <a
-                  href="mailto:info@abyssholdings.com"
+                  href="mailto:Admin@abyssholding.com"
                   className="text-white hover:text-primary font-medium transition-colors block text-sm"
                 >
-                  info@abyssholdings.com
+                  Admin@abyssholding.com
                 </a>
               </div>
 
               <div className="p-3.5 rounded-xl bg-white/5 border border-white/10">
                 <p className="text-[10px] font-bold text-gray-400 uppercase tracking-wider mb-1">
-                  Business & Investment Desk
+                  Human Resources & Careers
                 </p>
                 <a
-                  href="mailto:investments@abyssholdings.com"
+                  href="mailto:HR@abyssholding.com"
                   className="text-white hover:text-primary font-medium transition-colors block text-sm"
                 >
-                  investments@abyssholdings.com
+                  HR@abyssholding.com
                 </a>
               </div>
 

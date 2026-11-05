@@ -92,23 +92,20 @@ export default function SectorDetailPage({ params }: { params: { slug: string } 
 
               {/* Action Buttons */}
               <div className="flex flex-wrap gap-4 items-center">
-                <Link
-                  href={`/contact?sector=${encodeURIComponent(sector.title)}`}
+                <a
+                  href={`mailto:${sector.inquiries.primaryEmail}?subject=Inquiry%20regarding%20Abyss%20${encodeURIComponent(sector.title)}`}
                   className="px-8 py-3.5 rounded-xl bg-primary text-white text-sm font-semibold transition-all hover:bg-red-600 shadow-lg shadow-red-500/25 flex items-center gap-2"
                 >
-                  <span>Inquire for {sector.title}</span>
                   <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
-                  </svg>
-                </Link>
-                <a
-                  href={`mailto:${sector.inquiries.primaryEmail}?subject=Partnership%20Inquiry%20-%20Abyss%20${sector.title}`}
-                  className="px-6 py-3.5 rounded-xl bg-white/10 hover:bg-white/20 border border-white/20 text-white text-sm font-semibold transition-all backdrop-blur-sm flex items-center gap-2"
-                >
-                  <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 text-red-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
                   </svg>
-                  <span>Direct Email ({sector.inquiries.primaryEmail})</span>
+                  <span>Email Admin Desk ({sector.inquiries.primaryEmail})</span>
+                </a>
+                <a
+                  href={`tel:${sector.inquiries.phone.replace(/\s+/g, '')}`}
+                  className="px-6 py-3.5 rounded-xl bg-white/10 hover:bg-white/20 border border-white/20 text-white text-sm font-semibold transition-all backdrop-blur-sm flex items-center gap-2"
+                >
+                  <span>📞 Call HQ ({sector.inquiries.phone})</span>
                 </a>
               </div>
             </div>
@@ -412,10 +409,10 @@ export default function SectorDetailPage({ params }: { params: { slug: string } 
             </p>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 max-w-2xl mx-auto mb-10 text-left">
-              {/* Channel 1: General & Operations */}
+              {/* Channel 1: Admin */}
               <div className="p-6 rounded-2xl bg-white/5 border border-white/10 hover:border-primary/50 transition-colors">
                 <span className="text-xs text-gray-400 font-semibold uppercase tracking-wider block mb-1">
-                  General & Technical Inquiries
+                  Administration & Corporate
                 </span>
                 <p className="text-lg font-bold text-white mb-2">
                   {sector.inquiries.primaryEmail}
@@ -429,16 +426,16 @@ export default function SectorDetailPage({ params }: { params: { slug: string } 
                 </a>
               </div>
 
-              {/* Channel 2: Investments & Capital */}
+              {/* Channel 2: HR */}
               <div className="p-6 rounded-2xl bg-white/5 border border-white/10 hover:border-primary/50 transition-colors">
                 <span className="text-xs text-gray-400 font-semibold uppercase tracking-wider block mb-1">
-                  Investments & Executive Desk
+                  Human Resources & Careers
                 </span>
                 <p className="text-lg font-bold text-white mb-2">
                   {sector.inquiries.secondaryEmail}
                 </p>
                 <a
-                  href={`mailto:${sector.inquiries.secondaryEmail}?subject=Capital%20%26%20Partnership%20-%20${encodeURIComponent(sector.title)}`}
+                  href={`mailto:${sector.inquiries.secondaryEmail}?subject=Careers%20%26%20Inquiry%20-%20${encodeURIComponent(sector.title)}`}
                   className="inline-flex items-center gap-1.5 text-xs font-semibold text-primary hover:text-red-300 transition-colors"
                 >
                   <span>Compose Mail</span>
@@ -447,12 +444,20 @@ export default function SectorDetailPage({ params }: { params: { slug: string } 
               </div>
             </div>
 
-            <Link
-              href={`/contact?sector=${encodeURIComponent(sector.title)}`}
-              className="inline-block px-10 py-4 rounded-xl bg-primary hover:bg-red-600 text-white font-semibold text-sm transition-all shadow-xl shadow-red-600/30"
-            >
-              Open Online Inquiry Form
-            </Link>
+            <div className="flex flex-wrap justify-center gap-4">
+              <a
+                href={`mailto:${sector.inquiries.primaryEmail}?subject=Inquiry%20regarding%20Abyss%20${encodeURIComponent(sector.title)}`}
+                className="inline-flex items-center gap-2 px-8 py-4 rounded-xl bg-primary hover:bg-red-600 text-white font-semibold text-sm transition-all shadow-xl shadow-red-600/30"
+              >
+                <span>✉ Email Admin Desk Directly</span>
+              </a>
+              <a
+                href={`tel:${sector.inquiries.phone.replace(/\s+/g, '')}`}
+                className="inline-flex items-center gap-2 px-8 py-4 rounded-xl bg-white/10 hover:bg-white/20 border border-white/20 text-white font-semibold text-sm transition-all"
+              >
+                <span>📞 Call Switchboard: {sector.inquiries.phone}</span>
+              </a>
+            </div>
           </div>
         </section>
 
@@ -520,3 +525,4 @@ export default function SectorDetailPage({ params }: { params: { slug: string } 
     </>
   );
 }
+

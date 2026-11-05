@@ -204,16 +204,16 @@ export default function AboutPage() {
 
             <div className="flex flex-wrap gap-4">
               <a
-                href="mailto:info@abyssholdings.com"
+                href="mailto:Admin@abyssholding.com"
                 className="px-6 py-3.5 rounded-xl bg-white/10 hover:bg-white/20 border border-white/20 text-white text-xs font-semibold transition-all flex items-center gap-2"
               >
-                <span>✉ info@abyssholdings.com</span>
+                <span>✉ Admin@abyssholding.com</span>
               </a>
               <a
-                href="mailto:investments@abyssholdings.com"
+                href="mailto:HR@abyssholding.com"
                 className="px-6 py-3.5 rounded-xl bg-primary hover:bg-red-600 text-white text-xs font-semibold transition-all shadow-lg shadow-red-500/25 flex items-center gap-2"
               >
-                <span>💼 investments@abyssholdings.com</span>
+                <span>💼 HR@abyssholding.com</span>
               </a>
             </div>
           </div>

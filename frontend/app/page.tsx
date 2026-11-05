@@ -219,13 +219,13 @@ export default async function HomePage() {
               {/* Email Desk 1 */}
               <div className="p-6 rounded-2xl bg-white/5 border border-white/10 hover:border-primary/50 transition-colors">
                 <span className="text-xs text-gray-400 font-semibold uppercase tracking-wider block mb-1">
-                  General & Corporate Inquiries
+                  Administration & Corporate
                 </span>
                 <p className="text-base font-bold text-white mb-3 break-all font-mono">
-                  info@abyssholdings.com
+                  Admin@abyssholding.com
                 </p>
                 <a
-                  href="mailto:info@abyssholdings.com"
+                  href="mailto:Admin@abyssholding.com"
                   className="inline-flex items-center gap-1.5 text-xs font-semibold text-primary hover:text-red-300 transition-colors"
                 >
                   <span>Send Mail Directly</span>
@@ -236,13 +236,13 @@ export default async function HomePage() {
               {/* Email Desk 2 */}
               <div className="p-6 rounded-2xl bg-white/5 border border-white/10 hover:border-primary/50 transition-colors">
                 <span className="text-xs text-gray-400 font-semibold uppercase tracking-wider block mb-1">
-                  Investments & Strategic Desk
+                  Human Resources & Careers
                 </span>
                 <p className="text-base font-bold text-white mb-3 break-all font-mono">
-                  investments@abyssholdings.com
+                  HR@abyssholding.com
                 </p>
                 <a
-                  href="mailto:investments@abyssholdings.com"
+                  href="mailto:HR@abyssholding.com"
                   className="inline-flex items-center gap-1.5 text-xs font-semibold text-primary hover:text-red-300 transition-colors"
                 >
                   <span>Send Mail Directly</span>

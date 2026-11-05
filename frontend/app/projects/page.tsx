@@ -213,7 +213,7 @@ export default function ProjectsPage() {
                 Propose a Project or Strategic Alliance
               </h3>
               <p className="text-gray-400 text-sm mt-1 max-w-lg">
-                Connect with our business development team at info@abyssholdings.com or investments@abyssholdings.com.
+                Connect with our team at Admin@abyssholding.com or HR@abyssholding.com.
               </p>
             </div>
             <Link

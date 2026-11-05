@@ -10,7 +10,7 @@ const FALLBACK_LOCATIONS: Location[] = [
     city: 'Mumbai',
     address: 'Bandra Kurla Complex (BKC), Mumbai, Maharashtra 400051',
     phone: '+91 22 1234 5678',
-    email: 'contact@abyssholdings.com',
+    email: 'Admin@abyssholding.com',
     isHeadquarter: true,
     order: 1,
   },
@@ -20,7 +20,7 @@ const FALLBACK_LOCATIONS: Location[] = [
     city: 'Hyderabad',
     address: 'HITEC City, Madhapur, Hyderabad, Telangana 500081',
     phone: '+91 40 1234 5678',
-    email: 'hyderabad@abyssholdings.com',
+    email: 'Admin@abyssholding.com',
     isHeadquarter: false,
     order: 2,
   },
@@ -30,7 +30,7 @@ const FALLBACK_LOCATIONS: Location[] = [
     city: 'Trivandrum',
     address: 'Technopark Phase III, Trivandrum, Kerala 695583',
     phone: '+91 471 123 4567',
-    email: 'trivandrum@abyssholdings.com',
+    email: 'HR@abyssholding.com',
     isHeadquarter: false,
     order: 3,
   },
@@ -40,7 +40,7 @@ const FALLBACK_LOCATIONS: Location[] = [
     city: 'Madhya Pradesh',
     address: 'Arera Hills Industrial Area, Bhopal, Madhya Pradesh 462011',
     phone: '+91 755 123 4567',
-    email: 'mp@abyssholdings.com',
+    email: 'Admin@abyssholding.com',
     isHeadquarter: false,
     order: 4,
   },
@@ -50,7 +50,7 @@ const FALLBACK_LOCATIONS: Location[] = [
     city: 'Bengaluru',
     address: 'Outer Ring Road (ORR) Tech Corridor, Bengaluru, Karnataka 560103',
     phone: '+91 80 1234 5678',
-    email: 'bengaluru@abyssholdings.com',
+    email: 'HR@abyssholding.com',
     isHeadquarter: false,
     order: 5,
   },
@@ -60,7 +60,7 @@ const FALLBACK_LOCATIONS: Location[] = [
     city: 'Gujarat',
     address: 'GIDC Mega Industrial Estate, Ahmedabad, Gujarat 382445',
     phone: '+91 79 1234 5678',
-    email: 'gujarat@abyssholdings.com',
+    email: 'Admin@abyssholding.com',
     isHeadquarter: false,
     order: 6,
   },
@@ -180,7 +180,7 @@ export default async function LocationsPage() {
                 Official Group Email Channels
               </h3>
               <p className="text-gray-400 text-sm mt-1 max-w-lg">
-                General Inquiries: info@abyssholdings.com | Investment & Capital: investments@abyssholdings.com
+                Admin Desk: Admin@abyssholding.com | HR Desk: HR@abyssholding.com
               </p>
             </div>
             <Link

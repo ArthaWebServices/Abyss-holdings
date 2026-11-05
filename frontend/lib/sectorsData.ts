@@ -139,8 +139,8 @@ export const SECTORS_DATA: Record<string, SectorDetail> = {
     ],
     certifications: ['SEBI Registered Investment Entity Framework', 'ISO 9001:2015 Quality Management', 'UN Principles for Responsible Investment (PRI) Standards'],
     inquiries: {
-      primaryEmail: 'investments@abyssholdings.com',
-      secondaryEmail: 'info@abyssholdings.com',
+      primaryEmail: 'Admin@abyssholding.com',
+      secondaryEmail: 'HR@abyssholding.com',
       phone: '+91 22 1234 5678',
       headquarters: 'Bandra Kurla Complex (BKC), Mumbai, India',
     },
@@ -239,8 +239,8 @@ export const SECTORS_DATA: Record<string, SectorDetail> = {
     ],
     certifications: ['ISO 45001:2018 Occupational Health & Safety', 'ISO 14001 Environmental Management', 'Indian Green Building Council (IGBC) Platinum'],
     inquiries: {
-      primaryEmail: 'info@abyssholdings.com',
-      secondaryEmail: 'investments@abyssholdings.com',
+      primaryEmail: 'Admin@abyssholding.com',
+      secondaryEmail: 'HR@abyssholding.com',
       phone: '+91 22 1234 5678',
       headquarters: 'Mumbai Central Engineering Division, India',
     },
@@ -339,8 +339,8 @@ export const SECTORS_DATA: Record<string, SectorDetail> = {
     ],
     certifications: ['RERA Compliant Projects', 'ISO 9001:2015 Quality Real Estate Development', 'GRIHA 5-Star Green Rating'],
     inquiries: {
-      primaryEmail: 'info@abyssholdings.com',
-      secondaryEmail: 'investments@abyssholdings.com',
+      primaryEmail: 'Admin@abyssholding.com',
+      secondaryEmail: 'HR@abyssholding.com',
       phone: '+91 22 1234 5678',
       headquarters: 'Abyss Realities Corporate Tower, Mumbai, India',
     },
@@ -439,8 +439,8 @@ export const SECTORS_DATA: Record<string, SectorDetail> = {
     ],
     certifications: ['SOC 2 Type II Certified', 'ISO 27001 Information Security Management', 'HIPAA & GDPR Data Compliance Frameworks'],
     inquiries: {
-      primaryEmail: 'info@abyssholdings.com',
-      secondaryEmail: 'investments@abyssholdings.com',
+      primaryEmail: 'Admin@abyssholding.com',
+      secondaryEmail: 'HR@abyssholding.com',
       phone: '+91 22 1234 5678',
       headquarters: 'Abyss Technology Labs, Bengaluru & Hyderabad, India',
     },
@@ -539,8 +539,8 @@ export const SECTORS_DATA: Record<string, SectorDetail> = {
     ],
     certifications: ['ARAI Safety Compliant', 'ISO 9001:2015 Fleet Management Standards', 'Green Fleet Certification by Bureau of Energy Efficiency'],
     inquiries: {
-      primaryEmail: 'info@abyssholdings.com',
-      secondaryEmail: 'investments@abyssholdings.com',
+      primaryEmail: 'Admin@abyssholding.com',
+      secondaryEmail: 'HR@abyssholding.com',
       phone: '+91 22 1234 5678',
       headquarters: 'Automotive & Logistics Hub, Gujarat & Maharashtra, India',
     },
@@ -639,8 +639,8 @@ export const SECTORS_DATA: Record<string, SectorDetail> = {
     ],
     certifications: ['ISO 9001:2015 Heavy Machinery Operations', 'Directorate General of Mines Safety (DGMS) Certified', 'Rigorous Annual Mechanical Fitness Passports'],
     inquiries: {
-      primaryEmail: 'info@abyssholdings.com',
-      secondaryEmail: 'investments@abyssholdings.com',
+      primaryEmail: 'Admin@abyssholding.com',
+      secondaryEmail: 'HR@abyssholding.com',
       phone: '+91 22 1234 5678',
       headquarters: 'Central Heavy Equipment Yard, Madhya Pradesh & Gujarat, India',
     },
@@ -739,8 +739,8 @@ export const SECTORS_DATA: Record<string, SectorDetail> = {
     ],
     certifications: ['Global Organic Textile Standard (GOTS)', 'OEKO-TEX Standard 100 Class I', 'WRAP (Worldwide Responsible Accredited Production) Platinum'],
     inquiries: {
-      primaryEmail: 'info@abyssholdings.com',
-      secondaryEmail: 'investments@abyssholdings.com',
+      primaryEmail: 'Admin@abyssholding.com',
+      secondaryEmail: 'HR@abyssholding.com',
       phone: '+91 22 1234 5678',
       headquarters: 'Textile Manufacturing & Export Center, Trivandrum & Gujarat, India',
     },
@@ -753,3 +753,4 @@ export function getSectorBySlug(slug: string): SectorDetail | undefined {
   const normalized = slug.toLowerCase().trim();
   return SECTORS_DATA[normalized];
 }
+

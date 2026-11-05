@@ -205,7 +205,7 @@ export default function ServicesPage() {
                     href="/contact"
                     className="px-6 py-3 rounded-xl bg-primary text-white text-xs font-semibold hover:bg-red-600 transition-colors shadow-md shadow-red-500/20"
                   >
-                    Send Direct Online Message
+                    Direct Email & Phone Directory
                   </Link>
                   <Link
                     href="/locations"
@@ -223,16 +223,16 @@ export default function ServicesPage() {
                     ✉️
                   </span>
                   <p className="text-xs text-gray-400 font-semibold uppercase tracking-wider mb-1">
-                    General & Corporate Desk
+                    Administration & Corporate
                   </p>
                   <p className="font-bold text-dark text-sm sm:text-base break-all mb-2">
-                    info@abyssholdings.com
+                    Admin@abyssholding.com
                   </p>
                   <a
-                    href="mailto:info@abyssholdings.com"
+                    href="mailto:Admin@abyssholding.com"
                     className="text-xs font-semibold text-primary hover:underline"
                   >
-                    Email Operations Desk →
+                    Email Admin Desk →
                   </a>
                 </div>
 
@@ -241,16 +241,16 @@ export default function ServicesPage() {
                     💼
                   </span>
                   <p className="text-xs text-gray-400 font-semibold uppercase tracking-wider mb-1">
-                    Investments & Capital Desk
+                    Human Resources & Careers
                   </p>
                   <p className="font-bold text-dark text-sm sm:text-base break-all mb-2">
-                    investments@abyssholdings.com
+                    HR@abyssholding.com
                   </p>
                   <a
-                    href="mailto:investments@abyssholdings.com"
+                    href="mailto:HR@abyssholding.com"
                     className="text-xs font-semibold text-primary hover:underline"
                   >
-                    Email Investment Team →
+                    Email HR Desk →
                   </a>
                 </div>
               </div>

@@ -72,25 +72,25 @@ export default function Navbar() {
             {/* Left: Dual Official Inboxes */}
             <div className="flex items-center gap-4 sm:gap-6 flex-wrap">
               <a
-                href="mailto:info@abyssholdings.com"
+                href="mailto:Admin@abyssholding.com"
                 className="inline-flex items-center gap-1.5 hover:text-white transition-colors group"
-                title="General & Corporate Inquiries"
+                title="Administration & Corporate Desk"
               >
                 <span className="text-primary group-hover:scale-110 transition-transform">✉</span>
-                <span className="text-gray-400 hidden xs:inline">General:</span>
-                <span className="text-gray-200 group-hover:underline">info@abyssholdings.com</span>
+                <span className="text-gray-400 hidden xs:inline">Admin:</span>
+                <span className="text-gray-200 group-hover:underline">Admin@abyssholding.com</span>
               </a>
 
               <span className="hidden sm:inline text-slate-700">|</span>
 
               <a
-                href="mailto:investments@abyssholdings.com"
+                href="mailto:HR@abyssholding.com"
                 className="inline-flex items-center gap-1.5 hover:text-white transition-colors group"
-                title="Investment & Partnership Desk"
+                title="Human Resources & Careers Desk"
               >
                 <span className="text-primary group-hover:scale-110 transition-transform">💼</span>
-                <span className="text-gray-400 hidden xs:inline">Investments:</span>
-                <span className="text-gray-200 group-hover:underline">investments@abyssholdings.com</span>
+                <span className="text-gray-400 hidden xs:inline">HR:</span>
+                <span className="text-gray-200 group-hover:underline">HR@abyssholding.com</span>
               </a>
             </div>
 
@@ -269,22 +269,22 @@ export default function Navbar() {
             {/* Dual Email Quick Actions */}
             <div className="bg-gray-50 p-4 rounded-2xl border border-gray-100 space-y-2 text-xs">
               <p className="text-[10px] font-bold text-gray-400 uppercase tracking-wider">
-                Official Correspondence
+                Official Inboxes (2 Only)
               </p>
               <div className="flex flex-col gap-1.5">
                 <a
-                  href="mailto:info@abyssholdings.com"
+                  href="mailto:Admin@abyssholding.com"
                   className="flex items-center justify-between text-dark hover:text-primary py-1 font-medium"
                 >
-                  <span>✉ info@abyssholdings.com</span>
-                  <span className="text-[10px] text-gray-400">General</span>
+                  <span>✉ Admin@abyssholding.com</span>
+                  <span className="text-[10px] text-gray-400">Admin</span>
                 </a>
                 <a
-                  href="mailto:investments@abyssholdings.com"
+                  href="mailto:HR@abyssholding.com"
                   className="flex items-center justify-between text-dark hover:text-primary py-1 font-medium"
                 >
-                  <span>💼 investments@abyssholdings.com</span>
-                  <span className="text-[10px] text-gray-400">Investments</span>
+                  <span>💼 HR@abyssholding.com</span>
+                  <span className="text-[10px] text-gray-400">HR</span>
                 </a>
               </div>
             </div>
