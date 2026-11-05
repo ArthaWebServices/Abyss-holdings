@@ -4,7 +4,7 @@ export const DEFAULT_SERVICES: Service[] = [
   {
     id: '1',
     title: 'Construction',
-    description: 'Building sustainable structures with innovation and precision.',
+    description: 'Building sustainable mega-structures and civil infrastructure with precision engineering.',
     imageUrl: '/images/services/construction.webp',
     order: 1,
     active: true,
@@ -12,15 +12,15 @@ export const DEFAULT_SERVICES: Service[] = [
   {
     id: '2',
     title: 'Investments',
-    description: 'Delivering strategic financial solutions for sustainable growth.',
+    description: 'Strategic private equity, institutional debt, and capital allocation for sustainable growth.',
     imageUrl: '/images/services/investments.webp',
     order: 2,
     active: true,
   },
   {
     id: '3',
-    title: 'realities',
-    description: 'Transforming spaces into vibrant, thriving communities.',
+    title: 'Realities',
+    description: 'Curating luxury residential communities, Grade-A workspaces, and master-planned townships.',
     imageUrl: '/images/services/realities.webp',
     order: 3,
     active: true,
@@ -28,7 +28,7 @@ export const DEFAULT_SERVICES: Service[] = [
   {
     id: '4',
     title: 'Automobiles',
-    description: 'Revolutionizing mobility with cutting-edge automotive solutions.',
+    description: 'Revolutionizing fleet logistics, clean electric vehicle mobility, and precision transport systems.',
     imageUrl: '/images/services/automobiles.webp',
     order: 4,
     active: true,
@@ -36,7 +36,7 @@ export const DEFAULT_SERVICES: Service[] = [
   {
     id: '5',
     title: 'Earth Movers',
-    description: 'Providing reliable equipment for infrastructure development projects.',
+    description: 'High-tonnage hydraulic excavators, mining fleets, and GPS-guided terrain grading equipment.',
     imageUrl: '/images/services/earth-movers.webp',
     order: 5,
     active: true,
@@ -44,7 +44,7 @@ export const DEFAULT_SERVICES: Service[] = [
   {
     id: '6',
     title: 'Technologies',
-    description: 'Innovating modern solutions to drive industry-wide transformations.',
+    description: 'Enterprise digital transformation, hybrid cloud engineering, AI cognitive automation, and zero-trust cybersecurity.',
     imageUrl: '/images/services/technologies.webp',
     order: 6,
     active: true,
@@ -52,10 +52,9 @@ export const DEFAULT_SERVICES: Service[] = [
   {
     id: '7',
     title: 'Apparels',
-    description: 'Creating stylish, high-quality apparel for every lifestyle.',
+    description: 'Sustainable zero-discharge textile manufacturing, performance technical fabrics, and global export.',
     imageUrl: '/images/services/apparels.webp',
     order: 7,
     active: true,
   },
 ];
-

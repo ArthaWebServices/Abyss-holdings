@@ -2,11 +2,11 @@
   "company": {
     "name": "Abyss Holdings",
     "tagline": "Group of Companies",
-    "description": "A diversified group of companies driving innovation across multiple sectors — from construction and technology to investments and lifestyle.",
+    "description": "A diversified group of companies driving innovation across 7 core industry sectors — from investments and construction to realities, technology, automobiles, earth movers, and apparels.",
     "email": "info@abyssholdings.com",
     "phone": "+91 22 1234 5678",
-    "address": "Mumbai, Maharashtra, India",
-    "website": "abyssholding.com",
+    "address": "Mumbai Office (Headquarters), Maharashtra, India",
+    "website": "abyssholdings.com",
     "primaryColor": "#E84545",
     "secondaryColor": "#1a1a2e",
     "logoUrl": "",
@@ -21,7 +21,7 @@
     {
       "id": "1",
       "title": "Construction",
-      "description": "Building sustainable structures with innovation and precision.",
+      "description": "Building sustainable mega-structures and civil infrastructure with precision engineering.",
       "imageUrl": "/images/services/construction.webp",
       "order": 1,
       "active": true
@@ -29,15 +29,15 @@
     {
       "id": "2",
       "title": "Investments",
-      "description": "Delivering strategic financial solutions for sustainable growth.",
+      "description": "Strategic private equity, institutional debt, and capital allocation for sustainable growth.",
       "imageUrl": "/images/services/investments.webp",
       "order": 2,
       "active": true
     },
     {
       "id": "3",
-      "title": "realities",
-      "description": "Transforming spaces into vibrant, thriving communities.",
+      "title": "Realities",
+      "description": "Curating luxury residential communities, Grade-A workspaces, and master-planned townships.",
       "imageUrl": "/images/services/realities.webp",
       "order": 3,
       "active": true
@@ -45,7 +45,7 @@
     {
       "id": "4",
       "title": "Automobiles",
-      "description": "Revolutionizing mobility with cutting-edge automotive solutions.",
+      "description": "Revolutionizing fleet logistics, clean electric vehicle mobility, and precision transport systems.",
       "imageUrl": "/images/services/automobiles.webp",
       "order": 4,
       "active": true
@@ -53,7 +53,7 @@
     {
       "id": "5",
       "title": "Earth Movers",
-      "description": "Providing reliable equipment for infrastructure development projects.",
+      "description": "High-tonnage hydraulic excavators, mining fleets, and GPS-guided terrain grading equipment.",
       "imageUrl": "/images/services/earth-movers.webp",
       "order": 5,
       "active": true
@@ -61,7 +61,7 @@
     {
       "id": "6",
       "title": "Technologies",
-      "description": "Innovating modern solutions to drive industry-wide transformations.",
+      "description": "Enterprise digital transformation, hybrid cloud engineering, AI cognitive automation, and zero-trust cybersecurity.",
       "imageUrl": "/images/services/technologies.webp",
       "order": 6,
       "active": true
@@ -69,7 +69,7 @@
     {
       "id": "7",
       "title": "Apparels",
-      "description": "Creating stylish, high-quality apparel for every lifestyle.",
+      "description": "Sustainable zero-discharge textile manufacturing, performance technical fabrics, and global export.",
       "imageUrl": "/images/services/apparels.webp",
       "order": 7,
       "active": true
@@ -80,9 +80,9 @@
       "id": "1",
       "country": "India",
       "city": "Mumbai",
-      "address": "Mumbai Office (Headquarters)",
+      "address": "Bandra Kurla Complex (BKC), Mumbai, Maharashtra 400051",
       "phone": "+91 22 1234 5678",
-      "email": "mumbai@abyssholdings.com",
+      "email": "contact@abyssholdings.com",
       "isHeadquarter": true,
       "order": 1
     },
@@ -90,8 +90,8 @@
       "id": "2",
       "country": "India",
       "city": "Hyderabad",
-      "address": "Hyderabad Office",
-      "phone": "+91 40 0000 0000",
+      "address": "HITEC City, Madhapur, Hyderabad, Telangana 500081",
+      "phone": "+91 40 1234 5678",
       "email": "hyderabad@abyssholdings.com",
       "isHeadquarter": false,
       "order": 2
@@ -100,8 +100,8 @@
       "id": "3",
       "country": "India",
       "city": "Trivandrum",
-      "address": "Trivandrum Office",
-      "phone": "+91 471 000 0000",
+      "address": "Technopark Phase III, Trivandrum, Kerala 695583",
+      "phone": "+91 471 123 4567",
       "email": "trivandrum@abyssholdings.com",
       "isHeadquarter": false,
       "order": 3
@@ -110,8 +110,8 @@
       "id": "4",
       "country": "India",
       "city": "Madhya Pradesh",
-      "address": "Madhya Pradesh Office",
-      "phone": "+91 755 000 0000",
+      "address": "Arera Hills Industrial Area, Bhopal, Madhya Pradesh 462011",
+      "phone": "+91 755 123 4567",
       "email": "mp@abyssholdings.com",
       "isHeadquarter": false,
       "order": 4
@@ -120,8 +120,8 @@
       "id": "5",
       "country": "India",
       "city": "Bengaluru",
-      "address": "Bengaluru Office",
-      "phone": "+91 80 0000 0000",
+      "address": "Outer Ring Road (ORR) Tech Corridor, Bengaluru, Karnataka 560103",
+      "phone": "+91 80 1234 5678",
       "email": "bengaluru@abyssholdings.com",
       "isHeadquarter": false,
       "order": 5
@@ -130,8 +130,8 @@
       "id": "6",
       "country": "India",
       "city": "Gujarat",
-      "address": "Gujarat Office",
-      "phone": "+91 79 0000 0000",
+      "address": "GIDC Mega Industrial Estate, Ahmedabad, Gujarat 382445",
+      "phone": "+91 79 1234 5678",
       "email": "gujarat@abyssholdings.com",
       "isHeadquarter": false,
       "order": 6
@@ -140,19 +140,19 @@
   "projects": [
     {
       "id": "1",
-      "title": "Al Mussafah Industrial Complex",
-      "description": "A state-of-the-art industrial complex serving over 200 businesses.",
-      "imageUrl": "https://images.unsplash.com/photo-1486325212027-8081e485255e?w=600&q=80",
+      "title": "Metropolis Corporate Twin Towers",
+      "description": "A 1.4M sq.ft Grade-A commercial complex with LEED Gold green building certification and seismic dampening.",
+      "imageUrl": "https://images.unsplash.com/photo-1486325212027-8081e485255e?w=800&q=80",
       "category": "Construction",
       "status": "Completed",
-      "year": 2023,
+      "year": 2024,
       "order": 1
     },
     {
       "id": "2",
-      "title": "GreenTech Investment Fund",
-      "description": "A sustainable investment portfolio focused on renewable energy.",
-      "imageUrl": "https://images.unsplash.com/photo-1466611653911-95081537e5b7?w=600&q=80",
+      "title": "GreenHorizon Renewable Energy Fund",
+      "description": "A $65M direct private equity deployment into solar-wind hybrid utility plants powering industrial corridors.",
+      "imageUrl": "https://images.unsplash.com/photo-1466611653911-95081537e5b7?w=800&q=80",
       "category": "Investments",
       "status": "Ongoing",
       "year": 2024,
@@ -160,24 +160,54 @@
     },
     {
       "id": "3",
-      "title": "Urban Living Residences",
-      "description": "Premium residential community with 500+ units across Abu Dhabi.",
-      "imageUrl": "https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?w=600&q=80",
-      "category": "realities",
-      "status": "Ongoing",
+      "title": "The Azure Crest Residences",
+      "description": "42-story luxury residential high-rise featuring 240 bespoke sky-villas, infinity pool, and concierge wellness hub.",
+      "imageUrl": "https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?w=800&q=80",
+      "category": "Realities",
+      "status": "Completed",
       "year": 2024,
       "order": 3
+    },
+    {
+      "id": "4",
+      "title": "FinEdge Core Banking Cloud Migration",
+      "description": "Multi-region cloud infrastructure transformation processing 4,000 transactions per second with 99.999% uptime.",
+      "imageUrl": "https://images.unsplash.com/photo-1551836022-d5d88e9218df?w=800&q=80",
+      "category": "Technologies",
+      "status": "Completed",
+      "year": 2024,
+      "order": 4
+    },
+    {
+      "id": "5",
+      "title": "GreenTransit Electric Fleet Logistics",
+      "description": "Deployment of 350 commercial zero-emission electric delivery vans supported by 24 fast-charging transit depots.",
+      "imageUrl": "https://images.unsplash.com/photo-1563720223185-11003d516935?w=800&q=80",
+      "category": "Automobiles",
+      "status": "Ongoing",
+      "year": 2024,
+      "order": 5
+    },
+    {
+      "id": "6",
+      "title": "Trans-Regional Expressway Earthworks",
+      "description": "Excavated and graded 4.2 million cubic meters of earth across an 82km greenfield corridor ahead of schedule.",
+      "imageUrl": "https://images.unsplash.com/photo-1578328819058-b69f3a3b0f6b?w=800&q=80",
+      "category": "Earth Movers",
+      "status": "Completed",
+      "year": 2024,
+      "order": 6
+    },
+    {
+      "id": "7",
+      "title": "EcoActive Sustainable Performance Apparel",
+      "description": "Manufacturing 3.6M units of recycled ocean-polymer sportswear for international athletic retail brands.",
+      "imageUrl": "https://images.unsplash.com/photo-1509631179647-0177331693ae?w=800&q=80",
+      "category": "Apparels",
+      "status": "Ongoing",
+      "year": 2024,
+      "order": 7
     }
   ],
-  "messages": [
-    {
-      "id": "6012fabc-005e-453a-a622-01da58b6e6c2",
-      "name": "asdfaf",
-      "email": "at00@gmail.com",
-      "phone": "0955758372",
-      "message": "cncvhdvfhxdgfhcvgbhxd cg hxdgghdgdf dfgh dd d h",
-      "createdAt": "2026-11-02T16:08:24.019Z",
-      "read": true
-    }
-  ]
+  "messages": []
 }
