@@ -1,0 +1,215 @@
+{
+  "company": {
+    "name": "Abyss Holdings",
+    "tagline": "Group of Companies",
+    "description": "A diversified group of companies driving innovation across 7 core industry sectors — from investments and construction to realities, technology, automobiles, earth movers, and apparels.",
+    "email": "Admin@abyssholding.com",
+    "hrEmail": "HR@abyssholding.com",
+    "phone": "+91 22 1234 5678",
+    "address": "Mumbai Office (Headquarters), Maharashtra, India",
+    "website": "abyssholding.com",
+    "primaryColor": "#E84545",
+    "secondaryColor": "#1a1a2e",
+    "logoUrl": "",
+    "socialLinks": {
+      "facebook": "https://facebook.com",
+      "instagram": "https://instagram.com",
+      "twitter": "https://twitter.com",
+      "linkedin": "https://linkedin.com",
+      "youtube": "https://youtube.com"
+    }
+  },
+  "services": [
+    {
+      "id": "1",
+      "title": "Construction",
+      "description": "Building sustainable mega-structures and civil infrastructure with precision engineering.",
+      "imageUrl": "/images/services/construction.webp",
+      "order": 1,
+      "active": true
+    },
+    {
+      "id": "2",
+      "title": "Investments",
+      "description": "Strategic private equity, institutional debt, and capital allocation for sustainable growth.",
+      "imageUrl": "/images/services/investments.webp",
+      "order": 2,
+      "active": true
+    },
+    {
+      "id": "3",
+      "title": "Realities",
+      "description": "Curating luxury residential communities, Grade-A workspaces, and master-planned townships.",
+      "imageUrl": "/images/services/realities.webp",
+      "order": 3,
+      "active": true
+    },
+    {
+      "id": "4",
+      "title": "Automobiles",
+      "description": "Revolutionizing fleet logistics, clean electric vehicle mobility, and precision transport systems.",
+      "imageUrl": "/images/services/automobiles.webp",
+      "order": 4,
+      "active": true
+    },
+    {
+      "id": "5",
+      "title": "Earth Movers",
+      "description": "High-tonnage hydraulic excavators, mining fleets, and GPS-guided terrain grading equipment.",
+      "imageUrl": "/images/services/earth-movers.webp",
+      "order": 5,
+      "active": true
+    },
+    {
+      "id": "6",
+      "title": "Technologies",
+      "description": "Enterprise digital transformation, hybrid cloud engineering, AI cognitive automation, and zero-trust cybersecurity.",
+      "imageUrl": "/images/services/technologies.webp",
+      "order": 6,
+      "active": true
+    },
+    {
+      "id": "7",
+      "title": "Apparels",
+      "description": "Sustainable zero-discharge textile manufacturing, performance technical fabrics, and global export.",
+      "imageUrl": "/images/services/apparels.webp",
+      "order": 7,
+      "active": true
+    }
+  ],
+  "locations": [
+    {
+      "id": "1",
+      "country": "India",
+      "city": "Mumbai",
+      "address": "Bandra Kurla Complex (BKC), Mumbai, Maharashtra 400051",
+      "phone": "+91 22 1234 5678",
+      "email": "Admin@abyssholding.com",
+      "isHeadquarter": true,
+      "order": 1
+    },
+    {
+      "id": "2",
+      "country": "India",
+      "city": "Hyderabad",
+      "address": "HITEC City, Madhapur, Hyderabad, Telangana 500081",
+      "phone": "+91 40 1234 5678",
+      "email": "Admin@abyssholding.com",
+      "isHeadquarter": false,
+      "order": 2
+    },
+    {
+      "id": "3",
+      "country": "India",
+      "city": "Trivandrum",
+      "address": "Technopark Phase III, Trivandrum, Kerala 695583",
+      "phone": "+91 471 123 4567",
+      "email": "HR@abyssholding.com",
+      "isHeadquarter": false,
+      "order": 3
+    },
+    {
+      "id": "4",
+      "country": "India",
+      "city": "Madhya Pradesh",
+      "address": "Arera Hills Industrial Area, Bhopal, Madhya Pradesh 462011",
+      "phone": "+91 755 123 4567",
+      "email": "Admin@abyssholding.com",
+      "isHeadquarter": false,
+      "order": 4
+    },
+    {
+      "id": "5",
+      "country": "India",
+      "city": "Bengaluru",
+      "address": "Outer Ring Road (ORR) Tech Corridor, Bengaluru, Karnataka 560103",
+      "phone": "+91 80 1234 5678",
+      "email": "HR@abyssholding.com",
+      "isHeadquarter": false,
+      "order": 5
+    },
+    {
+      "id": "6",
+      "country": "India",
+      "city": "Gujarat",
+      "address": "GIDC Mega Industrial Estate, Ahmedabad, Gujarat 382445",
+      "phone": "+91 79 1234 5678",
+      "email": "Admin@abyssholding.com",
+      "isHeadquarter": false,
+      "order": 6
+    }
+  ],
+  "projects": [
+    {
+      "id": "1",
+      "title": "Metropolis Corporate Twin Towers",
+      "description": "A 1.4M sq.ft Grade-A commercial complex with LEED Gold green building certification and seismic dampening.",
+      "imageUrl": "https://images.unsplash.com/photo-1486325212027-8081e485255e?w=800&q=80",
+      "category": "Construction",
+      "status": "Completed",
+      "year": 2024,
+      "order": 1
+    },
+    {
+      "id": "2",
+      "title": "GreenHorizon Renewable Energy Fund",
+      "description": "A $65M direct private equity deployment into solar-wind hybrid utility plants powering industrial corridors.",
+      "imageUrl": "https://images.unsplash.com/photo-1466611653911-95081537e5b7?w=800&q=80",
+      "category": "Investments",
+      "status": "Ongoing",
+      "year": 2024,
+      "order": 2
+    },
+    {
+      "id": "3",
+      "title": "The Azure Crest Residences",
+      "description": "42-story luxury residential high-rise featuring 240 bespoke sky-villas, infinity pool, and concierge wellness hub.",
+      "imageUrl": "https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?w=800&q=80",
+      "category": "Realities",
+      "status": "Completed",
+      "year": 2024,
+      "order": 3
+    },
+    {
+      "id": "4",
+      "title": "FinEdge Core Banking Cloud Migration",
+      "description": "Multi-region cloud infrastructure transformation processing 4,000 transactions per second with 99.999% uptime.",
+      "imageUrl": "https://images.unsplash.com/photo-1551836022-d5d88e9218df?w=800&q=80",
+      "category": "Technologies",
+      "status": "Completed",
+      "year": 2024,
+      "order": 4
+    },
+    {
+      "id": "5",
+      "title": "GreenTransit Electric Fleet Logistics",
+      "description": "Deployment of 350 commercial zero-emission electric delivery vans supported by 24 fast-charging transit depots.",
+      "imageUrl": "https://images.unsplash.com/photo-1563720223185-11003d516935?w=800&q=80",
+      "category": "Automobiles",
+      "status": "Ongoing",
+      "year": 2024,
+      "order": 5
+    },
+    {
+      "id": "6",
+      "title": "Trans-Regional Expressway Earthworks",
+      "description": "Excavated and graded 4.2 million cubic meters of earth across an 82km greenfield corridor ahead of schedule.",
+      "imageUrl": "https://images.unsplash.com/photo-1578328819058-b69f3a3b0f6b?w=800&q=80",
+      "category": "Earth Movers",
+      "status": "Completed",
+      "year": 2024,
+      "order": 6
+    },
+    {
+      "id": "7",
+      "title": "EcoActive Sustainable Performance Apparel",
+      "description": "Manufacturing 3.6M units of recycled ocean-polymer sportswear for international athletic retail brands.",
+      "imageUrl": "https://images.unsplash.com/photo-1509631179647-0177331693ae?w=800&q=80",
+      "category": "Apparels",
+      "status": "Ongoing",
+      "year": 2024,
+      "order": 7
+    }
+  ],
+  "messages": []
+}
