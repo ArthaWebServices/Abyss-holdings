@@ -7,12 +7,12 @@ import {
 } from 'lucide-react';
 
 const NAV = [
-  { href: '/admin',           label: 'Dashboard',  icon: LayoutDashboard },
-  { href: '/admin/services',  label: 'Services',   icon: Briefcase },
-  { href: '/admin/locations', label: 'Locations',  icon: MapPin },
-  { href: '/admin/projects',  label: 'Projects',   icon: FolderKanban },
-  { href: '/admin/messages',  label: 'Messages',   icon: MessageSquare },
-  { href: '/admin/settings',  label: 'Settings',   icon: Settings },
+  { href: '/administration',           label: 'Dashboard',  icon: LayoutDashboard },
+  { href: '/administration/services',  label: 'Services',   icon: Briefcase },
+  { href: '/administration/locations', label: 'Locations',  icon: MapPin },
+  { href: '/administration/projects',  label: 'Projects',   icon: FolderKanban },
+  { href: '/administration/messages',  label: 'Messages',   icon: MessageSquare },
+  { href: '/administration/settings',  label: 'Settings',   icon: Settings },
 ];
 
 export default function AdminSidebar() {
@@ -21,7 +21,7 @@ export default function AdminSidebar() {
 
   const logout = () => {
     localStorage.removeItem('admin_token');
-    router.push('/admin/login');
+    router.push('/administration/login');
   };
 
   return (

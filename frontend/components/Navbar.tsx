@@ -61,7 +61,7 @@ export default function Navbar() {
   }, [mobileMenuOpen]);
 
   // Hide navbar on admin pages
-  if (pathname?.startsWith('/admin')) return null;
+  if (pathname?.startsWith('/administration')) return null;
 
   return (
     <>
@@ -383,3 +383,4 @@ export default function Navbar() {
     </>
   );
 }
+

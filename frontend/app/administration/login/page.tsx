@@ -16,7 +16,7 @@ export default function AdminLoginPage() {
     try {
       const data = await login(creds.username, creds.password);
       localStorage.setItem('admin_token', data.token);
-      router.push('/admin');
+      router.push('/administration');
     } catch {
       setErr('Invalid username or password.');
     } finally { setLoading(false); }
@@ -65,4 +65,5 @@ export default function AdminLoginPage() {
     </div>
   );
 }
+
 

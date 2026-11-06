@@ -10,15 +10,15 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
   const [checked, setChecked] = useState(false);
 
   useEffect(() => {
-    if (pathname === '/admin/login') { setChecked(true); return; }
+    if (pathname === '/administration/login') { setChecked(true); return; }
     const token = localStorage.getItem('admin_token');
-    if (!token) { router.push('/admin/login'); return; }
+    if (!token) { router.push('/administration/login'); return; }
     getMe()
       .then(() => setChecked(true))
-      .catch(() => { localStorage.removeItem('admin_token'); router.push('/admin/login'); });
+      .catch(() => { localStorage.removeItem('admin_token'); router.push('/administration/login'); });
   }, [pathname]);
 
-  if (pathname === '/admin/login') return <>{children}</>;
+  if (pathname === '/administration/login') return <>{children}</>;
   if (!checked) return (
     <div className="h-screen flex items-center justify-center bg-dark text-white">
       <div className="animate-spin w-8 h-8 border-2 border-primary border-t-transparent rounded-full" />
@@ -34,4 +34,5 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
     </div>
   );
 }
+
 
