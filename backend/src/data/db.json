@@ -4,6 +4,7 @@
     "tagline": "Group of Companies",
     "description": "A diversified group of companies driving innovation across 7 core industry sectors — from investments and construction to realities, technology, automobiles, earth movers, and apparels.",
     "email": "Admin@abyssholding.com",
+    "hrEmail": "HR@abyssholding.com",
     "phone": "+91 22 1234 5678",
     "address": "Mumbai Office (Headquarters), Maharashtra, India",
     "website": "abyssholding.com",
@@ -14,7 +15,8 @@
       "facebook": "https://facebook.com",
       "instagram": "https://instagram.com",
       "twitter": "https://twitter.com",
-      "linkedin": "https://linkedin.com"
+      "linkedin": "https://linkedin.com",
+      "youtube": "https://youtube.com"
     }
   },
   "services": [

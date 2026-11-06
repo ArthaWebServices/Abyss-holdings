@@ -42,7 +42,11 @@ export const updateProject    = (id: string, body: object) => api.put(`/projects
 export const deleteProject    = (id: string) => api.delete(`/projects/${id}`).then(r => r.data);
 
 // ── Admin: Company ──────────────────────────────────────────
-export const updateCompany    = (body: object) => api.put('/company', body).then(r => r.data);
+export const updateCompany = (body: object) =>
+  api.put('/company', body).then(r => {
+    if (!r.data) throw new Error('Empty response from server');
+    return r.data;
+  });
 
 // ── Admin: Messages ─────────────────────────────────────────
 export const getMessages      = () => api.get('/contact/messages').then(r => r.data);

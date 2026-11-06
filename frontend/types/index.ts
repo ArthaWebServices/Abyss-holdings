@@ -47,6 +47,7 @@ export interface Company {
     instagram?: string;
     twitter?: string;
     linkedin?: string;
+    youtube?: string;
   };
 }
 
