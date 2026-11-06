@@ -5,10 +5,11 @@ const router = express.Router();
 
 const JWT_SECRET = process.env.JWT_SECRET || 'abyss_holdings_super_secret_key_2024';
 
-// In-memory admin (use env vars with fallback)
-const ADMIN = {
-  username: process.env.ADMIN_USERNAME || 'admin',
-  passwordHash: bcrypt.hashSync(process.env.ADMIN_PASSWORD || 'admin123', 10),
+// Helper to fetch admin credentials securely from environment variables
+const getAdminCredentials = () => {
+  const username = process.env.ADMIN_USERNAME;
+  const password = process.env.ADMIN_PASSWORD;
+  return { username, password };
 };
 
 // Rate limiter for brute-force protection
@@ -19,6 +20,16 @@ const LOCKOUT_WINDOW_MS = 15 * 60 * 1000; // 15 minutes
 // POST /api/auth/login
 router.post('/login', async (req, res) => {
   try {
+    const { username: adminUser, password: adminPassword } = getAdminCredentials();
+
+    // Guard: ensure server environment variables are configured
+    if (!adminUser || !adminPassword) {
+      console.error('[auth] ADMIN_USERNAME or ADMIN_PASSWORD is not set in environment variables');
+      return res.status(500).json({
+        error: 'Administrator credentials are not configured on the server. Please set ADMIN_USERNAME and ADMIN_PASSWORD.',
+      });
+    }
+
     const ip = req.ip || req.headers['x-forwarded-for'] || req.socket.remoteAddress || 'unknown';
     const now = Date.now();
 
@@ -36,9 +47,15 @@ router.post('/login', async (req, res) => {
       return res.status(400).json({ error: 'Username and password are required' });
     }
 
-    const isMatch = username === ADMIN.username && bcrypt.compareSync(password, ADMIN.passwordHash);
+    // Secure verification against environment credentials
+    const isUserMatch = username === adminUser;
+    const isPassMatch = isUserMatch && (
+      adminPassword.startsWith('$2')
+        ? bcrypt.compareSync(password, adminPassword)
+        : password === adminPassword
+    );
 
-    if (!isMatch) {
+    if (!isUserMatch || !isPassMatch) {
       // Record failed attempt
       const current = (tracker && tracker.resetAt > now) ? tracker.count + 1 : 1;
       loginAttempts.set(ip, { count: current, resetAt: now + LOCKOUT_WINDOW_MS });
@@ -51,16 +68,16 @@ router.post('/login', async (req, res) => {
       });
     }
 
-    // Success — reset tracker
+    // Success — reset rate limiter
     loginAttempts.delete(ip);
 
     const token = jwt.sign(
-      { username: ADMIN.username, role: 'admin' },
+      { username: adminUser, role: 'admin' },
       JWT_SECRET,
       { expiresIn: process.env.JWT_EXPIRES_IN || '30d' }
     );
 
-    return res.json({ token, username: ADMIN.username, role: 'admin' });
+    return res.json({ token, username: adminUser, role: 'admin' });
   } catch (err) {
     console.error('[auth/login error]', err);
     return res.status(500).json({ error: 'Authentication service error: ' + err.message });

@@ -17,8 +17,12 @@ export default function AdminLoginPage() {
       const data = await login(creds.username, creds.password);
       localStorage.setItem('admin_token', data.token);
       router.push('/administration');
-    } catch {
-      setErr('Invalid username or password.');
+    } catch (error: any) {
+      const msg = error?.response?.data?.error || 
+        (error?.message === 'Network Error' 
+          ? 'Cannot connect to backend server. Make sure backend is running on port 5000.'
+          : 'Invalid username or password.');
+      setErr(msg);
     } finally { setLoading(false); }
   };
 
@@ -58,7 +62,7 @@ export default function AdminLoginPage() {
             {loading ? 'Signing in…' : 'Sign In →'}
           </button>
           <p className="text-center text-xs text-gray-400 mt-4">
-            Default: admin / admin123
+            Authorized Personnel Only
           </p>
         </form>
       </div>

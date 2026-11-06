@@ -68,6 +68,5 @@ app.use((err, req, res, next) => {
 // ── Start ────────────────────────────────────────────────────
 app.listen(PORT, () => {
   console.log(`\n🚀 Abyss Holdings API running on http://localhost:${PORT}`);
-  console.log(`   Admin username: ${process.env.ADMIN_USERNAME || 'admin'}`);
   console.log(`   Health check: http://localhost:${PORT}/api/health\n`);
 });
