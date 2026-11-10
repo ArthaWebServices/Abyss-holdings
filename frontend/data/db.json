@@ -6,7 +6,7 @@
     "email": "Admin@abyssholding.com",
     "hrEmail": "HR@abyssholding.com",
     "phone": "+91 22 1234 5678",
-    "address": "Mumbai Office (Headquarters), Maharashtra, India",
+    "address": "Mumbai Office  , Maharashtra, India",
     "website": "abyssholding.com",
     "primaryColor": "#E84545",
     "secondaryColor": "#1a1a2e",
@@ -82,8 +82,8 @@
       "id": "1",
       "country": "India",
       "city": "Mumbai",
-      "address": "Bandra Kurla Complex (BKC), Mumbai, Maharashtra 400051",
-      "phone": "+91 22 1234 5678",
+      "address": "46/48 maruti cross lane,  Borabazaar precint Fort Mumbai Maharashtra 400001",
+      "phone": "+91 9320022556",
       "email": "Admin@abyssholding.com",
       "isHeadquarter": true,
       "order": 1
@@ -91,25 +91,15 @@
     {
       "id": "2",
       "country": "India",
-      "city": "Hyderabad",
-      "address": "HITEC City, Madhapur, Hyderabad, Telangana 500081",
-      "phone": "+91 40 1234 5678",
+      "city": "Telengana",
+      "address": "225, Nanakramguda Rd, Financial District, Nanakramguda, Makthakousarali, Hyderabad 500032",
+      "phone": "+91 9869070605",
       "email": "Admin@abyssholding.com",
       "isHeadquarter": false,
       "order": 2
     },
     {
       "id": "3",
-      "country": "India",
-      "city": "Trivandrum",
-      "address": "Technopark Phase III, Trivandrum, Kerala 695583",
-      "phone": "+91 471 123 4567",
-      "email": "HR@abyssholding.com",
-      "isHeadquarter": false,
-      "order": 3
-    },
-    {
-      "id": "4",
       "country": "India",
       "city": "Madhya Pradesh",
       "address": "Arera Hills Industrial Area, Bhopal, Madhya Pradesh 462011",
@@ -119,24 +109,14 @@
       "order": 4
     },
     {
-      "id": "5",
+      "id": "4",
       "country": "India",
       "city": "Bengaluru",
-      "address": "Outer Ring Road (ORR) Tech Corridor, Bengaluru, Karnataka 560103",
-      "phone": "+91 80 1234 5678",
+      "address": "3A/21, No. 05, WOOD STREET, ASHOK NAGAR, Bengaluru - 560025",
+      "phone": "+919869070605",
       "email": "HR@abyssholding.com",
       "isHeadquarter": false,
       "order": 5
-    },
-    {
-      "id": "6",
-      "country": "India",
-      "city": "Gujarat",
-      "address": "GIDC Mega Industrial Estate, Ahmedabad, Gujarat 382445",
-      "phone": "+91 79 1234 5678",
-      "email": "Admin@abyssholding.com",
-      "isHeadquarter": false,
-      "order": 6
     }
   ],
   "projects": [
