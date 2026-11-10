@@ -11,6 +11,7 @@ export default function AdminLocationsPage() {
   const [loading, setLoading] = useState(true);
   const [editing, setEditing] = useState<Partial<Location> | null>(null);
   const [saving, setSaving] = useState(false);
+  const [saveError, setSaveError] = useState('');
 
   const load = () => getLocations().then(setItems).catch(() => {}).finally(() => setLoading(false));
   useEffect(() => { load(); }, []);
@@ -18,11 +19,14 @@ export default function AdminLocationsPage() {
   const save = async () => {
     if (!editing?.country || !editing?.city) return;
     setSaving(true);
+    setSaveError('');
     try {
       if (editing.id) await updateLocation(editing.id, editing);
       else             await createLocation(editing);
       setEditing(null); load();
-    } catch { alert('Save failed'); }
+    } catch (err: any) {
+      setSaveError(err?.response?.data?.error || err?.message || 'Save failed. Please try again.');
+    }
     finally { setSaving(false); }
   };
 
@@ -76,6 +80,10 @@ export default function AdminLocationsPage() {
                 className="w-4 h-4 accent-primary" />
               <span className="text-sm text-gray-600">Mark as Headquarters</span>
             </label>
+            {/* C-2: Inline error instead of alert() */}
+            {saveError && (
+              <p className="text-xs text-red-600 bg-red-50 border border-red-200 rounded-lg px-3 py-2 mt-3">{saveError}</p>
+            )}
             <div className="flex gap-3 mt-6">
               <button onClick={() => setEditing(null)} className="flex-1 py-2.5 border border-gray-200 rounded-xl text-sm text-gray-500">Cancel</button>
               <button onClick={save} disabled={saving}

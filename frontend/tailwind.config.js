@@ -12,8 +12,8 @@ module.exports = {
         serif: ['Georgia', 'Cambria', 'serif'],
       },
       colors: {
-        primary: '#E84545',
-        dark: '#1a1a2e',
+        primary: 'rgb(var(--primary-rgb) / <alpha-value>)',
+        dark: 'rgb(var(--dark-rgb) / <alpha-value>)',
       },
     },
   },

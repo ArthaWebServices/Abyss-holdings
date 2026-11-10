@@ -3,26 +3,40 @@
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { getServices } from '@/lib/api';
-import { DEFAULT_SERVICES } from '@/lib/constants';
 import { Service } from '@/types';
 import ServiceCard from '@/components/ServiceCard';
 import Footer from '@/components/Footer';
+import { useCompany } from '@/components/CompanyContext';
 
 const VISIBLE = 3;
 
 export default function ServicesPage() {
-  const [services, setServices] = useState<Service[]>(DEFAULT_SERVICES);
+  const { company, services: contextServices } = useCompany();
+  const [services, setServices] = useState<Service[]>(contextServices);
   const [startIdx, setStartIdx] = useState(0);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
   const [viewMode, setViewMode] = useState<'slider' | 'grid'>('grid');
 
+  const adminEmail = company.email || 'Admin@abyssholding.com';
+  const hrEmail = company.hrEmail || 'HR@abyssholding.com';
+
   useEffect(() => {
+    setServices(contextServices);
+  }, [contextServices]);
+
+  useEffect(() => {
+    let active = true;
     getServices()
       .then((data) => {
-        if (data && data.length > 0) setServices(data);
+        if (active && Array.isArray(data)) setServices(data);
       })
-      .catch(() => setServices(DEFAULT_SERVICES))
-      .finally(() => setLoading(false));
+      .catch(() => {})
+      .finally(() => {
+        if (active) setLoading(false);
+      });
+    return () => {
+      active = false;
+    };
   }, []);
 
   const maxStart = Math.max(0, services.length - VISIBLE);
@@ -58,7 +72,7 @@ export default function ServicesPage() {
             {/* Quick Metrics Bar */}
             <div className="grid grid-cols-2 sm:grid-cols-4 gap-6 pt-8 border-t border-white/10 max-w-3xl">
               <div>
-                <p className="text-2xl sm:text-3xl font-black text-primary">7</p>
+                <p className="text-2xl sm:text-3xl font-black text-primary">{services.length}</p>
                 <p className="text-xs text-gray-400 mt-0.5">Active Verticals</p>
               </div>
               <div>
@@ -104,7 +118,7 @@ export default function ServicesPage() {
                       : 'text-gray-500 hover:text-dark'
                   }`}
                 >
-                  All Grid (7)
+                  All Grid ({services.length})
                 </button>
                 <button
                   onClick={() => setViewMode('slider')}
@@ -124,6 +138,10 @@ export default function ServicesPage() {
                 {[1, 2, 3].map((i) => (
                   <div key={i} className="h-80 bg-gray-100 rounded-3xl animate-pulse" />
                 ))}
+              </div>
+            ) : services.length === 0 ? (
+              <div className="text-center py-16 bg-gray-50 rounded-3xl border border-gray-100">
+                <p className="text-gray-500 text-sm">No active business sectors available at the moment.</p>
               </div>
             ) : viewMode === 'slider' ? (
               <div>
@@ -226,10 +244,10 @@ export default function ServicesPage() {
                     Administration & Corporate
                   </p>
                   <p className="font-bold text-dark text-sm sm:text-base break-all mb-2">
-                    Admin@abyssholding.com
+                    {adminEmail}
                   </p>
                   <a
-                    href="mailto:Admin@abyssholding.com"
+                    href={`mailto:${adminEmail}`}
                     className="text-xs font-semibold text-primary hover:underline"
                   >
                     Email Admin Desk →
@@ -244,10 +262,10 @@ export default function ServicesPage() {
                     Human Resources & Careers
                   </p>
                   <p className="font-bold text-dark text-sm sm:text-base break-all mb-2">
-                    HR@abyssholding.com
+                    {hrEmail}
                   </p>
                   <a
-                    href="mailto:HR@abyssholding.com"
+                    href={`mailto:${hrEmail}`}
                     className="text-xs font-semibold text-primary hover:underline"
                   >
                     Email HR Desk →

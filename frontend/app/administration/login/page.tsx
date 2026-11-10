@@ -20,7 +20,7 @@ export default function AdminLoginPage() {
     } catch (error: any) {
       const msg = error?.response?.data?.error || 
         (error?.message === 'Network Error' 
-          ? 'Cannot connect to backend server. Make sure backend is running on port 5000.'
+          ? 'Cannot connect to API server. Please make sure the server is running.'
           : 'Invalid username or password.');
       setErr(msg);
     } finally { setLoading(false); }

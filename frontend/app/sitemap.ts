@@ -1,11 +1,14 @@
 import { MetadataRoute } from 'next';
-import { ALL_SECTORS_LIST } from '@/lib/sectorsData';
+import { getServerServices, slugifyServiceTitle } from '@/lib/serverData';
 
-export default function sitemap(): MetadataRoute.Sitemap {
+export const dynamic = 'force-dynamic';
+
+export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const baseUrl = 'https://abyssholding.com';
   const lastModified = new Date();
+  const activeServices = await getServerServices();
 
-  // Core static pages
+  // Core pages
   const staticRoutes: MetadataRoute.Sitemap = [
     {
       url: `${baseUrl}`,
@@ -45,9 +48,9 @@ export default function sitemap(): MetadataRoute.Sitemap {
     },
   ];
 
-  // 7 Sector vertical dynamic pages
-  const sectorRoutes: MetadataRoute.Sitemap = ALL_SECTORS_LIST.map((sector) => ({
-    url: `${baseUrl}/services/${sector.slug}`,
+  // Active sector dynamic pages
+  const sectorRoutes: MetadataRoute.Sitemap = activeServices.map((service) => ({
+    url: `${baseUrl}/services/${slugifyServiceTitle(service.title) || service.id}`,
     lastModified,
     changeFrequency: 'weekly',
     priority: 0.85,

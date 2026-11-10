@@ -1,9 +1,28 @@
 import { NextRequest, NextResponse } from 'next/server';
+import { revalidatePath } from 'next/cache';
 import { readDatabase, writeDatabase, verifyAdminToken } from '@/lib/serverDb';
+
+export const dynamic = 'force-dynamic';
+export const revalidate = 0;
+
+function noStoreJson(data: any, status = 200) {
+  return NextResponse.json(data, {
+    status,
+    headers: {
+      'Cache-Control': 'no-store, no-cache, must-revalidate, proxy-revalidate',
+    },
+  });
+}
+
+function purgeCache() {
+  try {
+    revalidatePath('/', 'layout');
+  } catch {}
+}
 
 export async function GET() {
   const db = readDatabase();
-  return NextResponse.json(db.company || {});
+  return noStoreJson(db.company || {});
 }
 
 export async function PUT(req: NextRequest) {
@@ -22,19 +41,40 @@ export async function PUT(req: NextRequest) {
     const db = readDatabase();
     const existing = db.company || {};
 
-    const updated = {
-      ...existing,
-      ...body,
-      socialLinks: {
+    const updated: any = { ...existing };
+
+    const stringKeys = [
+      'name', 'tagline', 'description', 'email', 'hrEmail',
+      'phone', 'address', 'website', 'primaryColor',
+      'secondaryColor', 'logoUrl',
+    ];
+
+    for (const key of stringKeys) {
+      if (body[key] !== undefined && body[key] !== null) {
+        updated[key] = String(body[key]).trim();
+      }
+    }
+
+    if (body.socialLinks && typeof body.socialLinks === 'object') {
+      updated.socialLinks = {
         ...(existing.socialLinks || {}),
-        ...(body.socialLinks || {}),
-      },
-    };
+        ...Object.fromEntries(
+          Object.entries(body.socialLinks).map(([k, v]) => [k, v ? String(v).trim() : ''])
+        ),
+      };
+    }
 
     db.company = updated;
-    writeDatabase(db);
+    if (!writeDatabase(db)) {
+      return NextResponse.json(
+        { error: 'Failed to persist company details to database' },
+        { status: 500 }
+      );
+    }
 
-    return NextResponse.json({
+    purgeCache();
+
+    return noStoreJson({
       success: true,
       message: 'Company details updated successfully',
       company: updated,

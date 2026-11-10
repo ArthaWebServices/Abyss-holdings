@@ -55,9 +55,9 @@ export default function AdminSidebar() {
           <LogOut size={16} />
           <span>Logout</span>
         </button>
-        <Link href="/" className="flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm text-gray-500 hover:text-primary transition-all mt-1">
+        <a href="/" className="flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm text-gray-500 hover:text-primary transition-all mt-1">
           ← View Website
-        </Link>
+        </a>
       </div>
     </aside>
   );

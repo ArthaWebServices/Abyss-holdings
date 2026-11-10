@@ -9,7 +9,13 @@ interface Props {
 
 export default function ServiceCard({ service, index }: Props) {
   const numberStr = String(service.order || index + 1).padStart(2, '0');
-  const slug = service.title.toLowerCase().trim().replace(/\s+/g, '-');
+  const slug = service.title
+    .toLowerCase()
+    .trim()
+    .replace(/[^a-z0-9\s-]/g, '')
+    .replace(/\s+/g, '-')
+    .replace(/-+/g, '-') || service.id;
+  const imageSrc = service.imageUrl?.trim() || 'https://images.unsplash.com/photo-1486325212027-8081e485255e?w=600&q=80';
 
   return (
     <Link
@@ -20,7 +26,7 @@ export default function ServiceCard({ service, index }: Props) {
       {/* Service Image */}
       <div className="relative w-full h-52 sm:h-56 overflow-hidden bg-gray-100">
         <Image
-          src={service.imageUrl}
+          src={imageSrc}
           alt={service.title}
           fill
           className="object-cover group-hover:scale-105 transition-transform duration-700"

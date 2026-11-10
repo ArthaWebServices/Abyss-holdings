@@ -1,79 +1,15 @@
-import { getLocations } from '@/lib/api';
-import { Location } from '@/types';
+import { getServerCompany, getServerLocations } from '@/lib/serverData';
 import Footer from '@/components/Footer';
 import Link from 'next/link';
 
-const FALLBACK_LOCATIONS: Location[] = [
-  {
-    id: '1',
-    country: 'India',
-    city: 'Mumbai',
-    address: 'Bandra Kurla Complex (BKC), Mumbai, Maharashtra 400051',
-    phone: '+91 22 1234 5678',
-    email: 'Admin@abyssholding.com',
-    isHeadquarter: true,
-    order: 1,
-  },
-  {
-    id: '2',
-    country: 'India',
-    city: 'Hyderabad',
-    address: 'HITEC City, Madhapur, Hyderabad, Telangana 500081',
-    phone: '+91 40 1234 5678',
-    email: 'Admin@abyssholding.com',
-    isHeadquarter: false,
-    order: 2,
-  },
-  {
-    id: '3',
-    country: 'India',
-    city: 'Trivandrum',
-    address: 'Technopark Phase III, Trivandrum, Kerala 695583',
-    phone: '+91 471 123 4567',
-    email: 'HR@abyssholding.com',
-    isHeadquarter: false,
-    order: 3,
-  },
-  {
-    id: '4',
-    country: 'India',
-    city: 'Madhya Pradesh',
-    address: 'Arera Hills Industrial Area, Bhopal, Madhya Pradesh 462011',
-    phone: '+91 755 123 4567',
-    email: 'Admin@abyssholding.com',
-    isHeadquarter: false,
-    order: 4,
-  },
-  {
-    id: '5',
-    country: 'India',
-    city: 'Bengaluru',
-    address: 'Outer Ring Road (ORR) Tech Corridor, Bengaluru, Karnataka 560103',
-    phone: '+91 80 1234 5678',
-    email: 'HR@abyssholding.com',
-    isHeadquarter: false,
-    order: 5,
-  },
-  {
-    id: '6',
-    country: 'India',
-    city: 'Gujarat',
-    address: 'GIDC Mega Industrial Estate, Ahmedabad, Gujarat 382445',
-    phone: '+91 79 1234 5678',
-    email: 'Admin@abyssholding.com',
-    isHeadquarter: false,
-    order: 6,
-  },
-];
+export const dynamic = 'force-dynamic';
+export const revalidate = 0;
 
 export default async function LocationsPage() {
-  let locations: Location[] = [];
-  try {
-    const data = await getLocations();
-    locations = data && data.length > 0 ? data : FALLBACK_LOCATIONS;
-  } catch {
-    locations = FALLBACK_LOCATIONS;
-  }
+  const [locations, company] = await Promise.all([getServerLocations(), getServerCompany()]);
+  const adminEmail = company.email || 'Admin@abyssholding.com';
+  const hrEmail = company.hrEmail || 'HR@abyssholding.com';
+  const companyName = company.name || 'Abyss Holdings';
 
   return (
     <>
@@ -89,7 +25,7 @@ export default async function LocationsPage() {
               Our Indian Hubs & Offices
             </h1>
             <p className="text-gray-400 text-base sm:text-lg max-w-2xl leading-relaxed">
-              Anchored by our Mumbai Corporate Headquarters, Abyss Holdings operates a network of 6 strategic
+              Anchored by our Corporate Headquarters, {companyName} operates a strategic network of
               regional hubs across India to lead operations, engineering, and client liaison.
             </p>
           </div>
@@ -98,6 +34,11 @@ export default async function LocationsPage() {
         {/* ── Locations Grid ─────────────────────────────────── */}
         <section className="px-6 sm:px-12 lg:px-16 py-16 bg-white">
           <div className="max-w-7xl mx-auto">
+            {locations.length === 0 ? (
+              <div className="text-center py-16 bg-gray-50 rounded-3xl border border-gray-100">
+                <p className="text-gray-500 text-sm">No office locations have been published yet.</p>
+              </div>
+            ) : (
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
               {locations.map((loc) => (
                 <div
@@ -138,7 +79,7 @@ export default async function LocationsPage() {
                       {loc.phone && (
                         <p className="flex items-center gap-2.5">
                           <span className="text-primary text-base shrink-0">📞</span>
-                          <a href={`tel:${loc.phone}`} className="hover:text-primary transition-colors font-medium">
+                          <a href={`tel:${loc.phone.replace(/\s+/g, '')}`} className="hover:text-primary transition-colors font-medium">
                             {loc.phone}
                           </a>
                         </p>
@@ -166,6 +107,7 @@ export default async function LocationsPage() {
                 </div>
               ))}
             </div>
+            )}
           </div>
         </section>
 
@@ -180,7 +122,7 @@ export default async function LocationsPage() {
                 Official Group Email Channels
               </h3>
               <p className="text-gray-400 text-sm mt-1 max-w-lg">
-                Admin Desk: Admin@abyssholding.com | HR Desk: HR@abyssholding.com
+                Admin Desk: {adminEmail} | HR Desk: {hrEmail}
               </p>
             </div>
             <Link

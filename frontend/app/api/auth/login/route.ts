@@ -2,6 +2,9 @@ import { NextRequest, NextResponse } from 'next/server';
 import bcrypt from 'bcryptjs';
 import { signAdminToken } from '@/lib/serverDb';
 
+export const dynamic = 'force-dynamic';
+export const revalidate = 0;
+
 export async function POST(req: NextRequest) {
   try {
     const body = await req.json().catch(() => ({}));
@@ -44,7 +47,7 @@ export async function POST(req: NextRequest) {
   } catch (err: any) {
     console.error('[API /auth/login error]', err);
     return NextResponse.json(
-      { error: 'Authentication service error: ' + err.message },
+      { error: 'Authentication service error. Please try again.' },
       { status: 500 }
     );
   }

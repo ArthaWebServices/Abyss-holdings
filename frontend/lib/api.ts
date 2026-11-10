@@ -15,7 +15,7 @@ const api = axios.create({
   baseURL: getBaseUrl(),
 });
 
-// Attach token and ensure dynamic same-origin resolution in browser
+// Attach token, cache-bust GET requests in browser, and ensure dynamic same-origin resolution
 api.interceptors.request.use((config) => {
   if (typeof window !== 'undefined') {
     if (!config.baseURL || config.baseURL.includes('localhost:5000')) {
@@ -24,6 +24,9 @@ api.interceptors.request.use((config) => {
     const token = localStorage.getItem('admin_token');
     if (token) {
       config.headers.Authorization = `Bearer ${token}`;
+    }
+    if ((config.method || 'get').toLowerCase() === 'get') {
+      config.params = { ...(config.params || {}), _t: Date.now() };
     }
   }
   return config;

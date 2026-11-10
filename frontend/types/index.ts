@@ -36,6 +36,7 @@ export interface Company {
   tagline: string;
   description: string;
   email: string;
+  hrEmail?: string;
   phone: string;
   address: string;
   website?: string;

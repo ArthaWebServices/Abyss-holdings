@@ -1,34 +1,176 @@
 import { notFound } from 'next/navigation';
 import Image from 'next/image';
 import Link from 'next/link';
-import { ALL_SECTORS_LIST, getSectorBySlug } from '@/lib/sectorsData';
+import { SectorDetail, getSectorBySlug } from '@/lib/sectorsData';
+import { DEFAULT_SERVICES } from '@/lib/constants';
+import {
+  getServerCompany,
+  getServerProjects,
+  getServerServices,
+  slugifyServiceTitle,
+} from '@/lib/serverData';
 import Footer from '@/components/Footer';
 
-// Generate static params for all 7 sectors so they are pre-rendered at build time
-export function generateStaticParams() {
-  return ALL_SECTORS_LIST.map((sector) => ({
-    slug: sector.slug,
-  }));
-}
+export const dynamic = 'force-dynamic';
+export const revalidate = 0;
 
-export function generateMetadata({ params }: { params: { slug: string } }) {
-  const sector = getSectorBySlug(params.slug);
-  if (!sector) return { title: 'Sector Not Found | Abyss Holdings' };
+async function resolveSectorContext(rawSlug: string) {
+  const slug = decodeURIComponent(rawSlug).toLowerCase().trim();
+  const [company, activeServices, dbProjects] = await Promise.all([
+    getServerCompany(),
+    getServerServices(),
+    getServerProjects(),
+  ]);
+
+  const matchedService = activeServices.find(
+    (s) => slugifyServiceTitle(s.title) === slug || s.id.toLowerCase() === slug
+  );
+
+  if (!matchedService) {
+    return null;
+  }
+
+  const staticSector = getSectorBySlug(slug);
+  const defaultService = DEFAULT_SERVICES.find(
+    (d) => slugifyServiceTitle(d.title) === slug
+  );
+
+  const adminEmail = company.email || 'Admin@abyssholding.com';
+  const hrEmail = company.hrEmail || 'HR@abyssholding.com';
+  const phone = company.phone || '+91 22 1234 5678';
+  const headquarters = company.address || 'Mumbai Office (Headquarters), Maharashtra, India';
+  const companyName = company.name || 'Abyss Holdings';
+
+  const matchingDbProjects = dbProjects.filter(
+    (p) =>
+      slugifyServiceTitle(p.category) === slug ||
+      p.category.toLowerCase().trim() === matchedService.title.toLowerCase().trim()
+  );
+
+  const toSectorProject = (p: (typeof matchingDbProjects)[number]) => ({
+    title: p.title,
+    location: headquarters,
+    year: String(p.year || new Date().getFullYear()),
+    status: p.status || 'Active',
+    description: p.description,
+    imageUrl:
+      p.imageUrl?.trim() ||
+      'https://images.unsplash.com/photo-1486325212027-8081e485255e?w=800&q=80',
+  });
+
+  let sector: SectorDetail;
+
+  if (staticSector) {
+    const hasCustomDesc =
+      Boolean(matchedService.description?.trim()) &&
+      matchedService.description.trim() !== defaultService?.description?.trim();
+    const hasCustomImage =
+      Boolean(matchedService.imageUrl?.trim()) &&
+      matchedService.imageUrl.trim() !== defaultService?.imageUrl?.trim();
+
+    const customDbProjects = matchingDbProjects
+      .filter((p) => !['1', '2', '3', '4', '5', '6', '7'].includes(p.id))
+      .map(toSectorProject);
+
+    sector = {
+      ...staticSector,
+      tagline: hasCustomDesc ? matchedService.description : staticSector.tagline,
+      heroImage: hasCustomImage ? matchedService.imageUrl.trim() : staticSector.heroImage,
+      overview: hasCustomDesc
+        ? `${matchedService.description} ${staticSector.overview}`
+        : staticSector.overview,
+      projects: [...customDbProjects, ...staticSector.projects],
+      inquiries: {
+        primaryEmail: adminEmail,
+        secondaryEmail: hrEmail,
+        phone,
+        headquarters: company.address?.trim() || staticSector.inquiries.headquarters,
+      },
+    };
+  } else {
+    const fallbackHero =
+      matchedService.imageUrl?.trim() ||
+      'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=1800&q=85';
+
+    const dbSectorProjects = matchingDbProjects.map(toSectorProject);
+
+    sector = {
+      slug,
+      title: matchedService.title,
+      badge: `${companyName} Business Division`,
+      tagline: matchedService.description,
+      heroImage: fallbackHero,
+      keyStats: [
+        { value: String(activeServices.length), label: 'Active Group Verticals' },
+        { value: String(dbSectorProjects.length || 'Ongoing'), label: 'Division Projects' },
+        { value: 'ISO', label: 'Governance Standard' },
+        { value: '24/7', label: 'Executive Desk Support' },
+      ],
+      overview: matchedService.description,
+      executiveQuote: {
+        quote: `Delivering sustainable value and disciplined execution across our ${matchedService.title} operations.`,
+        author: 'Executive Committee',
+        role: `${companyName} Group`,
+      },
+      capabilities: [],
+      gallery: [],
+      projects: dbSectorProjects,
+      certifications: [
+        'ISO 9001:2015 Quality Management',
+        'ISO 45001:2018 Occupational Health & Safety',
+      ],
+      inquiries: {
+        primaryEmail: adminEmail,
+        secondaryEmail: hrEmail,
+        phone,
+        headquarters,
+      },
+    };
+  }
+
+  const otherSectors = activeServices
+    .filter((s) => (slugifyServiceTitle(s.title) || s.id) !== slug)
+    .map((s) => {
+      const sSlug = slugifyServiceTitle(s.title) || s.id;
+      const known = getSectorBySlug(sSlug);
+      const customImg = s.imageUrl?.trim();
+      return {
+        slug: sSlug,
+        title: known ? known.title : s.title,
+        badge: known ? known.badge : `${companyName} Division`,
+        tagline: s.description || known?.tagline || '',
+        heroImage:
+          known?.heroImage ||
+          customImg ||
+          'https://images.unsplash.com/photo-1486325212027-8081e485255e?w=800&q=80',
+      };
+    });
+
   return {
-    title: `${sector.title} | Abyss Holdings Group`,
-    description: sector.tagline,
+    sector,
+    companyName,
+    otherSectors,
+    totalActiveSectors: activeServices.length,
   };
 }
 
-export default function SectorDetailPage({ params }: { params: { slug: string } }) {
-  const sector = getSectorBySlug(params.slug);
+export async function generateMetadata({ params }: { params: { slug: string } }) {
+  const data = await resolveSectorContext(params.slug);
+  if (!data) return { title: 'Sector Not Found | Abyss Holdings' };
+  return {
+    title: `${data.sector.title} | ${data.companyName} Group`,
+    description: data.sector.tagline,
+  };
+}
 
-  if (!sector) {
+export default async function SectorDetailPage({ params }: { params: { slug: string } }) {
+  const data = await resolveSectorContext(params.slug);
+
+  if (!data) {
     notFound();
   }
 
-  // Filter other sectors for the bottom recommendation section
-  const otherSectors = ALL_SECTORS_LIST.filter((s) => s.slug !== sector.slug);
+  const { sector, companyName, otherSectors, totalActiveSectors } = data;
 
   return (
     <>
@@ -239,6 +381,7 @@ export default function SectorDetailPage({ params }: { params: { slug: string } 
         </section>
 
         {/* ── Core Capabilities Grid ──────────────────────────── */}
+        {sector.capabilities.length > 0 && (
         <section className="px-6 lg:px-16 py-20 bg-gray-50 border-t border-gray-100">
           <div className="max-w-7xl mx-auto">
             <div className="max-w-2xl mb-12">
@@ -291,8 +434,10 @@ export default function SectorDetailPage({ params }: { params: { slug: string } 
             </div>
           </div>
         </section>
+        )}
 
         {/* ── Photographic Operations Gallery ─────────────────── */}
+        {sector.gallery.length > 0 && (
         <section className="px-6 lg:px-16 py-20 bg-white">
           <div className="max-w-7xl mx-auto">
             <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-12">
@@ -341,8 +486,10 @@ export default function SectorDetailPage({ params }: { params: { slug: string } 
             </div>
           </div>
         </section>
+        )}
 
         {/* ── Flagship Projects / Portfolio ───────────────────── */}
+        {sector.projects.length > 0 && (
         <section className="px-6 lg:px-16 py-20 bg-gray-50 border-t border-gray-100">
           <div className="max-w-7xl mx-auto">
             <div className="mb-12">
@@ -392,6 +539,7 @@ export default function SectorDetailPage({ params }: { params: { slug: string } 
             </div>
           </div>
         </section>
+        )}
 
         {/* ── Dual Email & Contact Action Banner ─────────────── */}
         <section className="px-6 lg:px-16 py-20 bg-dark text-white relative overflow-hidden">
@@ -401,7 +549,7 @@ export default function SectorDetailPage({ params }: { params: { slug: string } 
               <span>✉️</span> Official Corporate Channels
             </div>
             <h2 className="text-3xl sm:text-4xl font-black mb-4">
-              Partner with Abyss {sector.title}
+              Partner with {companyName} – {sector.title}
             </h2>
             <p className="text-gray-400 max-w-xl mx-auto text-sm sm:text-base leading-relaxed mb-10">
               For commercial mandates, capital partnerships, vendor empanelment, or tender submissions,
@@ -477,7 +625,7 @@ export default function SectorDetailPage({ params }: { params: { slug: string } 
                 href="/services"
                 className="text-xs font-semibold text-dark hover:text-primary transition-colors flex items-center gap-1"
               >
-                <span>View All 7 Sectors</span>
+                <span>View All {totalActiveSectors} Sectors</span>
                 <span>→</span>
               </Link>
             </div>

@@ -31,7 +31,7 @@ export default function AdminSettingsPage() {
       setErrorMsg(
         err?.response?.data?.error ||
         err?.message ||
-        'Cannot reach backend. Make sure the backend server is running on port 5000.'
+        'Cannot reach API server. Please make sure the server is running.'
       );
     } finally {
       setLoading(false);
@@ -115,8 +115,7 @@ export default function AdminSettingsPage() {
             <p className="font-semibold text-red-700 mb-1">Cannot load company data</p>
             <p className="text-sm text-red-600 mb-4">{errorMsg}</p>
             <div className="bg-red-100 rounded-xl p-3 text-xs text-red-700 font-mono mb-4">
-              Make sure the backend is running:<br />
-              <span className="font-bold">cd backend &amp;&amp; npm start</span>
+              Make sure the API server is running and reachable.
             </div>
             <button onClick={load}
               className="flex items-center gap-2 bg-red-500 text-white px-4 py-2 rounded-xl text-sm font-semibold hover:bg-red-600 transition-all">
@@ -241,9 +240,9 @@ export default function AdminSettingsPage() {
             </div>
           </Field>
           <Field label="Logo URL (optional)">
-            <input type="url" value={company.logoUrl ?? ''}
+            <input type="text" value={company.logoUrl ?? ''}
               onChange={e => update('logoUrl', e.target.value)}
-              placeholder="https://…/logo.png"
+              placeholder="https://…/logo.png or /images/logo.png"
               className={inputCls} />
           </Field>
           {/* Color preview */}

@@ -1,13 +1,21 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import Footer from '@/components/Footer';
+import { getServerCompany } from '@/lib/serverData';
+
+export const dynamic = 'force-dynamic';
+export const revalidate = 0;
 
 export const metadata = {
   title: 'About Abyss Holdings – Group of Companies',
   description: 'Learn about the legacy, governance, executive leadership, and multi-sector reach of Abyss Holdings Group.',
 };
 
-export default function AboutPage() {
+export default async function AboutPage() {
+  const company = await getServerCompany();
+  const companyName = company.name || 'Abyss Holdings';
+  const adminEmail = company.email || 'Admin@abyssholding.com';
+  const hrEmail = company.hrEmail || 'HR@abyssholding.com';
   return (
     <>
       <main className="min-h-screen bg-white">
@@ -31,7 +39,7 @@ export default function AboutPage() {
               Corporate Profile & Heritage
             </div>
             <h1 className="text-4xl sm:text-5xl lg:text-6xl font-black text-white tracking-tight mb-4">
-              About Abyss Holdings
+              About {companyName}
             </h1>
             <p className="text-gray-300 text-base sm:text-lg max-w-2xl font-light leading-relaxed mb-8">
               A diversified multi-sector conglomerate anchored in integrity, visionary capital stewardship,
@@ -195,7 +203,7 @@ export default function AboutPage() {
                 Direct Corporate Touchpoints
               </p>
               <h3 className="text-2xl sm:text-3xl font-black text-white">
-                Connect with Abyss Holdings Corporate
+                Connect with {companyName} Corporate
               </h3>
               <p className="text-gray-400 text-xs sm:text-sm mt-1 max-w-lg">
                 Reach out to our executive desks for investment mandates, business development, or institutional partnerships.
@@ -204,16 +212,16 @@ export default function AboutPage() {
 
             <div className="flex flex-wrap gap-4">
               <a
-                href="mailto:Admin@abyssholding.com"
+                href={`mailto:${adminEmail}`}
                 className="px-6 py-3.5 rounded-xl bg-white/10 hover:bg-white/20 border border-white/20 text-white text-xs font-semibold transition-all flex items-center gap-2"
               >
-                <span>✉ Admin@abyssholding.com</span>
+                <span>✉ {adminEmail}</span>
               </a>
               <a
-                href="mailto:HR@abyssholding.com"
+                href={`mailto:${hrEmail}`}
                 className="px-6 py-3.5 rounded-xl bg-primary hover:bg-red-600 text-white text-xs font-semibold transition-all shadow-lg shadow-red-500/25 flex items-center gap-2"
               >
-                <span>💼 HR@abyssholding.com</span>
+                <span>💼 {hrEmail}</span>
               </a>
             </div>
           </div>

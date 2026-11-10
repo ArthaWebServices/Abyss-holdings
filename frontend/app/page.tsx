@@ -1,34 +1,29 @@
-import { getCompany, getServices } from '@/lib/api';
-import { Company, Service } from '@/types';
-import { DEFAULT_SERVICES } from '@/lib/constants';
+import { getServerCompany, getServerServices, getServerLocations, getServerProjects } from '@/lib/serverData';
 import ServiceCard from '@/components/ServiceCard';
 import RotatingEarth from '@/components/RotatingEarth';
 import Footer from '@/components/Footer';
 import Link from 'next/link';
 import Image from 'next/image';
 
-async function getData(): Promise<{ company: Company; services: Service[] }> {
-  try {
-    const [company, services]: [Company, Service[]] = await Promise.all([getCompany(), getServices()]);
-    return {
-      company,
-      services: services && services.length > 0 ? services : DEFAULT_SERVICES,
-    };
-  } catch {
-    return {
-      company: {
-        name: 'Abyss Holdings',
-        tagline: 'Group of Companies',
-        description: 'A diversified multi-sector conglomerate driving innovation and sustainable growth across 7 core industries.',
-        primaryColor: '#E84545',
-      } as Company,
-      services: DEFAULT_SERVICES,
-    };
-  }
-}
+export const dynamic = 'force-dynamic';
+export const revalidate = 0;
 
 export default async function HomePage() {
-  const { company, services } = await getData();
+  const [company, services, locations, projects] = await Promise.all([
+    getServerCompany(),
+    getServerServices(),
+    getServerLocations(),
+    getServerProjects(),
+  ]);
+  const adminEmail = company.email || 'Admin@abyssholding.com';
+  const hrEmail = company.hrEmail || 'HR@abyssholding.com';
+  const heroDescription =
+    company.description ||
+    'A diversified group of companies driving innovation across 7 core industry sectors — from capital investments and civil mega-infrastructure to digital systems, mobility, heavy machinery, and global manufacturing.';
+
+  const sectorCount = services.length || 7;
+  const locationCount = locations.length || 6;
+  const projectCount = projects.length ? `${projects.length}+` : '500+';
 
   return (
     <>
@@ -60,8 +55,7 @@ export default async function HomePage() {
               {company.tagline}
             </p>
             <p className="text-gray-600 text-base sm:text-lg leading-relaxed max-w-xl mb-8 font-normal">
-              A diversified group of companies driving innovation across 7 core industry sectors —
-              from capital investments and civil mega-infrastructure to digital systems, mobility, heavy machinery, and global manufacturing.
+              {heroDescription}
             </p>
             <div className="flex flex-wrap gap-4 items-center">
               <Link
@@ -82,15 +76,15 @@ export default async function HomePage() {
             {/* Micro stats banner */}
             <div className="mt-12 pt-8 border-t border-gray-100 grid grid-cols-3 gap-6 max-w-lg">
               <div>
-                <p className="text-2xl sm:text-3xl font-black text-primary">7</p>
+                <p className="text-2xl sm:text-3xl font-black text-primary">{sectorCount}</p>
                 <p className="text-xs text-gray-500 font-medium mt-0.5">Diverse Sectors</p>
               </div>
               <div>
-                <p className="text-2xl sm:text-3xl font-black text-primary">6</p>
+                <p className="text-2xl sm:text-3xl font-black text-primary">{locationCount}</p>
                 <p className="text-xs text-gray-500 font-medium mt-0.5">Indian Office Hubs</p>
               </div>
               <div>
-                <p className="text-2xl sm:text-3xl font-black text-primary">500+</p>
+                <p className="text-2xl sm:text-3xl font-black text-primary">{projectCount}</p>
                 <p className="text-xs text-gray-500 font-medium mt-0.5">Projects Delivered</p>
               </div>
             </div>
@@ -112,7 +106,7 @@ export default async function HomePage() {
                 Operational Portfolios
               </p>
               <h2 className="text-3xl sm:text-4xl font-black text-dark tracking-tight">
-                Our 7 Core Business Sectors
+                Our {sectorCount} Core Business Sectors
               </h2>
               <p className="text-gray-500 text-sm mt-2 max-w-xl">
                 Click any sector to open its dedicated division landing page, operational capabilities, high-resolution visual showcase, and project track record.
@@ -129,12 +123,18 @@ export default async function HomePage() {
             </Link>
           </div>
 
-          {/* Grid of all 7 sectors with links */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {services.map((s, i) => (
-              <ServiceCard key={s.id} service={s} index={i} />
-            ))}
-          </div>
+          {/* Grid of all active sectors with links */}
+          {services.length === 0 ? (
+            <div className="text-center py-12 bg-white rounded-3xl border border-gray-100 text-gray-500 text-sm">
+              No active business sectors available at the moment.
+            </div>
+          ) : (
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+              {services.map((s, i) => (
+                <ServiceCard key={s.id} service={s} index={i} />
+              ))}
+            </div>
+          )}
         </div>
       </section>
 
@@ -222,10 +222,10 @@ export default async function HomePage() {
                   Administration & Corporate
                 </span>
                 <p className="text-base font-bold text-white mb-3 break-all font-mono">
-                  Admin@abyssholding.com
+                  {adminEmail}
                 </p>
                 <a
-                  href="mailto:Admin@abyssholding.com"
+                  href={`mailto:${adminEmail}`}
                   className="inline-flex items-center gap-1.5 text-xs font-semibold text-primary hover:text-red-300 transition-colors"
                 >
                   <span>Send Mail Directly</span>
@@ -239,10 +239,10 @@ export default async function HomePage() {
                   Human Resources & Careers
                 </span>
                 <p className="text-base font-bold text-white mb-3 break-all font-mono">
-                  HR@abyssholding.com
+                  {hrEmail}
                 </p>
                 <a
-                  href="mailto:HR@abyssholding.com"
+                  href={`mailto:${hrEmail}`}
                   className="inline-flex items-center gap-1.5 text-xs font-semibold text-primary hover:text-red-300 transition-colors"
                 >
                   <span>Send Mail Directly</span>
@@ -258,10 +258,10 @@ export default async function HomePage() {
       <section className="bg-dark text-white px-6 sm:px-12 lg:px-16 py-14">
         <div className="max-w-7xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
           {[
-            { value: '7', label: 'Business Sectors' },
-            { value: '6', label: 'Indian Office Hubs' },
+            { value: String(sectorCount), label: 'Business Sectors' },
+            { value: String(locationCount), label: 'Indian Office Hubs' },
             { value: '15+', label: 'Years Experience' },
-            { value: '500+', label: 'Projects Delivered' },
+            { value: projectCount, label: 'Projects Delivered' },
           ].map(({ value, label }) => (
             <div key={label}>
               <p className="text-4xl font-black text-primary">{value}</p>

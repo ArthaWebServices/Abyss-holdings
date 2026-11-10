@@ -6,7 +6,7 @@ import { Project } from '@/types';
 import { Plus, Pencil, Trash2, X, Check } from 'lucide-react';
 
 const STATUSES = ['Ongoing', 'Completed', 'Planned'];
-const CATEGORIES = ['Construction', 'Investments', 'realities', 'Technologies', 'Automobiles', 'Earth Movers', 'Apparels', 'General'];
+const CATEGORIES = ['Construction', 'Investments', 'Realities', 'Technologies', 'Automobiles', 'Earth Movers', 'Apparels', 'General'];
 const EMPTY: Partial<Project> = { title: '', description: '', imageUrl: '', category: 'General', status: 'Ongoing', year: new Date().getFullYear(), order: 1 };
 
 export default function AdminProjectsPage() {
@@ -14,6 +14,7 @@ export default function AdminProjectsPage() {
   const [loading, setLoading] = useState(true);
   const [editing, setEditing] = useState<Partial<Project> | null>(null);
   const [saving, setSaving] = useState(false);
+  const [saveError, setSaveError] = useState('');
 
   const load = () => getProjects().then(setProjects).catch(() => { }).finally(() => setLoading(false));
   useEffect(() => { load(); }, []);
@@ -21,11 +22,14 @@ export default function AdminProjectsPage() {
   const save = async () => {
     if (!editing?.title) return;
     setSaving(true);
+    setSaveError('');
     try {
       if (editing.id) await updateProject(editing.id, editing);
       else await createProject(editing);
       setEditing(null); load();
-    } catch { alert('Save failed'); }
+    } catch (err: any) {
+      setSaveError(err?.response?.data?.error || err?.message || 'Save failed. Please try again.');
+    }
     finally { setSaving(false); }
   };
 
@@ -68,8 +72,8 @@ export default function AdminProjectsPage() {
                   className="w-full border border-gray-200 rounded-xl px-4 py-2.5 text-sm resize-none focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary" />
               </div>
               <div>
-                <label className="text-xs font-semibold text-gray-500 mb-1 block">Image URL</label>
-                <input type="url" value={editing.imageUrl ?? ''}
+                <label className="text-xs font-semibold text-gray-500 mb-1 block">Image URL or Path</label>
+                <input type="text" value={editing.imageUrl ?? ''}
                   onChange={e => setEditing(p => ({ ...p, imageUrl: e.target.value }))}
                   className="w-full border border-gray-200 rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary" />
               </div>
@@ -104,6 +108,10 @@ export default function AdminProjectsPage() {
                 </div>
               </div>
             </div>
+            {/* C-2: Inline error instead of alert() */}
+            {saveError && (
+              <p className="text-xs text-red-600 bg-red-50 border border-red-200 rounded-lg px-3 py-2 mt-3">{saveError}</p>
+            )}
             <div className="flex gap-3 mt-6">
               <button onClick={() => setEditing(null)} className="flex-1 py-2.5 border border-gray-200 rounded-xl text-sm text-gray-500">Cancel</button>
               <button onClick={save} disabled={saving}

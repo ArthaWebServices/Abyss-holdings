@@ -1,100 +1,67 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useMemo } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { getProjects } from '@/lib/api';
 import { Project } from '@/types';
 import Footer from '@/components/Footer';
+import { useCompany } from '@/components/CompanyContext';
 
-const FALLBACK_PROJECTS: Project[] = [
-  {
-    id: '1',
-    title: 'Metropolis Corporate Twin Towers',
-    description: 'A 1.4M sq.ft Grade-A commercial complex with LEED Gold green building certification and seismic dampening.',
-    imageUrl: 'https://images.unsplash.com/photo-1486325212027-8081e485255e?w=800&q=80',
-    category: 'Construction',
-    status: 'Completed',
-    year: 2024,
-    order: 1,
-  },
-  {
-    id: '2',
-    title: 'GreenHorizon Renewable Energy Fund',
-    description: 'A $65M direct private equity deployment into solar-wind hybrid utility plants powering industrial corridors.',
-    imageUrl: 'https://images.unsplash.com/photo-1466611653911-95081537e5b7?w=800&q=80',
-    category: 'Investments',
-    status: 'Ongoing',
-    year: 2024,
-    order: 2,
-  },
-  {
-    id: '3',
-    title: 'The Azure Crest Residences',
-    description: '42-story luxury residential high-rise featuring 240 bespoke sky-villas, infinity pool, and concierge wellness hub.',
-    imageUrl: 'https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?w=800&q=80',
-    category: 'Realities',
-    status: 'Completed',
-    year: 2024,
-    order: 3,
-  },
-  {
-    id: '4',
-    title: 'FinEdge Core Banking Cloud Migration',
-    description: 'Multi-region cloud infrastructure transformation processing 4,000 transactions per second with 99.999% uptime.',
-    imageUrl: 'https://images.unsplash.com/photo-1551836022-d5d88e9218df?w=800&q=80',
-    category: 'Technologies',
-    status: 'Completed',
-    year: 2024,
-    order: 4,
-  },
-  {
-    id: '5',
-    title: 'GreenTransit Electric Fleet Logistics',
-    description: 'Deployment of 350 commercial zero-emission electric delivery vans supported by 24 fast-charging transit depots.',
-    imageUrl: 'https://images.unsplash.com/photo-1563720223185-11003d516935?w=800&q=80',
-    category: 'Automobiles',
-    status: 'Ongoing',
-    year: 2024,
-    order: 5,
-  },
-  {
-    id: '6',
-    title: 'Trans-Regional Expressway Earthworks',
-    description: 'Excavated and graded 4.2 million cubic meters of earth across an 82km greenfield corridor ahead of schedule.',
-    imageUrl: 'https://images.unsplash.com/photo-1578328819058-b69f3a3b0f6b?w=800&q=80',
-    category: 'Earth Movers',
-    status: 'Completed',
-    year: 2024,
-    order: 6,
-  },
-  {
-    id: '7',
-    title: 'EcoActive Sustainable Performance Apparel',
-    description: 'Manufacturing 3.6M units of recycled ocean-polymer sportswear for international athletic retail brands.',
-    imageUrl: 'https://images.unsplash.com/photo-1509631179647-0177331693ae?w=800&q=80',
-    category: 'Apparels',
-    status: 'Ongoing',
-    year: 2024,
-    order: 7,
-  },
-];
+const DEFAULT_CATEGORIES = ['Construction', 'Investments', 'Realities', 'Technologies', 'Automobiles', 'Earth Movers', 'Apparels'];
+const FALLBACK_IMAGE = 'https://images.unsplash.com/photo-1486325212027-8081e485255e?w=800&q=80';
 
-const CATEGORIES = ['All', 'Construction', 'Investments', 'Realities', 'Technologies', 'Automobiles', 'Earth Movers', 'Apparels'];
+function toSlug(value: string) {
+  return value
+    .toLowerCase()
+    .trim()
+    .replace(/[^a-z0-9\s-]/g, '')
+    .replace(/\s+/g, '-')
+    .replace(/-+/g, '-');
+}
 
 export default function ProjectsPage() {
-  const [projects, setProjects] = useState<Project[]>(FALLBACK_PROJECTS);
+  const { company, services } = useCompany();
+  const [projects, setProjects] = useState<Project[]>([]);
   const [selectedCategory, setSelectedCategory] = useState('All');
   const [loading, setLoading] = useState(true);
 
+  const adminEmail = company.email || 'Admin@abyssholding.com';
+  const hrEmail = company.hrEmail || 'HR@abyssholding.com';
+
   useEffect(() => {
+    let active = true;
     getProjects()
       .then((data) => {
-        if (data && data.length > 0) setProjects(data);
+        if (active && Array.isArray(data)) setProjects(data);
       })
-      .catch(() => setProjects(FALLBACK_PROJECTS))
-      .finally(() => setLoading(false));
+      .catch(() => {})
+      .finally(() => {
+        if (active) setLoading(false);
+      });
+    return () => {
+      active = false;
+    };
   }, []);
+
+  const categories = useMemo(() => {
+    const seen = new Set<string>(['All']);
+    const list = ['All'];
+    for (const cat of [...DEFAULT_CATEGORIES, ...projects.map((p) => p.category).filter(Boolean)]) {
+      const normalized = cat.trim();
+      const key = normalized.toLowerCase();
+      if (normalized && !seen.has(key)) {
+        seen.add(key);
+        list.push(normalized);
+      }
+    }
+    return list;
+  }, [projects]);
+
+  const activeServiceSlugs = useMemo(
+    () => new Set(services.map((s) => toSlug(s.title) || s.id)),
+    [services]
+  );
 
   const filtered = selectedCategory === 'All'
     ? projects
@@ -125,7 +92,7 @@ export default function ProjectsPage() {
           <div className="max-w-7xl mx-auto">
             {/* Filter Pills */}
             <div className="flex items-center gap-2 overflow-x-auto pb-4 mb-10 no-scrollbar">
-              {CATEGORIES.map((cat) => (
+              {categories.map((cat) => (
                 <button
                   key={cat}
                   onClick={() => setSelectedCategory(cat)}
@@ -146,10 +113,16 @@ export default function ProjectsPage() {
                   <div key={i} className="h-80 bg-gray-100 rounded-3xl animate-pulse" />
                 ))}
               </div>
+            ) : filtered.length === 0 ? (
+              <div className="text-center py-16 bg-gray-50 rounded-3xl border border-gray-100">
+                <p className="text-gray-500 text-sm">No projects found in this category.</p>
+              </div>
             ) : (
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                 {filtered.map((p) => {
-                  const sectorSlug = p.category.toLowerCase().replace(/\s+/g, '-');
+                  const sectorSlug = toSlug(p.category);
+                  const hasSectorRoute = activeServiceSlugs.has(sectorSlug);
+                  const divisionHref = hasSectorRoute ? `/services/${sectorSlug}` : '/services';
                   return (
                     <div
                       key={p.id}
@@ -158,7 +131,7 @@ export default function ProjectsPage() {
                       <div>
                         <div className="relative h-60 w-full overflow-hidden bg-gray-100">
                           <Image
-                            src={p.imageUrl}
+                            src={p.imageUrl?.trim() || FALLBACK_IMAGE}
                             alt={p.title}
                             fill
                             className="object-cover group-hover:scale-105 transition-transform duration-500"
@@ -187,10 +160,10 @@ export default function ProjectsPage() {
 
                       <div className="px-6 pb-6 pt-2 border-t border-gray-100/60 flex items-center justify-between text-xs font-semibold text-primary">
                         <Link
-                          href={`/services/${sectorSlug}`}
+                          href={divisionHref}
                           className="hover:underline flex items-center gap-1"
                         >
-                          <span>Explore {p.category} Division</span>
+                          <span>{hasSectorRoute ? `Explore ${p.category} Division` : 'Explore Business Sectors'}</span>
                           <span>→</span>
                         </Link>
                       </div>
@@ -213,7 +186,7 @@ export default function ProjectsPage() {
                 Propose a Project or Strategic Alliance
               </h3>
               <p className="text-gray-400 text-sm mt-1 max-w-lg">
-                Connect with our team at Admin@abyssholding.com or HR@abyssholding.com.
+                Connect with our team at {adminEmail} or {hrEmail}.
               </p>
             </div>
             <Link

@@ -1,63 +1,23 @@
+import { getServerCompany, getServerLocations } from '@/lib/serverData';
 import Footer from '@/components/Footer';
-import Link from 'next/link';
+
+export const dynamic = 'force-dynamic';
+export const revalidate = 0;
 
 export const metadata = {
   title: 'Direct Contact | Abyss Holdings Group',
   description: 'Connect directly with Abyss Holdings via our official email inboxes and telephone switchboards.',
 };
 
-const REGIONAL_OFFICES = [
-  {
-    city: 'Mumbai',
-    role: 'Corporate Headquarters',
-    address: 'Bandra Kurla Complex (BKC), Mumbai, Maharashtra 400051',
-    phone: '+91 22 1234 5678',
-    email: 'Admin@abyssholding.com',
-    isHq: true,
-  },
-  {
-    city: 'Hyderabad',
-    role: 'Tech & Infrastructure Hub',
-    address: 'HITEC City, Madhapur, Hyderabad, Telangana 500081',
-    phone: '+91 40 1234 5678',
-    email: 'Admin@abyssholding.com',
-    isHq: false,
-  },
-  {
-    city: 'Bengaluru',
-    role: 'Innovation & Operations Center',
-    address: 'Outer Ring Road (ORR) Tech Corridor, Bengaluru, Karnataka 560103',
-    phone: '+91 80 1234 5678',
-    email: 'HR@abyssholding.com',
-    isHq: false,
-  },
-  {
-    city: 'Trivandrum',
-    role: 'Textiles & Regional Operations',
-    address: 'Technopark Phase III, Trivandrum, Kerala 695583',
-    phone: '+91 471 123 4567',
-    email: 'HR@abyssholding.com',
-    isHq: false,
-  },
-  {
-    city: 'Gujarat',
-    role: 'Heavy Machinery & Logistics Base',
-    address: 'GIDC Mega Industrial Estate, Ahmedabad, Gujarat 382445',
-    phone: '+91 79 1234 5678',
-    email: 'Admin@abyssholding.com',
-    isHq: false,
-  },
-  {
-    city: 'Madhya Pradesh',
-    role: 'Civil Engineering Hub',
-    address: 'Arera Hills Industrial Area, Bhopal, Madhya Pradesh 462011',
-    phone: '+91 755 123 4567',
-    email: 'Admin@abyssholding.com',
-    isHq: false,
-  },
-];
-
-export default function ContactPage() {
+export default async function ContactPage() {
+  const [company, locations] = await Promise.all([getServerCompany(), getServerLocations()]);
+  const companyName = company.name || 'Abyss Holdings';
+  const adminEmail = company.email || 'Admin@abyssholding.com';
+  const hrEmail = company.hrEmail || 'HR@abyssholding.com';
+  const hqLocation = locations.find((l) => l.isHeadquarter) || locations[0];
+  const hqTitle = hqLocation ? `${hqLocation.city} Corporate Headquarters` : `${companyName} Corporate Headquarters`;
+  const hqAddress = hqLocation?.address || company.address || 'Mumbai, Maharashtra, India';
+  const hqPhone = company.phone || hqLocation?.phone || '+91 22 1234 5678';
   return (
     <>
       <main className="min-h-screen bg-white">
@@ -107,7 +67,7 @@ export default function ContactPage() {
                   </div>
 
                   <h3 className="font-black text-dark text-2xl mb-2">
-                    Admin@abyssholding.com
+                    {adminEmail}
                   </h3>
                   <p className="text-sm text-gray-500 mb-6 leading-relaxed">
                     Primary inbox for corporate inquiries, business partnerships, executive mandates,
@@ -129,7 +89,7 @@ export default function ContactPage() {
 
                 <div className="pt-6 border-t border-gray-100 flex flex-col sm:flex-row items-center gap-3">
                   <a
-                    href="mailto:Admin@abyssholding.com?subject=Corporate%20Inquiry%20-%20Abyss%20Holdings"
+                    href={`mailto:${adminEmail}?subject=${encodeURIComponent(`Corporate Inquiry - ${companyName}`)}`}
                     className="w-full sm:w-auto flex-1 text-center py-3.5 px-6 rounded-xl bg-primary hover:bg-red-600 text-white text-xs font-bold transition-all shadow-md shadow-red-500/20"
                   >
                     Compose Email to Admin →
@@ -150,7 +110,7 @@ export default function ContactPage() {
                   </div>
 
                   <h3 className="font-black text-dark text-2xl mb-2">
-                    HR@abyssholding.com
+                    {hrEmail}
                   </h3>
                   <p className="text-sm text-gray-500 mb-6 leading-relaxed">
                     Dedicated inbox for career applications, talent acquisition, recruitment inquiries,
@@ -172,7 +132,7 @@ export default function ContactPage() {
 
                 <div className="pt-6 border-t border-gray-100 flex flex-col sm:flex-row items-center gap-3">
                   <a
-                    href="mailto:HR@abyssholding.com?subject=Job%20Application%20%2F%20HR%20Inquiry%20-%20Abyss%20Holdings"
+                    href={`mailto:${hrEmail}?subject=${encodeURIComponent(`Job Application / HR Inquiry - ${companyName}`)}`}
                     className="w-full sm:w-auto flex-1 text-center py-3.5 px-6 rounded-xl bg-slate-900 hover:bg-dark text-white text-xs font-bold transition-all shadow-md"
                   >
                     Compose Email to HR →
@@ -206,19 +166,19 @@ export default function ContactPage() {
                   <span>📍</span> Central Global Switchboard
                 </span>
                 <h3 className="text-3xl sm:text-4xl font-black text-white mb-2">
-                  Mumbai Corporate Headquarters
+                  {hqTitle}
                 </h3>
                 <p className="text-gray-400 text-sm mb-6 leading-relaxed">
-                  Bandra Kurla Complex (BKC), Mumbai, Maharashtra 400051, India.
+                  {hqAddress}
                 </p>
 
                 <div className="flex flex-col sm:flex-row items-start sm:items-center gap-6">
                   <a
-                    href="tel:+912212345678"
+                    href={`tel:${hqPhone.replace(/\s+/g, '')}`}
                     className="inline-flex items-center gap-3 px-8 py-4 rounded-2xl bg-primary hover:bg-red-600 text-white font-black text-lg transition-all shadow-xl shadow-red-500/30"
                   >
                     <span>📞</span>
-                    <span>+91 22 1234 5678</span>
+                    <span>{hqPhone}</span>
                   </a>
                   <div className="text-xs text-gray-400 space-y-1">
                     <p className="text-white font-semibold">Hours: 09:00 - 18:30 IST</p>
@@ -232,45 +192,53 @@ export default function ContactPage() {
             <div>
               <h3 className="font-bold text-xl text-dark mb-6">Regional Hub Direct Numbers</h3>
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                {REGIONAL_OFFICES.map((office, idx) => (
+                {locations.map((office) => (
                   <div
-                    key={idx}
+                    key={office.id}
                     className="p-6 rounded-2xl bg-gray-50 border border-gray-200/80 hover:border-gray-300 hover:shadow-md transition-all flex flex-col justify-between"
                   >
                     <div>
                       <div className="flex items-center justify-between mb-2">
                         <h4 className="font-black text-lg text-dark">{office.city}</h4>
-                        {office.isHq && (
+                        {office.isHeadquarter && (
                           <span className="px-2 py-0.5 rounded-full bg-primary text-white text-[9px] font-bold uppercase">
                             HQ
                           </span>
                         )}
                       </div>
-                      <p className="text-xs text-primary font-semibold mb-3">{office.role}</p>
-                      <p className="text-xs text-gray-500 leading-relaxed mb-4">{office.address}</p>
+                      <p className="text-xs text-primary font-semibold mb-3">
+                        {office.isHeadquarter ? 'Corporate Headquarters' : `${office.country} Regional Hub`}
+                      </p>
+                      {office.address && (
+                        <p className="text-xs text-gray-500 leading-relaxed mb-4">{office.address}</p>
+                      )}
                     </div>
 
                     <div className="pt-4 border-t border-gray-200/60 space-y-2 text-xs">
-                      <a
-                        href={`tel:${office.phone.replace(/\s+/g, '')}`}
-                        className="flex items-center justify-between text-dark font-bold hover:text-primary py-1"
-                      >
-                        <span className="flex items-center gap-1.5">
-                          <span>📞</span>
-                          <span>{office.phone}</span>
-                        </span>
-                        <span className="text-[11px] text-primary">Call →</span>
-                      </a>
-                      <a
-                        href={`mailto:${office.email}`}
-                        className="flex items-center justify-between text-gray-600 hover:text-primary py-1 font-mono text-[11px]"
-                      >
-                        <span className="flex items-center gap-1.5">
-                          <span>✉️</span>
-                          <span>{office.email}</span>
-                        </span>
-                        <span className="text-gray-400">Email</span>
-                      </a>
+                      {office.phone && (
+                        <a
+                          href={`tel:${office.phone.replace(/\s+/g, '')}`}
+                          className="flex items-center justify-between text-dark font-bold hover:text-primary py-1"
+                        >
+                          <span className="flex items-center gap-1.5">
+                            <span>📞</span>
+                            <span>{office.phone}</span>
+                          </span>
+                          <span className="text-[11px] text-primary">Call →</span>
+                        </a>
+                      )}
+                      {office.email && (
+                        <a
+                          href={`mailto:${office.email}`}
+                          className="flex items-center justify-between text-gray-600 hover:text-primary py-1 font-mono text-[11px]"
+                        >
+                          <span className="flex items-center gap-1.5">
+                            <span>✉️</span>
+                            <span>{office.email}</span>
+                          </span>
+                          <span className="text-gray-400">Email</span>
+                        </a>
+                      )}
                     </div>
                   </div>
                 ))}

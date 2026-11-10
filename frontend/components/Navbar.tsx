@@ -4,16 +4,28 @@ import { useState, useEffect, useRef } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import Logo from './Logo';
+import { useCompany } from './CompanyContext';
 
-const SECTORS_NAV = [
-  { label: 'Investments & Capital', slug: 'investments', icon: '💼', badge: 'Private Equity' },
-  { label: 'Construction & Engineering', slug: 'construction', icon: '🏗️', badge: 'Mega EPC' },
-  { label: 'Realities & Urban Spaces', slug: 'realities', icon: '🏙️', badge: 'Prime Realty' },
-  { label: 'Technologies & Digital Systems', slug: 'technologies', icon: '🤖', badge: 'Enterprise AI' },
-  { label: 'Automobiles & Mobility', slug: 'automobiles', icon: '🚗', badge: 'Fleet & EV' },
-  { label: 'Earth Movers & Heavy Machinery', slug: 'earth-movers', icon: '🚜', badge: 'Heavy Fleets' },
-  { label: 'Apparels & Textile Manufacturing', slug: 'apparels', icon: '🧵', badge: 'Global Export' },
-];
+// S-8: Validate logoUrl to prevent javascript: URI injection
+function isSafeUrl(url: string | undefined): boolean {
+  if (!url) return false;
+  const trimmed = url.trim();
+  return (
+    trimmed.startsWith('http://') ||
+    trimmed.startsWith('https://') ||
+    trimmed.startsWith('/')
+  );
+}
+
+const SECTORS_META: Record<string, { defaultTitle: string; label: string; icon: string; badge: string }> = {
+  investments: { defaultTitle: 'investments', label: 'Investments & Capital', icon: '💼', badge: 'Private Equity' },
+  construction: { defaultTitle: 'construction', label: 'Construction & Engineering', icon: '🏗️', badge: 'Mega EPC' },
+  realities: { defaultTitle: 'realities', label: 'Realities & Urban Spaces', icon: '🏙️', badge: 'Prime Realty' },
+  technologies: { defaultTitle: 'technologies', label: 'Technologies & Digital Systems', icon: '🤖', badge: 'Enterprise AI' },
+  automobiles: { defaultTitle: 'automobiles', label: 'Automobiles & Mobility', icon: '🚗', badge: 'Fleet & EV' },
+  'earth-movers': { defaultTitle: 'earth movers', label: 'Earth Movers & Heavy Machinery', icon: '🚜', badge: 'Heavy Fleets' },
+  apparels: { defaultTitle: 'apparels', label: 'Apparels & Textile Manufacturing', icon: '🧵', badge: 'Global Export' },
+};
 
 const MAIN_NAV_LINKS = [
   { label: 'Home',       href: '/' },
@@ -24,12 +36,41 @@ const MAIN_NAV_LINKS = [
   { label: 'Contact Us', href: '/contact' },
 ];
 
+function toSlug(title: string) {
+  return title
+    .toLowerCase()
+    .trim()
+    .replace(/[^a-z0-9\s-]/g, '')
+    .replace(/\s+/g, '-')
+    .replace(/-+/g, '-');
+}
+
 export default function Navbar() {
   const pathname = usePathname();
+  const { company, services } = useCompany();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [sectorsDropdownOpen, setSectorsDropdownOpen] = useState(false);
   const [mobileSectorsOpen, setMobileSectorsOpen] = useState(true);
   const dropdownRef = useRef<HTMLDivElement>(null);
+
+  const adminEmail = company.email || 'Admin@abyssholding.com';
+  const hrEmail = company.hrEmail || 'HR@abyssholding.com';
+  const phone = company.phone || '+91 22 1234 5678';
+  const companyName = company.name || 'Abyss Holdings';
+  const tagline = company.tagline || 'Group of Companies';
+  const hqText = company.address || 'HQ: Mumbai, India';
+
+  const sectorsNav = services.map((s) => {
+    const slug = toSlug(s.title) || s.id;
+    const meta = SECTORS_META[slug];
+    const isDefaultTitle = meta && s.title.toLowerCase().trim() === meta.defaultTitle;
+    return {
+      label: isDefaultTitle ? meta.label : s.title,
+      slug,
+      icon: meta?.icon || '🏢',
+      badge: meta?.badge || 'Division',
+    };
+  });
 
   // Close mobile menu and dropdown on route change
   useEffect(() => {
@@ -72,37 +113,37 @@ export default function Navbar() {
             {/* Left: Dual Official Inboxes */}
             <div className="flex items-center gap-4 sm:gap-6 flex-wrap">
               <a
-                href="mailto:Admin@abyssholding.com"
+                href={`mailto:${adminEmail}`}
                 className="inline-flex items-center gap-1.5 hover:text-white transition-colors group"
                 title="Administration & Corporate Desk"
               >
                 <span className="text-primary group-hover:scale-110 transition-transform">✉</span>
                 <span className="text-gray-400 hidden xs:inline">Admin:</span>
-                <span className="text-gray-200 group-hover:underline">Admin@abyssholding.com</span>
+                <span className="text-gray-200 group-hover:underline">{adminEmail}</span>
               </a>
 
               <span className="hidden sm:inline text-slate-700">|</span>
 
               <a
-                href="mailto:HR@abyssholding.com"
+                href={`mailto:${hrEmail}`}
                 className="inline-flex items-center gap-1.5 hover:text-white transition-colors group"
                 title="Human Resources & Careers Desk"
               >
                 <span className="text-primary group-hover:scale-110 transition-transform">💼</span>
                 <span className="text-gray-400 hidden xs:inline">HR:</span>
-                <span className="text-gray-200 group-hover:underline">HR@abyssholding.com</span>
+                <span className="text-gray-200 group-hover:underline">{hrEmail}</span>
               </a>
             </div>
 
             {/* Right: Corporate HQ & Hotline */}
             <div className="hidden md:flex items-center gap-5 text-gray-400">
-              <span className="inline-flex items-center gap-1">
+              <span className="inline-flex items-center gap-1 max-w-[260px] truncate">
                 <span className="text-primary">📍</span>
-                <span>HQ: Mumbai, India</span>
+                <span className="truncate">{hqText}</span>
               </span>
               <span className="text-slate-700">|</span>
-              <a href="tel:+912212345678" className="inline-flex items-center gap-1 hover:text-white transition-colors">
-                <span>📞 +91 22 1234 5678</span>
+              <a href={`tel:${phone.replace(/\s+/g, '')}`} className="inline-flex items-center gap-1 hover:text-white transition-colors shrink-0">
+                <span>📞 {phone}</span>
               </a>
             </div>
           </div>
@@ -113,13 +154,17 @@ export default function Navbar() {
           <div className="max-w-7xl mx-auto w-full flex items-center justify-between">
             {/* Brand Logo */}
             <Link href="/" className="flex items-center gap-2.5 sm:gap-3 group shrink-0">
-              <Logo size={36} />
+              {isSafeUrl(company.logoUrl) ? (
+                <img src={company.logoUrl} alt={companyName} className="w-9 h-9 object-contain rounded-lg" />
+              ) : (
+                <Logo size={36} />
+              )}
               <div>
-                <p className="font-black text-sm sm:text-base leading-tight tracking-wide text-dark">
-                  ABYSS<span className="hidden sm:inline"> HOLDINGS</span>
+                <p className="font-black text-sm sm:text-base leading-tight tracking-wide text-dark uppercase">
+                  {companyName}
                 </p>
                 <p className="text-[7.5px] sm:text-[8px] text-gray-400 tracking-widest uppercase mt-0.5">
-                  Group of Companies
+                  {tagline}
                 </p>
               </div>
             </Link>
@@ -165,7 +210,7 @@ export default function Navbar() {
                         <div className="absolute top-full -left-12 w-[380px] bg-white rounded-2xl shadow-2xl border border-gray-100 p-3 pt-3 animate-in fade-in slide-in-from-top-2 duration-200 z-50">
                           <div className="px-3 py-2 border-b border-gray-100 flex items-center justify-between mb-2">
                             <span className="text-[10px] font-bold uppercase tracking-wider text-gray-400">
-                              7 Business Sectors
+                              {sectorsNav.length} Business Sectors
                             </span>
                             <Link
                               href="/services"
@@ -175,8 +220,8 @@ export default function Navbar() {
                               View All Portfolios →
                             </Link>
                           </div>
-                          <div className="space-y-1">
-                            {SECTORS_NAV.map((sec) => (
+                          <div className="space-y-1 max-h-[420px] overflow-y-auto">
+                            {sectorsNav.map((sec) => (
                               <Link
                                 key={sec.slug}
                                 href={`/services/${sec.slug}`}
@@ -228,7 +273,7 @@ export default function Navbar() {
             <div className="hidden lg:flex items-center gap-4">
               <Link
                 href="/contact"
-                className="px-5 py-2.5 rounded-xl bg-primary text-white text-xs font-semibold hover:bg-red-600 transition-all shadow-sm shadow-red-200"
+                className="px-5 py-2.5 rounded-xl bg-primary text-white text-xs font-semibold hover:opacity-90 transition-all shadow-sm shadow-primary/25"
               >
                 Get In Touch
               </Link>
@@ -273,17 +318,17 @@ export default function Navbar() {
               </p>
               <div className="flex flex-col gap-1.5">
                 <a
-                  href="mailto:Admin@abyssholding.com"
+                  href={`mailto:${adminEmail}`}
                   className="flex items-center justify-between text-dark hover:text-primary py-1 font-medium"
                 >
-                  <span>✉ Admin@abyssholding.com</span>
+                  <span>✉ {adminEmail}</span>
                   <span className="text-[10px] text-gray-400">Admin</span>
                 </a>
                 <a
-                  href="mailto:HR@abyssholding.com"
+                  href={`mailto:${hrEmail}`}
                   className="flex items-center justify-between text-dark hover:text-primary py-1 font-medium"
                 >
-                  <span>💼 HR@abyssholding.com</span>
+                  <span>💼 {hrEmail}</span>
                   <span className="text-[10px] text-gray-400">HR</span>
                 </a>
               </div>
@@ -305,7 +350,7 @@ export default function Navbar() {
                       <span className="flex items-center gap-2">
                         <span>{label}</span>
                         <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-red-100 text-primary">
-                          7 Portfolios
+                          {sectorsNav.length} Portfolios
                         </span>
                       </span>
                       <svg
@@ -320,7 +365,7 @@ export default function Navbar() {
 
                     {mobileSectorsOpen && (
                       <div className="pl-3 pr-1 py-1 space-y-1 bg-gray-50 rounded-2xl border border-gray-100">
-                        {SECTORS_NAV.map((sec) => (
+                        {sectorsNav.map((sec) => (
                           <Link
                             key={sec.slug}
                             href={`/services/${sec.slug}`}
@@ -364,15 +409,15 @@ export default function Navbar() {
             {/* Quick Contact Badge inside Mobile Drawer */}
             <div className="mt-4 pt-4 border-t border-gray-100 flex flex-col gap-2">
               <p className="text-xs text-gray-500 font-medium">
-                📍 Mumbai Office (Corporate Headquarters)
+                📍 {hqText}
               </p>
               <p className="text-xs text-gray-500 font-medium">
-                📞 +91 22 1234 5678
+                📞 {phone}
               </p>
               <Link
                 href="/contact"
                 onClick={() => setMobileMenuOpen(false)}
-                className="mt-2 w-full text-center py-3 rounded-xl bg-primary text-white font-semibold text-sm shadow-md shadow-red-200 active:scale-[0.98] transition-all"
+                className="mt-2 w-full text-center py-3 rounded-xl bg-primary text-white font-semibold text-sm shadow-md shadow-primary/25 active:scale-[0.98] transition-all"
               >
                 Contact Corporate Desk
               </Link>
@@ -383,4 +428,3 @@ export default function Navbar() {
     </>
   );
 }
-

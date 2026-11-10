@@ -12,6 +12,7 @@ export default function AdminServicesPage() {
   const [loading, setLoading] = useState(true);
   const [editing, setEditing] = useState<Partial<Service> | null>(null);
   const [saving, setSaving] = useState(false);
+  const [saveError, setSaveError] = useState('');
 
   const load = () => getAllServices().then(setServices).catch(() => {}).finally(() => setLoading(false));
   useEffect(() => { load(); }, []);
@@ -19,11 +20,14 @@ export default function AdminServicesPage() {
   const save = async () => {
     if (!editing?.title || !editing?.description) return;
     setSaving(true);
+    setSaveError('');
     try {
       if (editing.id) { await updateService(editing.id, editing); }
       else             { await createService(editing); }
       setEditing(null); load();
-    } catch { alert('Save failed'); }
+    } catch (err: any) {
+      setSaveError(err?.response?.data?.error || err?.message || 'Save failed. Please try again.');
+    }
     finally { setSaving(false); }
   };
 
@@ -73,6 +77,10 @@ export default function AdminServicesPage() {
                   className="w-4 h-4 accent-primary" />
                 <span className="text-sm text-gray-600">Active (visible on website)</span>
               </label>
+              {/* C-2: Inline error instead of alert() */}
+              {saveError && (
+                <p className="text-xs text-red-600 bg-red-50 border border-red-200 rounded-lg px-3 py-2">{saveError}</p>
+              )}
             </div>
             <div className="flex gap-3 mt-6">
               <button onClick={() => setEditing(null)}
