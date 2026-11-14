@@ -75,12 +75,14 @@ export default function Footer() {
           <div className="lg:col-span-4">
             <Link href="/" className="inline-flex items-center gap-3 mb-4 group">
               {isSafeUrl(company.logoUrl) ? (
-                <img src={company.logoUrl} alt={companyName} className="w-10 h-10 object-contain rounded-lg" />
+                <div className="relative w-11 h-11 shrink-0 bg-white/5 rounded-xl p-1 border border-white/10 group-hover:border-[#A6192E]/50 transition-colors">
+                  <img src={company.logoUrl} alt={companyName} className="w-full h-full object-contain transition-transform duration-300 group-hover:scale-105" />
+                </div>
               ) : (
-                <Logo size={40} />
+                <Logo size={44} />
               )}
               <div>
-                <p className="font-black text-base tracking-wide text-white uppercase">{companyName}</p>
+                <p className="font-black text-base tracking-wide text-white uppercase group-hover:text-rose-400 transition-colors">{companyName}</p>
                 <p className="text-[8.5px] text-gray-400 tracking-widest uppercase mt-0.5">
                   {tagline}
                 </p>

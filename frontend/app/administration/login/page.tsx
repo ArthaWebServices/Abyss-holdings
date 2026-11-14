@@ -4,27 +4,37 @@ import { useRouter } from 'next/navigation';
 import { login } from '@/lib/api';
 import Logo from '@/components/Logo';
 
+type LoginState =
+  | { status: 'idle' }
+  | { status: 'submitting' }
+  | { status: 'success' }
+  | { status: 'error'; message: string };
+
 export default function AdminLoginPage() {
   const router = useRouter();
   const [creds, setCreds] = useState({ username: '', password: '' });
-  const [loading, setLoading] = useState(false);
-  const [err, setErr] = useState('');
+  const [loginState, setLoginState] = useState<LoginState>({ status: 'idle' });
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setLoading(true); setErr('');
+    if (loginState.status === 'submitting') return; // Guard against duplicate submissions
+
+    setLoginState({ status: 'submitting' });
     try {
       const data = await login(creds.username, creds.password);
       localStorage.setItem('admin_token', data.token);
+      setLoginState({ status: 'success' });
       router.push('/administration');
     } catch (error: any) {
       const msg = error?.response?.data?.error || 
         (error?.message === 'Network Error' 
           ? 'Cannot connect to API server. Please make sure the server is running.'
           : 'Invalid username or password.');
-      setErr(msg);
-    } finally { setLoading(false); }
+      setLoginState({ status: 'error', message: msg });
+    }
   };
+
+  const isSubmitting = loginState.status === 'submitting';
 
   return (
     <div className="min-h-screen bg-dark flex items-center justify-center p-4" style={{ marginRight: 0 }}>
@@ -56,10 +66,12 @@ export default function AdminLoginPage() {
                 placeholder="••••••••" />
             </div>
           </div>
-          {err && <p className="text-red-500 text-xs mt-3 text-center">{err}</p>}
-          <button type="submit" disabled={loading}
+          {loginState.status === 'error' && (
+            <p className="text-red-500 text-xs mt-3 text-center">{loginState.message}</p>
+          )}
+          <button type="submit" disabled={isSubmitting}
             className="w-full mt-6 py-3.5 bg-primary text-white rounded-xl font-semibold text-sm hover:opacity-90 disabled:opacity-60 transition-all">
-            {loading ? 'Signing in…' : 'Sign In →'}
+            {isSubmitting ? 'Signing in…' : 'Sign In →'}
           </button>
           <p className="text-center text-xs text-gray-400 mt-4">
             Authorized Personnel Only

@@ -5,10 +5,12 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
 
 :root {
-  --primary: #E84545;
-  --dark: #1a1a2e;
-  --primary-rgb: 232 69 69;
-  --dark-rgb: 26 26 46;
+  --primary: #A6192E;
+  --primary-dark: #821020;
+  --primary-light: #C23B52;
+  --primary-rgb: 166 25 46;
+  --dark: #0f1422;
+  --dark-rgb: 15 20 34;
 }
 
 html { scroll-behavior: smooth; }

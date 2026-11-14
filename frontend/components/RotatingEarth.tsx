@@ -8,46 +8,111 @@ interface OfficeLocation {
   name: string;
   state: string;
   role: string;
+  address?: string;
   lat: number;
   lng: number;
   isHeadquarter?: boolean;
 }
 
 const OFFICES: OfficeLocation[] = [
-  { id: '1', name: 'Mumbai', state: 'Maharashtra', role: 'Corporate Headquarters', lat: 19.076, lng: 72.8777, isHeadquarter: true },
-  { id: '2', name: 'Bengaluru', state: 'Karnataka', role: 'Technology & Innovation Hub', lat: 12.9716, lng: 77.5946 },
-  { id: '3', name: 'Hyderabad', state: 'Telangana', role: 'Strategic Operations', lat: 17.385, lng: 78.4867 },
-  { id: '4', name: 'Gujarat', state: 'Gujarat', role: 'Industrial & Real Estate', lat: 23.0225, lng: 72.5714 },
-  { id: '5', name: 'Madhya Pradesh', state: 'Madhya Pradesh', role: 'Infrastructure Projects', lat: 23.2599, lng: 77.4126 },
-  { id: '6', name: 'Trivandrum', state: 'Kerala', role: 'Regional Center', lat: 8.5241, lng: 76.9366 },
+  {
+    id: '1',
+    name: 'Mumbai',
+    state: 'Maharashtra',
+    role: 'Corporate Headquarters',
+    address: '46/48 maruti cross lane, Borabazaar precint, Fort, Mumbai, Maharashtra 400001, India',
+    lat: 18.9348,
+    lng: 72.8354,
+    isHeadquarter: true,
+  },
+  {
+    id: '2',
+    name: 'Delhi',
+    state: 'Delhi',
+    role: 'Northern Regional Hub',
+    address: '1313, Pocket 1, Jasola Vihar, New Delhi, Delhi 110025, India',
+    lat: 28.5397,
+    lng: 77.2913,
+  },
+  {
+    id: '3',
+    name: 'Bengaluru',
+    state: 'Karnataka',
+    role: 'Technology & Innovation Hub',
+    address: '3A/21, No. 05, WOOD STREET, ASHOK NAGAR, Bengaluru - 560025',
+    lat: 12.9698,
+    lng: 77.6080,
+  },
+  {
+    id: '4',
+    name: 'Telangana',
+    state: 'Telangana',
+    role: 'Financial District & Strategic Operations',
+    address: '225, Nanakramguda Rd, Financial District, Nanakramguda, Makthakousarali, Telangana 500032, India',
+    lat: 17.4140,
+    lng: 78.3444,
+  },
+  {
+    id: '5',
+    name: 'Chennai',
+    state: 'Tamil Nadu',
+    role: 'Southern Maritime & Logistics Hub',
+    address: 'No 13, Railway Station Rd, near Railyway Gate, Sakthi Puram, Tiruvottiyur, Chennai, Tamil Nadu 600019, India',
+    lat: 13.1610,
+    lng: 80.3015,
+  },
+  {
+    id: '6',
+    name: 'Kolkata',
+    state: 'West Bengal',
+    role: 'Eastern Regional Hub',
+    address: '92, Circus Ave, Lower Range, Beck Bagan, Ballygunge, Kolkata, West Bengal 700017, India',
+    lat: 22.5411,
+    lng: 88.3615,
+  },
 ];
 
 const PI = Math.PI;
 
+/**
+ * Explicit State Machine for Globe Interaction.
+ * Replaces uncoordinated refs and flags with discrete modes:
+ * - auto_rotating: Free idle rotation
+ * - dragging: User pointer/touch interaction has full priority
+ * - gliding_to_focus: Smooth cinematic interpolation to office coordinates
+ * - locked_on_office: Fixed coordinates displaying office details
+ */
+export type GlobeInteractionState =
+  | { mode: 'auto_rotating' }
+  | { mode: 'dragging'; movement: number }
+  | { mode: 'gliding_to_focus'; office: OfficeLocation; targetPhi: number; targetTheta: number }
+  | { mode: 'locked_on_office'; office: OfficeLocation };
+
 export default function RotatingEarth() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
-  const pointerInteracting = useRef<number | null>(null);
-  const pointerInteractionMovement = useRef(0);
+  const dragStartRef = useRef<number | null>(null);
 
-  // Default view oriented towards India (phi ~ 3.4)
+  // Spherical coordinates
   const phiRef = useRef(3.4);
   const thetaRef = useRef(0.25);
-  const targetPhiRef = useRef<number | null>(null);
-  const targetThetaRef = useRef<number | null>(null);
 
-  // Selected office (null by default -> 0 dots on map, totally clean Earth)
+  // Active interaction state machine
+  const stateRef = useRef<GlobeInteractionState>({ mode: 'auto_rotating' });
+
+  // Selected office for UI card overlay
   const [selectedOffice, setSelectedOffice] = useState<OfficeLocation | null>(null);
   const selectedOfficeRef = useRef<OfficeLocation | null>(null);
   selectedOfficeRef.current = selectedOffice;
 
   const globeRef = useRef<ReturnType<typeof createGlobe> | null>(null);
 
-  // Focus a specific office when clicked
+  // Focus a specific office with state machine transition
   const handleSelectOffice = useCallback((office: OfficeLocation) => {
-    // If clicking the currently active office, toggle it off to return to clean globe
+    // If clicking the currently active office, toggle off and resume auto-rotation
     if (selectedOfficeRef.current?.id === office.id) {
       setSelectedOffice(null);
       selectedOfficeRef.current = null;
+      stateRef.current = { mode: 'auto_rotating' };
       if (globeRef.current) {
         globeRef.current.update({ markers: [] });
       }
@@ -57,7 +122,7 @@ export default function RotatingEarth() {
     setSelectedOffice(office);
     selectedOfficeRef.current = office;
 
-    // Exact geometric pointing formula to center this location directly on screen
+    // Geometric pointing formula to center coordinates directly on screen
     const targetPhi = (PI * 1.5) - (office.lng * PI / 180);
     const targetTheta = (office.lat * PI / 180);
 
@@ -67,30 +132,57 @@ export default function RotatingEarth() {
     while (normalized < current - PI) normalized += twoPi;
     while (normalized > current + PI) normalized -= twoPi;
 
-    targetPhiRef.current = normalized;
-    targetThetaRef.current = targetTheta;
+    // Transition state machine to gliding_to_focus
+    stateRef.current = {
+      mode: 'gliding_to_focus',
+      office,
+      targetPhi: normalized,
+      targetTheta,
+    };
 
-    // Highlight ONLY this single clicked location on the map!
     if (globeRef.current) {
       globeRef.current.update({
         markers: [
           {
             location: [office.lat, office.lng],
             size: 0.1,
-            color: [232 / 255, 69 / 255, 69 / 255],
+            color: [166 / 255, 25 / 255, 46 / 255],
           },
         ],
       });
     }
   }, []);
 
-  const handleClearSelection = () => {
+  const handleClearSelection = useCallback(() => {
     setSelectedOffice(null);
     selectedOfficeRef.current = null;
-    targetPhiRef.current = null;
-    targetThetaRef.current = null;
+    stateRef.current = { mode: 'auto_rotating' };
     if (globeRef.current) {
       globeRef.current.update({ markers: [] });
+    }
+  }, []);
+
+  // Pointer event handlers with explicit state transitions
+  const handlePointerDown = (clientX: number) => {
+    dragStartRef.current = clientX;
+    stateRef.current = { mode: 'dragging', movement: 0 };
+    if (canvasRef.current) canvasRef.current.style.cursor = 'grabbing';
+  };
+
+  const handlePointerMove = (clientX: number) => {
+    if (dragStartRef.current === null) return;
+    const delta = clientX - dragStartRef.current;
+    dragStartRef.current = clientX;
+    stateRef.current = { mode: 'dragging', movement: delta };
+  };
+
+  const handlePointerUp = () => {
+    dragStartRef.current = null;
+    if (canvasRef.current) canvasRef.current.style.cursor = 'grab';
+    if (selectedOfficeRef.current) {
+      stateRef.current = { mode: 'locked_on_office', office: selectedOfficeRef.current };
+    } else {
+      stateRef.current = { mode: 'auto_rotating' };
     }
   };
 
@@ -108,8 +200,8 @@ export default function RotatingEarth() {
 
     if (!canvasRef.current) return;
 
-    // Brand crimson (#E84545)
-    const primaryRGB: [number, number, number] = [232 / 255, 69 / 255, 69 / 255];
+    // Authentic Brand Crimson (#A6192E)
+    const primaryRGB: [number, number, number] = [166 / 255, 25 / 255, 46 / 255];
 
     // Clean initial globe: ZERO DOTS by default (markers: [])
     const globe = createGlobe(canvasRef.current, {
@@ -126,37 +218,55 @@ export default function RotatingEarth() {
       baseColor: [0.94, 0.95, 0.97],
       markerColor: primaryRGB,
       glowColor: [1, 0.88, 0.88],
-      markers: [], // No dots by default
-      arcs: [],    // No lines
+      markers: [],
+      arcs: [],
     });
 
     globeRef.current = globe;
 
     const animate = () => {
-      if (selectedOfficeRef.current && targetPhiRef.current !== null && targetThetaRef.current !== null) {
-        // STRICTLY STOP ROTATING: Glide directly to office location and LOCK in place
-        const diffPhi = targetPhiRef.current - phiRef.current;
-        const diffTheta = targetThetaRef.current - thetaRef.current;
+      const currentState = stateRef.current;
 
-        if (Math.abs(diffPhi) > 0.001) {
-          phiRef.current += diffPhi * 0.08;
-        } else {
-          phiRef.current = targetPhiRef.current;
+      switch (currentState.mode) {
+        case 'gliding_to_focus': {
+          const diffPhi = currentState.targetPhi - phiRef.current;
+          const diffTheta = currentState.targetTheta - thetaRef.current;
+
+          if (Math.abs(diffPhi) > 0.001) {
+            phiRef.current += diffPhi * 0.08;
+          } else {
+            phiRef.current = currentState.targetPhi;
+          }
+
+          if (Math.abs(diffTheta) > 0.001) {
+            thetaRef.current += diffTheta * 0.08;
+          } else {
+            thetaRef.current = currentState.targetTheta;
+          }
+
+          // Transition to locked once close enough to target
+          if (Math.abs(diffPhi) <= 0.001 && Math.abs(diffTheta) <= 0.001) {
+            stateRef.current = { mode: 'locked_on_office', office: currentState.office };
+          }
+          break;
         }
 
-        if (Math.abs(diffTheta) > 0.001) {
-          thetaRef.current += diffTheta * 0.08;
-        } else {
-          thetaRef.current = targetThetaRef.current;
+        case 'dragging': {
+          phiRef.current += currentState.movement * 0.005;
+          stateRef.current = { mode: 'dragging', movement: 0 };
+          break;
         }
-        // ZERO rotation while office location is selected!
-      } else if (pointerInteracting.current === null) {
-        // Free continuous auto-rotation only when NO office is selected
-        phiRef.current += 0.003;
-      } else {
-        // Free user dragging with mouse or touch
-        phiRef.current += pointerInteractionMovement.current * 0.005;
-        pointerInteractionMovement.current = 0;
+
+        case 'locked_on_office': {
+          // Stationary view on focused office
+          break;
+        }
+
+        case 'auto_rotating':
+        default: {
+          phiRef.current += 0.003;
+          break;
+        }
       }
 
       globe.update({
@@ -189,38 +299,19 @@ export default function RotatingEarth() {
         <canvas
           ref={canvasRef}
           className="w-full h-full cursor-grab active:cursor-grabbing touch-none transition-opacity duration-700"
-          onPointerDown={(e) => {
-            pointerInteracting.current = e.clientX;
-            if (canvasRef.current) canvasRef.current.style.cursor = 'grabbing';
-          }}
-          onPointerUp={() => {
-            pointerInteracting.current = null;
-            if (canvasRef.current) canvasRef.current.style.cursor = 'grab';
-          }}
-          onPointerOut={() => {
-            pointerInteracting.current = null;
-            if (canvasRef.current) canvasRef.current.style.cursor = 'grab';
-          }}
-          onMouseMove={(e) => {
-            if (pointerInteracting.current !== null) {
-              const delta = e.clientX - pointerInteracting.current;
-              pointerInteractionMovement.current = delta;
-              pointerInteracting.current = e.clientX;
-            }
-          }}
-          onTouchMove={(e) => {
-            if (pointerInteracting.current !== null && e.touches[0]) {
-              const delta = e.touches[0].clientX - pointerInteracting.current;
-              pointerInteractionMovement.current = delta;
-              pointerInteracting.current = e.touches[0].clientX;
-            }
-          }}
+          onPointerDown={(e) => handlePointerDown(e.clientX)}
+          onPointerUp={handlePointerUp}
+          onPointerOut={handlePointerUp}
+          onMouseMove={(e) => handlePointerMove(e.clientX)}
+          onTouchStart={(e) => e.touches[0] && handlePointerDown(e.touches[0].clientX)}
+          onTouchEnd={handlePointerUp}
+          onTouchMove={(e) => e.touches[0] && handlePointerMove(e.touches[0].clientX)}
         />
 
         {/* Highlight notification when an office is active */}
         {selectedOffice && (
-          <div className="absolute top-4 left-4 right-4 md:left-6 md:right-auto bg-white/95 backdrop-blur-md border border-red-200 rounded-2xl p-3.5 shadow-xl flex items-center gap-3 animate-in fade-in slide-in-from-top-2 duration-300 max-w-xs z-10">
-            <div className="w-9 h-9 rounded-xl bg-primary text-white flex items-center justify-center font-bold text-sm shrink-0 shadow-md shadow-red-200">
+          <div className="absolute top-4 left-4 right-4 md:left-6 md:right-auto bg-white/95 backdrop-blur-md border border-red-200 rounded-2xl p-3.5 shadow-xl flex items-start gap-3 animate-in fade-in slide-in-from-top-2 duration-300 max-w-sm z-10">
+            <div className="w-9 h-9 rounded-xl bg-primary text-white flex items-center justify-center font-bold text-sm shrink-0 shadow-md shadow-red-200 mt-0.5">
               📍
             </div>
             <div className="flex-1 min-w-0">
@@ -232,7 +323,12 @@ export default function RotatingEarth() {
                   </span>
                 )}
               </div>
-              <p className="text-[11px] text-gray-500 truncate">{selectedOffice.role}</p>
+              <p className="text-[11px] text-gray-500 font-medium truncate">{selectedOffice.role}</p>
+              {selectedOffice.address && (
+                <p className="text-[10px] text-gray-600 line-clamp-2 mt-1 leading-snug">
+                  {selectedOffice.address}
+                </p>
+              )}
             </div>
             <button
               onClick={handleClearSelection}

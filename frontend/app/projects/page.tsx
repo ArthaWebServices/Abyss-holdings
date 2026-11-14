@@ -20,29 +20,50 @@ function toSlug(value: string) {
     .replace(/-+/g, '-');
 }
 
+type ProjectsPageState =
+  | { status: 'loading' }
+  | { status: 'success'; projects: Project[] }
+  | { status: 'error'; message: string };
+
 export default function ProjectsPage() {
   const { company, services } = useCompany();
-  const [projects, setProjects] = useState<Project[]>([]);
+  const [pageState, setPageState] = useState<ProjectsPageState>({ status: 'loading' });
   const [selectedCategory, setSelectedCategory] = useState('All');
-  const [loading, setLoading] = useState(true);
 
   const adminEmail = company.email || 'Admin@abyssholding.com';
   const hrEmail = company.hrEmail || 'HR@abyssholding.com';
 
-  useEffect(() => {
+  const load = () => {
+    setPageState({ status: 'loading' });
     let active = true;
     getProjects()
       .then((data) => {
-        if (active && Array.isArray(data)) setProjects(data);
+        if (active) {
+          setPageState({
+            status: 'success',
+            projects: Array.isArray(data) ? data : [],
+          });
+        }
       })
-      .catch(() => {})
-      .finally(() => {
-        if (active) setLoading(false);
+      .catch((err: any) => {
+        if (active) {
+          setPageState({
+            status: 'error',
+            message: err?.response?.data?.error || err?.message || 'Unable to load corporate projects portfolio.',
+          });
+        }
       });
     return () => {
       active = false;
     };
+  };
+
+  useEffect(() => {
+    const cleanup = load();
+    return cleanup;
   }, []);
+
+  const projects = pageState.status === 'success' ? pageState.projects : [];
 
   const categories = useMemo(() => {
     const seen = new Set<string>(['All']);
@@ -107,11 +128,22 @@ export default function ProjectsPage() {
               ))}
             </div>
 
-            {loading ? (
+            {pageState.status === 'loading' ? (
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                 {[1, 2, 3].map((i) => (
                   <div key={i} className="h-80 bg-gray-100 rounded-3xl animate-pulse" />
                 ))}
+              </div>
+            ) : pageState.status === 'error' ? (
+              <div className="text-center py-16 bg-red-50 rounded-3xl border border-red-100 max-w-xl mx-auto p-6">
+                <p className="text-sm font-semibold text-red-700 mb-1">Unable to Load Projects</p>
+                <p className="text-xs text-red-600 mb-4">{pageState.message}</p>
+                <button
+                  onClick={load}
+                  className="px-4 py-2 bg-red-600 text-white rounded-xl text-xs font-bold hover:bg-red-700 transition-all"
+                >
+                  Retry Loading Projects
+                </button>
               </div>
             ) : filtered.length === 0 ? (
               <div className="text-center py-16 bg-gray-50 rounded-3xl border border-gray-100">

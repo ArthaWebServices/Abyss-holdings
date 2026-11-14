@@ -10,39 +10,62 @@ import { useCompany } from '@/components/CompanyContext';
 
 const VISIBLE = 3;
 
+type ServicesPageState =
+  | { status: 'loading' }
+  | { status: 'success'; services: Service[] }
+  | { status: 'error'; message: string };
+
 export default function ServicesPage() {
   const { company, services: contextServices } = useCompany();
-  const [services, setServices] = useState<Service[]>(contextServices);
+  const [pageState, setPageState] = useState<ServicesPageState>(() =>
+    contextServices && contextServices.length > 0
+      ? { status: 'success', services: contextServices }
+      : { status: 'loading' }
+  );
   const [startIdx, setStartIdx] = useState(0);
-  const [loading, setLoading] = useState(false);
   const [viewMode, setViewMode] = useState<'slider' | 'grid'>('grid');
 
   const adminEmail = company.email || 'Admin@abyssholding.com';
   const hrEmail = company.hrEmail || 'HR@abyssholding.com';
 
-  useEffect(() => {
-    setServices(contextServices);
-  }, [contextServices]);
-
-  useEffect(() => {
+  const load = () => {
     let active = true;
     getServices()
       .then((data) => {
-        if (active && Array.isArray(data)) setServices(data);
+        if (active && Array.isArray(data)) {
+          setPageState({ status: 'success', services: data });
+        }
       })
-      .catch(() => {})
-      .finally(() => {
-        if (active) setLoading(false);
+      .catch((err: any) => {
+        if (active) {
+          // If we already had context services, keep them; otherwise report error
+          setPageState((prev) =>
+            prev.status === 'success' && prev.services.length > 0
+              ? prev
+              : {
+                  status: 'error',
+                  message: err?.response?.data?.error || err?.message || 'Unable to load business sectors.',
+                }
+          );
+        }
       });
     return () => {
       active = false;
     };
+  };
+
+  useEffect(() => {
+    const cleanup = load();
+    return cleanup;
   }, []);
 
+  const services = pageState.status === 'success' ? pageState.services : contextServices || [];
+
   const maxStart = Math.max(0, services.length - VISIBLE);
+  const safeStartIdx = Math.min(startIdx, maxStart);
   const next = () => setStartIdx((i) => Math.min(i + 1, maxStart));
   const prev = () => setStartIdx((i) => Math.max(i - 1, 0));
-  const visible = services.slice(startIdx, startIdx + VISIBLE);
+  const visible = services.slice(safeStartIdx, safeStartIdx + VISIBLE);
 
   const scrollToTop = () => {
     if (typeof window !== 'undefined') {
@@ -133,11 +156,22 @@ export default function ServicesPage() {
               </div>
             </div>
 
-            {loading ? (
+            {pageState.status === 'loading' ? (
               <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                 {[1, 2, 3].map((i) => (
                   <div key={i} className="h-80 bg-gray-100 rounded-3xl animate-pulse" />
                 ))}
+              </div>
+            ) : pageState.status === 'error' ? (
+              <div className="text-center py-16 bg-red-50 rounded-3xl border border-red-100 max-w-xl mx-auto p-6">
+                <p className="text-sm font-semibold text-red-700 mb-1">Unable to Load Sectors</p>
+                <p className="text-xs text-red-600 mb-4">{pageState.message}</p>
+                <button
+                  onClick={load}
+                  className="px-4 py-2 bg-red-600 text-white rounded-xl text-xs font-bold hover:bg-red-700 transition-all"
+                >
+                  Retry Loading Sectors
+                </button>
               </div>
             ) : services.length === 0 ? (
               <div className="text-center py-16 bg-gray-50 rounded-3xl border border-gray-100">
@@ -148,7 +182,7 @@ export default function ServicesPage() {
                 {/* Horizontal 3-card display */}
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                   {visible.map((s, i) => (
-                    <ServiceCard key={s.id} service={s} index={startIdx + i} />
+                    <ServiceCard key={s.id} service={s} index={safeStartIdx + i} />
                   ))}
                 </div>
 
@@ -161,7 +195,7 @@ export default function ServicesPage() {
                         onClick={() => setStartIdx(i)}
                         aria-label={`Go to slide ${i + 1}`}
                         className={`h-2.5 rounded-full transition-all duration-300 ${
-                          i === startIdx
+                          i === safeStartIdx
                             ? 'w-7 bg-primary'
                             : 'w-2.5 bg-gray-200 hover:bg-gray-300'
                         }`}
@@ -172,18 +206,18 @@ export default function ServicesPage() {
                   <div className="flex items-center gap-3">
                     <button
                       onClick={prev}
-                      disabled={startIdx === 0}
+                      disabled={safeStartIdx === 0}
                       className="w-11 h-11 rounded-full border-2 border-gray-200 text-gray-500 hover:border-primary hover:text-primary disabled:opacity-30 disabled:hover:border-gray-200 disabled:hover:text-gray-500 transition-all flex items-center justify-center text-xl font-bold"
                       aria-label="Previous services"
                     >
                       ‹
                     </button>
                     <span className="text-xs font-semibold text-gray-400">
-                      {startIdx + 1} - {Math.min(startIdx + VISIBLE, services.length)} of {services.length}
+                      {safeStartIdx + 1} - {Math.min(safeStartIdx + VISIBLE, services.length)} of {services.length}
                     </span>
                     <button
                       onClick={next}
-                      disabled={startIdx >= maxStart}
+                      disabled={safeStartIdx >= maxStart}
                       className="w-11 h-11 rounded-full bg-primary text-white hover:opacity-90 disabled:opacity-30 transition-all flex items-center justify-center text-xl font-bold shadow-sm"
                       aria-label="Next services"
                     >

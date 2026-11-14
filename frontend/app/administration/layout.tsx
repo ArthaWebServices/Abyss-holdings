@@ -4,26 +4,64 @@ import { useRouter, usePathname } from 'next/navigation';
 import AdminSidebar from '@/components/admin/AdminSidebar';
 import { getMe } from '@/lib/api';
 
+type AuthStatus = 'verifying' | 'authenticated' | 'unauthenticated';
+
 export default function AdminLayout({ children }: { children: React.ReactNode }) {
-  const router   = useRouter();
+  const router = useRouter();
   const pathname = usePathname();
-  const [checked, setChecked] = useState(false);
+  const [authState, setAuthState] = useState<AuthStatus>(() =>
+    pathname === '/administration/login' ? 'authenticated' : 'verifying'
+  );
 
   useEffect(() => {
-    if (pathname === '/administration/login') { setChecked(true); return; }
-    const token = localStorage.getItem('admin_token');
-    if (!token) { router.push('/administration/login'); return; }
-    getMe()
-      .then(() => setChecked(true))
-      .catch(() => { localStorage.removeItem('admin_token'); router.push('/administration/login'); });
-  }, [pathname]);
+    let active = true;
 
-  if (pathname === '/administration/login') return <>{children}</>;
-  if (!checked) return (
-    <div className="h-screen flex items-center justify-center bg-dark text-white">
-      <div className="animate-spin w-8 h-8 border-2 border-primary border-t-transparent rounded-full" />
-    </div>
-  );
+    if (pathname === '/administration/login') {
+      setAuthState('authenticated');
+      return;
+    }
+
+    const token = typeof window !== 'undefined' ? localStorage.getItem('admin_token') : null;
+    if (!token) {
+      if (active) {
+        setAuthState('unauthenticated');
+        router.push('/administration/login');
+      }
+      return;
+    }
+
+    // Verify session
+    getMe()
+      .then(() => {
+        if (active) {
+          setAuthState('authenticated');
+        }
+      })
+      .catch(() => {
+        if (active) {
+          localStorage.removeItem('admin_token');
+          setAuthState('unauthenticated');
+          router.push('/administration/login');
+        }
+      });
+
+    return () => {
+      active = false;
+    };
+  }, [pathname, router]);
+
+  if (pathname === '/administration/login') {
+    return <>{children}</>;
+  }
+
+  if (authState !== 'authenticated') {
+    return (
+      <div className="h-screen flex flex-col items-center justify-center bg-slate-950 text-white gap-3">
+        <div className="animate-spin w-8 h-8 border-2 border-primary border-t-transparent rounded-full" />
+        <p className="text-xs text-gray-400 font-mono tracking-wider">Verifying Session Security…</p>
+      </div>
+    );
+  }
 
   return (
     <div className="flex min-h-screen bg-gray-100" style={{ marginRight: 0 }}>

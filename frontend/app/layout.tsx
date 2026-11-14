@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import './globals.css';
 import Navbar from '@/components/Navbar';
+import IntroSplash from '@/components/IntroSplash';
 import { CompanyProvider } from '@/components/CompanyContext';
 import { getServerCompany, getServerServices, hexToRgbChannels } from '@/lib/serverData';
 
@@ -65,15 +66,20 @@ export const metadata: Metadata = {
       'max-snippet': -1,
     },
   },
+  icons: {
+    icon: '/favicon.ico',
+    shortcut: '/images/abyss-logo-64.png',
+    apple: '/images/abyss-logo-180.png',
+  },
 };
 
 export default async function RootLayout({ children }: { children: React.ReactNode }) {
   const [company, services] = await Promise.all([getServerCompany(), getServerServices()]);
 
-  const primaryColor = company.primaryColor || '#E84545';
-  const secondaryColor = company.secondaryColor || '#1a1a2e';
-  const primaryRgb = hexToRgbChannels(primaryColor, '232 69 69');
-  const darkRgb = hexToRgbChannels(secondaryColor, '26 26 46');
+  const primaryColor = company.primaryColor || '#A6192E';
+  const secondaryColor = company.secondaryColor || '#0f1422';
+  const primaryRgb = hexToRgbChannels(primaryColor, '166 25 46');
+  const darkRgb = hexToRgbChannels(secondaryColor, '15 20 34');
 
   const structuredSchema = {
     '@context': 'https://schema.org',
@@ -86,10 +92,10 @@ export default async function RootLayout({ children }: { children: React.ReactNo
     telephone: company.phone || '+91 22 1234 5678',
     address: {
       '@type': 'PostalAddress',
-      streetAddress: company.address || 'Bandra Kurla Complex (BKC)',
+      streetAddress: company.address || '46/48 maruti cross lane, Borabazaar precint, Fort',
       addressLocality: 'Mumbai',
       addressRegion: 'Maharashtra',
-      postalCode: '400051',
+      postalCode: '400001',
       addressCountry: 'IN',
     },
     contactPoint: [
@@ -130,6 +136,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
         />
       </head>
       <body className="bg-gray-50 text-dark antialiased">
+        <IntroSplash />
         <CompanyProvider company={company} services={services}>
           <Navbar />
           <main className="mt-[104px] min-h-[calc(100vh-104px)]">

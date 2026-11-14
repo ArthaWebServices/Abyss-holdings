@@ -45,12 +45,15 @@ function toSlug(title: string) {
     .replace(/-+/g, '-');
 }
 
+type NavMenuState =
+  | { mode: 'closed' }
+  | { mode: 'desktop_dropdown' }
+  | { mode: 'mobile_drawer'; mobileSectorsExpanded: boolean };
+
 export default function Navbar() {
   const pathname = usePathname();
   const { company, services } = useCompany();
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const [sectorsDropdownOpen, setSectorsDropdownOpen] = useState(false);
-  const [mobileSectorsOpen, setMobileSectorsOpen] = useState(true);
+  const [menuState, setMenuState] = useState<NavMenuState>({ mode: 'closed' });
   const dropdownRef = useRef<HTMLDivElement>(null);
 
   const adminEmail = company.email || 'Admin@abyssholding.com';
@@ -59,6 +62,11 @@ export default function Navbar() {
   const companyName = company.name || 'Abyss Holdings';
   const tagline = company.tagline || 'Group of Companies';
   const hqText = company.address || 'HQ: Mumbai, India';
+
+  const isMobileOpen = menuState.mode === 'mobile_drawer';
+  const isDropdownOpen = menuState.mode === 'desktop_dropdown';
+  const isMobileSectorsExpanded =
+    menuState.mode === 'mobile_drawer' ? menuState.mobileSectorsExpanded : true;
 
   const sectorsNav = services.map((s) => {
     const slug = toSlug(s.title) || s.id;
@@ -72,17 +80,16 @@ export default function Navbar() {
     };
   });
 
-  // Close mobile menu and dropdown on route change
+  // Close menus on route change
   useEffect(() => {
-    setMobileMenuOpen(false);
-    setSectorsDropdownOpen(false);
+    setMenuState({ mode: 'closed' });
   }, [pathname]);
 
   // Click outside to close desktop dropdown
   useEffect(() => {
     function handleClickOutside(event: MouseEvent) {
       if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
-        setSectorsDropdownOpen(false);
+        setMenuState((prev) => (prev.mode === 'desktop_dropdown' ? { mode: 'closed' } : prev));
       }
     }
     document.addEventListener('mousedown', handleClickOutside);
@@ -91,7 +98,7 @@ export default function Navbar() {
 
   // Lock body scroll when mobile menu is open
   useEffect(() => {
-    if (mobileMenuOpen) {
+    if (isMobileOpen) {
       document.body.style.overflow = 'hidden';
     } else {
       document.body.style.overflow = '';
@@ -99,7 +106,32 @@ export default function Navbar() {
     return () => {
       document.body.style.overflow = '';
     };
-  }, [mobileMenuOpen]);
+  }, [isMobileOpen]);
+
+  const toggleMobileDrawer = () => {
+    setMenuState((prev) =>
+      prev.mode === 'mobile_drawer'
+        ? { mode: 'closed' }
+        : { mode: 'mobile_drawer', mobileSectorsExpanded: true }
+    );
+  };
+
+  const toggleDesktopDropdown = () => {
+    setMenuState((prev) =>
+      prev.mode === 'desktop_dropdown' ? { mode: 'closed' } : { mode: 'desktop_dropdown' }
+    );
+  };
+
+  const toggleMobileSectors = () => {
+    setMenuState((prev) => {
+      if (prev.mode !== 'mobile_drawer') return prev;
+      return { ...prev, mobileSectorsExpanded: !prev.mobileSectorsExpanded };
+    });
+  };
+
+  const closeMenu = () => {
+    setMenuState({ mode: 'closed' });
+  };
 
   // Hide navbar on admin pages
   if (pathname?.startsWith('/administration')) return null;
@@ -135,8 +167,18 @@ export default function Navbar() {
               </a>
             </div>
 
-            {/* Right: Corporate HQ & Hotline */}
-            <div className="hidden md:flex items-center gap-5 text-gray-400">
+            {/* Right: Corporate HQ, Hotline & Replay Intro */}
+            <div className="hidden md:flex items-center gap-4 text-gray-400">
+              <button
+                type="button"
+                onClick={() => window.dispatchEvent(new CustomEvent('abyss:replay-intro'))}
+                className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-rose-950/40 hover:bg-[#A6192E]/30 text-rose-300 hover:text-white border border-rose-900/60 transition-all text-[10.5px] font-medium group/btn shadow-sm"
+                title="Watch Opening Globe Animation"
+              >
+                <span className="w-1.5 h-1.5 rounded-full bg-[#A6192E] group-hover/btn:scale-125 transition-transform animate-pulse" />
+                <span>Globe Animation</span>
+              </button>
+              <span className="text-slate-700">|</span>
               <span className="inline-flex items-center gap-1 max-w-[260px] truncate">
                 <span className="text-primary">📍</span>
                 <span className="truncate">{hqText}</span>
@@ -155,12 +197,18 @@ export default function Navbar() {
             {/* Brand Logo */}
             <Link href="/" className="flex items-center gap-2.5 sm:gap-3 group shrink-0">
               {isSafeUrl(company.logoUrl) ? (
-                <img src={company.logoUrl} alt={companyName} className="w-9 h-9 object-contain rounded-lg" />
+                <div className="relative w-9 h-9 sm:w-10 sm:h-10 shrink-0">
+                  <img
+                    src={company.logoUrl}
+                    alt={companyName}
+                    className="w-full h-full object-contain transition-transform duration-300 group-hover:scale-105"
+                  />
+                </div>
               ) : (
-                <Logo size={36} />
+                <Logo size={38} />
               )}
               <div>
-                <p className="font-black text-sm sm:text-base leading-tight tracking-wide text-dark uppercase">
+                <p className="font-black text-sm sm:text-base leading-tight tracking-wide text-dark uppercase group-hover:text-primary transition-colors">
                   {companyName}
                 </p>
                 <p className="text-[7.5px] sm:text-[8px] text-gray-400 tracking-widest uppercase mt-0.5">
@@ -181,18 +229,20 @@ export default function Navbar() {
                       key={href}
                       ref={dropdownRef}
                       className="relative"
-                      onMouseEnter={() => setSectorsDropdownOpen(true)}
-                      onMouseLeave={() => setSectorsDropdownOpen(false)}
+                      onMouseEnter={() => setMenuState({ mode: 'desktop_dropdown' })}
+                      onMouseLeave={() =>
+                        setMenuState((prev) => (prev.mode === 'desktop_dropdown' ? { mode: 'closed' } : prev))
+                      }
                     >
                       <button
-                        onClick={() => setSectorsDropdownOpen((v) => !v)}
+                        onClick={toggleDesktopDropdown}
                         className={`text-sm font-medium transition-all duration-200 flex items-center gap-1 pb-1
                           ${isServicesActive ? 'text-primary font-semibold' : 'text-gray-600 hover:text-dark'}`}
                       >
                         <span>{label}</span>
                         <svg
                           className={`w-3.5 h-3.5 transition-transform duration-200 ${
-                            sectorsDropdownOpen ? 'rotate-180 text-primary' : 'text-gray-400'
+                            isDropdownOpen ? 'rotate-180 text-primary' : 'text-gray-400'
                           }`}
                           fill="none"
                           viewBox="0 0 24 24"
@@ -206,7 +256,7 @@ export default function Navbar() {
                       </button>
 
                       {/* Mega Dropdown Menu for Sectors */}
-                      {sectorsDropdownOpen && (
+                      {isDropdownOpen && (
                         <div className="absolute top-full -left-12 w-[380px] bg-white rounded-2xl shadow-2xl border border-gray-100 p-3 pt-3 animate-in fade-in slide-in-from-top-2 duration-200 z-50">
                           <div className="px-3 py-2 border-b border-gray-100 flex items-center justify-between mb-2">
                             <span className="text-[10px] font-bold uppercase tracking-wider text-gray-400">
@@ -214,7 +264,7 @@ export default function Navbar() {
                             </span>
                             <Link
                               href="/services"
-                              onClick={() => setSectorsDropdownOpen(false)}
+                              onClick={closeMenu}
                               className="text-[11px] font-semibold text-primary hover:underline"
                             >
                               View All Portfolios →
@@ -225,7 +275,7 @@ export default function Navbar() {
                               <Link
                                 key={sec.slug}
                                 href={`/services/${sec.slug}`}
-                                onClick={() => setSectorsDropdownOpen(false)}
+                                onClick={closeMenu}
                                 className="flex items-center justify-between p-2.5 rounded-xl hover:bg-gray-50 transition-colors group/item"
                               >
                                 <div className="flex items-center gap-3">
@@ -282,23 +332,23 @@ export default function Navbar() {
             {/* Mobile Hamburger Button */}
             <div className="flex lg:hidden items-center gap-2">
               <button
-                onClick={() => setMobileMenuOpen((prev) => !prev)}
+                onClick={toggleMobileDrawer}
                 aria-label="Toggle navigation menu"
                 className="w-10 h-10 rounded-xl bg-gray-50 hover:bg-gray-100 border border-gray-200/80 flex flex-col items-center justify-center gap-1.5 transition-colors focus:outline-none"
               >
                 <span
                   className={`w-5 h-0.5 bg-dark rounded transition-all duration-300 ${
-                    mobileMenuOpen ? 'rotate-45 translate-y-2' : ''
+                    isMobileOpen ? 'rotate-45 translate-y-2' : ''
                   }`}
                 />
                 <span
                   className={`w-5 h-0.5 bg-dark rounded transition-all duration-300 ${
-                    mobileMenuOpen ? 'opacity-0' : ''
+                    isMobileOpen ? 'opacity-0' : ''
                   }`}
                 />
                 <span
                   className={`w-5 h-0.5 bg-dark rounded transition-all duration-300 ${
-                    mobileMenuOpen ? '-rotate-45 -translate-y-2' : ''
+                    isMobileOpen ? '-rotate-45 -translate-y-2' : ''
                   }`}
                 />
               </button>
@@ -308,7 +358,7 @@ export default function Navbar() {
       </header>
 
       {/* ── Mobile Drawer Overlay ───────────────────────────── */}
-      {mobileMenuOpen && (
+      {isMobileOpen && (
         <div className="fixed inset-0 z-40 lg:hidden bg-dark/50 backdrop-blur-sm animate-in fade-in duration-200">
           <div className="fixed top-[104px] left-0 right-0 bg-white border-b border-gray-100 shadow-2xl p-6 flex flex-col gap-3 animate-in slide-in-from-top-4 duration-300 max-h-[calc(100vh-6.5rem)] overflow-y-auto">
             {/* Dual Email Quick Actions */}
@@ -344,7 +394,7 @@ export default function Navbar() {
                 return (
                   <div key={href} className="space-y-2">
                     <button
-                      onClick={() => setMobileSectorsOpen((v) => !v)}
+                      onClick={toggleMobileSectors}
                       className="w-full flex items-center justify-between text-base font-semibold py-3 px-4 rounded-xl text-gray-700 hover:bg-gray-50"
                     >
                       <span className="flex items-center gap-2">
@@ -354,7 +404,7 @@ export default function Navbar() {
                         </span>
                       </span>
                       <svg
-                        className={`w-4 h-4 transition-transform ${mobileSectorsOpen ? 'rotate-180' : ''}`}
+                        className={`w-4 h-4 transition-transform ${isMobileSectorsExpanded ? 'rotate-180' : ''}`}
                         fill="none"
                         viewBox="0 0 24 24"
                         stroke="currentColor"
@@ -363,13 +413,13 @@ export default function Navbar() {
                       </svg>
                     </button>
 
-                    {mobileSectorsOpen && (
+                    {isMobileSectorsExpanded && (
                       <div className="pl-3 pr-1 py-1 space-y-1 bg-gray-50 rounded-2xl border border-gray-100">
                         {sectorsNav.map((sec) => (
                           <Link
                             key={sec.slug}
                             href={`/services/${sec.slug}`}
-                            onClick={() => setMobileMenuOpen(false)}
+                            onClick={closeMenu}
                             className="flex items-center justify-between py-2.5 px-3 rounded-lg text-xs font-medium text-gray-700 hover:bg-white hover:text-primary transition-colors"
                           >
                             <span className="flex items-center gap-2">
@@ -389,7 +439,7 @@ export default function Navbar() {
                 <Link
                   key={href}
                   href={href}
-                  onClick={() => setMobileMenuOpen(false)}
+                  onClick={closeMenu}
                   className={`flex items-center justify-between text-base font-semibold py-3 px-4 rounded-xl transition-all duration-200 ${
                     active
                       ? 'bg-red-50 text-primary border border-red-100'
@@ -416,7 +466,7 @@ export default function Navbar() {
               </p>
               <Link
                 href="/contact"
-                onClick={() => setMobileMenuOpen(false)}
+                onClick={closeMenu}
                 className="mt-2 w-full text-center py-3 rounded-xl bg-primary text-white font-semibold text-sm shadow-md shadow-primary/25 active:scale-[0.98] transition-all"
               >
                 Contact Corporate Desk
