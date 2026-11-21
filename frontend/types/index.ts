@@ -25,10 +25,18 @@ export interface Project {
   title: string;
   description: string;
   imageUrl: string;
+  images?: string[];
   category: string;
   status: string;
   year: number;
   order: number;
+  client?: string;
+  location?: string;
+  value?: string;
+  scale?: string;
+  scope?: string;
+  highlights?: string[];
+  longDescription?: string;
 }
 
 export interface Company {

@@ -160,7 +160,22 @@ export default async function AboutPage() {
                 {
                   img: 'https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=800&q=80',
                   title: 'Enterprise Tech & AI Systems',
-                  sub: 'High-availability mission-critical cloud and security infrastructure.',
+                  sub: 'High-availability mission-critical cloud, cybersecurity, and data telemetry.',
+                },
+                {
+                  img: 'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=800&q=80',
+                  title: 'Grade-A Realities & Townships',
+                  sub: 'Curating luxury commercial towers and integrated master-planned communities.',
+                },
+                {
+                  img: 'https://images.unsplash.com/photo-1590283603385-17ffb3a7f29f?w=800&q=80',
+                  title: 'Capital Investments & Private Equity',
+                  sub: 'Deploying strategic growth capital and institutional asset management.',
+                },
+                {
+                  img: 'https://images.unsplash.com/photo-1581092160607-ee22621dd758?w=800&q=80',
+                  title: 'Heavy Earth Moving & Mining Fleets',
+                  sub: 'High-tonnage hydraulic excavators and GPS-graded terrain development.',
                 },
                 {
                   img: 'https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=800&q=80',
@@ -172,22 +187,25 @@ export default async function AboutPage() {
                   key={i}
                   className="group rounded-3xl overflow-hidden bg-white border border-gray-100 shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col"
                 >
-                  <div className="relative h-56 w-full overflow-hidden bg-gray-100">
+                  <div className="relative h-56 w-full overflow-hidden bg-slate-900">
                     <Image
                       src={card.img}
                       alt={card.title}
                       fill
-                      className="object-cover group-hover:scale-105 transition-transform duration-500"
+                      className="object-cover group-hover:scale-108 transition-transform duration-700 brightness-[0.92]"
                       sizes="(max-width: 768px) 100vw, 33vw"
                     />
+                    <div className="absolute inset-0 bg-gradient-to-t from-slate-950/60 via-transparent to-transparent" />
                   </div>
-                  <div className="p-6">
-                    <h3 className="font-bold text-lg text-dark group-hover:text-primary transition-colors mb-2">
-                      {card.title}
-                    </h3>
-                    <p className="text-xs text-gray-500 leading-relaxed">
-                      {card.sub}
-                    </p>
+                  <div className="p-6 flex-1 flex flex-col justify-between">
+                    <div>
+                      <h3 className="font-bold text-lg text-dark group-hover:text-primary transition-colors mb-2">
+                        {card.title}
+                      </h3>
+                      <p className="text-xs text-gray-500 leading-relaxed">
+                        {card.sub}
+                      </p>
+                    </div>
                   </div>
                 </div>
               ))}

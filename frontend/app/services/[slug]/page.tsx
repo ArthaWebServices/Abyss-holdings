@@ -49,7 +49,7 @@ async function resolveSectorContext(rawSlug: string) {
 
   const toSectorProject = (p: (typeof matchingDbProjects)[number]) => ({
     title: p.title,
-    location: headquarters,
+    location: p.location || headquarters,
     year: String(p.year || new Date().getFullYear()),
     status: p.status || 'Active',
     description: p.description,

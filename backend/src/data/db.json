@@ -143,72 +143,382 @@
     {
       "id": "1",
       "title": "Metropolis Corporate Twin Towers",
-      "description": "A 1.4M sq.ft Grade-A commercial complex with LEED Gold green building certification and seismic dampening.",
-      "imageUrl": "https://images.unsplash.com/photo-1486325212027-8081e485255e?w=800&q=80",
+      "description": "A landmark 1.45M sq.ft Grade-A commercial skyscraper development featuring seismic dampening systems, high-speed vertical transportation, and LEED Platinum sustainability standards.",
+      "longDescription": "Awarded as a turnkey Engineering, Procurement, and Construction (EPC) mandate, the Metropolis Corporate Twin Towers stands as a defining silhouette on the Mumbai skyline. The project encompasses two 48-storey high-rise commercial towers interconnected by a panoramic skybridge at Level 30. Built with high-performance C60/75 self-consolidating concrete and post-tensioned floor plates, the structure integrates passive solar orientation, double-laminated low-E curtain walling, and deep geothermal piling through fractured basalt geology. The project achieved full practical handover 2 months ahead of schedule with over 6.5 million safe man-hours without Lost Time Injury (LTI).",
+      "imageUrl": "https://images.unsplash.com/photo-1486325212027-8081e485255e?w=1200&q=80",
+      "images": [
+        "https://images.unsplash.com/photo-1486325212027-8081e485255e?w=1200&q=80",
+        "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=1200&q=80",
+        "https://images.unsplash.com/photo-1541888946425-d0fbb186c5f7?w=1200&q=80",
+        "https://images.unsplash.com/photo-1497366216548-37526070297c?w=1200&q=80"
+      ],
       "category": "Construction",
       "status": "Completed",
       "year": 2024,
-      "order": 1
+      "order": 1,
+      "client": "Apex Global Asset Management & Institutional Real Estate Trust",
+      "location": "Bandra-Kurla Complex (BKC), Mumbai, Maharashtra",
+      "value": "₹820 Crore ($98M)",
+      "scale": "1,450,000 Sq.Ft Built-Up Area | 48 Storeys",
+      "scope": "Turnkey EPC, Deep Substructure Piling, Core-and-Shell Civil Works, Advanced MEP & Façade Glazing",
+      "highlights": [
+        "LEED Platinum Certified Green Building Design",
+        "Custom Tuned Mass Dampers for Seismic & Wind Sway Neutralization",
+        "100% On-Site Greywater Treatment & Dual Plumbing Distribution",
+        "Over 6.5 Million Safe Man-Hours without Lost Time Injury (LTI)"
+      ]
     },
     {
       "id": "2",
-      "title": "GreenHorizon Renewable Energy Fund",
-      "description": "A $65M direct private equity deployment into solar-wind hybrid utility plants powering industrial corridors.",
-      "imageUrl": "https://images.unsplash.com/photo-1466611653911-95081537e5b7?w=800&q=80",
-      "category": "Investments",
-      "status": "Ongoing",
-      "year": 2024,
-      "order": 2
+      "title": "Godavari Multi-Modal Logistics Super-Hub",
+      "description": "An 850,000 sq.ft high-throughput industrial and temperature-controlled logistics hub engineered with heavy-duty laser-screeded flooring and automated cross-docking infrastructure.",
+      "longDescription": "Developed as part of India's Southern Freight Highway network, this 65-acre intermodal logistics hub was built to handle up to 45,000 pallets daily. The super-hub features 120 automated hydraulic dock levelers, 14-meter clear working heights, pre-engineered high-tensile steel portal frames, and a dedicated 3.2 MW rooftop solar canopy capable of powering the entire facility off-grid during daytime peak hours. Built with jointless post-tensioned concrete slab flooring (FM2 special tolerance) capable of supporting 10-ton point loads.",
+      "imageUrl": "https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?w=1200&q=80",
+      "images": [
+        "https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?w=1200&q=80",
+        "https://images.unsplash.com/photo-1553413077-190dd305871c?w=1200&q=80",
+        "https://images.unsplash.com/photo-1504917599217-d4dc5ebe6122?w=1200&q=80"
+      ],
+      "category": "Construction",
+      "status": "Completed",
+      "year": 2023,
+      "order": 2,
+      "client": "National Logistics & Cargo Infrastructure Ltd.",
+      "location": "Financial District Logistics Belt, Hyderabad, Telangana",
+      "value": "₹360 Crore ($43M)",
+      "scale": "850,000 Sq.Ft Covered Warehousing | 65-Acre Logistics Park",
+      "scope": "Master Civil Works, Heavy Steel Structural Fabrication, High-Voltage Substation, Roadways & Laser-Screeded Concrete",
+      "highlights": [
+        "14-Meter Clear Height with Super-Flat FM2 Precision Slabs",
+        "3.2 MW Captive Rooftop Solar Photovoltaic Generation",
+        "120 Automated Cross-Dock Hydraulic Loading Bays",
+        "Dedicated Multi-Temperature Cold Chain Storage Zones (-25°C to +4°C)"
+      ]
     },
     {
       "id": "3",
-      "title": "The Azure Crest Residences",
-      "description": "42-story luxury residential high-rise featuring 240 bespoke sky-villas, infinity pool, and concierge wellness hub.",
-      "imageUrl": "https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?w=800&q=80",
-      "category": "Realities",
-      "status": "Completed",
+      "title": "GreenHorizon Hybrid Solar-Wind Utility Corridor",
+      "description": "A $220M direct capital deployment into a 420 MW utility-scale hybrid renewable energy park powering regional heavy industrial manufacturing corridors.",
+      "longDescription": "The GreenHorizon mandate represents Abyss Holdings' flagship infrastructure investment portfolio. Spanning 1,800 acres across the high-irradiance and wind-rich desert corridor, the plant integrates bifacial monocrystalline solar panels with 140m hub-height wind turbines. Abyss Holdings orchestrated the complete financial closure, sovereign PPA underwriting, environmental impact governance, and equipment procurement consortium, delivering an internal rate of return (IRR) exceeding 18.4% across 25-year guaranteed off-take contracts.",
+      "imageUrl": "https://images.unsplash.com/photo-1466611653911-95081537e5b7?w=1200&q=80",
+      "images": [
+        "https://images.unsplash.com/photo-1466611653911-95081537e5b7?w=1200&q=80",
+        "https://images.unsplash.com/photo-1509391365360-2e959784a276?w=1200&q=80",
+        "https://images.unsplash.com/photo-1473341304170-971dccb5ac1e?w=1200&q=80"
+      ],
+      "category": "Investments",
+      "status": "Ongoing",
       "year": 2024,
-      "order": 3
+      "order": 3,
+      "client": "National Clean Energy Consortium & State Power Grid Corporation",
+      "location": "Jaisalmer & Kutch Corridor, Rajasthan & Gujarat",
+      "value": "₹1,850 Crore ($220M)",
+      "scale": "420 MW Combined Generation | 1,800 Acres Developed",
+      "scope": "Private Equity Syndication, Sovereign Debt Structuring, 25-Year PPA Underwriting & EPC Oversight",
+      "highlights": [
+        "420 MW Clean Energy Displacing 580,000 MT CO2 Annually",
+        "Bifacial N-Type Solar PV Combined with 3.3 MW Wind Turbines",
+        "25-Year Tier-1 Institutional Power Purchase Agreement (PPA)",
+        "Integrated 50 MWh Battery Energy Storage System (BESS) Readiness"
+      ]
     },
     {
       "id": "4",
-      "title": "FinEdge Core Banking Cloud Migration",
-      "description": "Multi-region cloud infrastructure transformation processing 4,000 transactions per second with 99.999% uptime.",
-      "imageUrl": "https://images.unsplash.com/photo-1551836022-d5d88e9218df?w=800&q=80",
-      "category": "Technologies",
+      "title": "Indus LifeSciences Venture Capital Deployment",
+      "description": "Growth capital financing and strategic advisory accelerating clinical manufacturing of recombinant biologics and specialized oncology therapeutics.",
+      "longDescription": "Through our healthcare and life-sciences investment arm, Abyss Holdings led the Series B funding consortium for Indus Bio-Therapeutics. The capital catalyzed the completion of a state-of-the-art 90,000 sq.ft WHO-GMP and US-FDA compliant fermentation facility, expediting the launch of two critical affordable biosimilar therapeutics for regional and international healthcare systems.",
+      "imageUrl": "https://images.unsplash.com/photo-1532187863486-abf9dbad1b69?w=1200&q=80",
+      "images": [
+        "https://images.unsplash.com/photo-1532187863486-abf9dbad1b69?w=1200&q=80",
+        "https://images.unsplash.com/photo-1582719471384-894fbb16e074?w=1200&q=80",
+        "https://images.unsplash.com/photo-1579165466791-78822d31e0a7?w=1200&q=80"
+      ],
+      "category": "Investments",
       "status": "Completed",
-      "year": 2024,
-      "order": 4
+      "year": 2023,
+      "order": 4,
+      "client": "Indus Bio-Therapeutics Group",
+      "location": "Genome Valley, Hyderabad & Electronic City, Bengaluru",
+      "value": "₹280 Crore ($34M)",
+      "scale": "Series B Equity Lead | 90,000 Sq.Ft Fermentation Facility",
+      "scope": "Equity Capital, Regulatory Roadmap Structuring, Commercial Production Scaling",
+      "highlights": [
+        "90,000 Sq.Ft US-FDA / WHO-GMP Biopharma Manufacturing Cleanrooms",
+        "Fast-Track Clinical Approval for 2 Critical Oncology Biosimilars",
+        "Over 3.4x Capital Growth Multiple Since Strategic Entry",
+        "Expanded Distribution Reach Across 14 International Emerging Markets"
+      ]
     },
     {
       "id": "5",
-      "title": "GreenTransit Electric Fleet Logistics",
-      "description": "Deployment of 350 commercial zero-emission electric delivery vans supported by 24 fast-charging transit depots.",
-      "imageUrl": "https://images.unsplash.com/photo-1563720223185-11003d516935?w=800&q=80",
-      "category": "Automobiles",
-      "status": "Ongoing",
+      "title": "The Azure Crest Sky-Villas & Residences",
+      "description": "A 42-storey ultra-luxury residential skyscraper featuring 180 bespoke sky-mansions, cantilevered infinity plunge pools, and uninterrupted ocean panoramas.",
+      "longDescription": "Rising gracefully over the Arabian Sea, The Azure Crest redefines waterfront high-luxury living in India. Each residence is laid out as a column-free 'sky-mansion' with 3.8-meter ceiling heights, private elevator foyers, smart home environmental automation, and deep cantilevered balconies with private plunge pools. The tower includes a 3-level podium clubhouse with a temperature-controlled infinity pool, wellness spa, private dining salons, and 24/7 white-glove concierge services.",
+      "imageUrl": "https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?w=1200&q=80",
+      "images": [
+        "https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?w=1200&q=80",
+        "https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=1200&q=80",
+        "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=1200&q=80",
+        "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=1200&q=80"
+      ],
+      "category": "Realities",
+      "status": "Completed",
       "year": 2024,
-      "order": 5
+      "order": 5,
+      "client": "Abyss Realities Luxury Developments",
+      "location": "Worli Seaface Promenade, Mumbai, Maharashtra",
+      "value": "₹950 Crore ($114M)",
+      "scale": "680,000 Sq.Ft | 42 Storeys | 180 Bespoke Sky-Villas",
+      "scope": "Concept Master Development, Luxury Architectural Execution, Structural Engineering & Interior Fit-Out",
+      "highlights": [
+        "100% Unobstructed Arabian Sea Coastal Views Across All Units",
+        "Cantilevered Sky-Pools Engineered with Specialized Acrylic Water Enclosures",
+        "Triple-Height Grand Arrival Lobby Clad in Imported Italian Travertine",
+        "Five-Tier Smart Biometric Security & Automated Concierge Hub"
+      ]
     },
     {
       "id": "6",
-      "title": "Trans-Regional Expressway Earthworks",
-      "description": "Excavated and graded 4.2 million cubic meters of earth across an 82km greenfield corridor ahead of schedule.",
-      "imageUrl": "https://images.unsplash.com/photo-1578328819058-b69f3a3b0f6b?w=800&q=80",
-      "category": "Earth Movers",
-      "status": "Completed",
+      "title": "Oakwood Boulevard Master-Planned Township",
+      "description": "An integrated 110-acre sustainable smart township featuring 1,200 luxury low-rise residences, central botanical lakes, and world-class sports academies.",
+      "longDescription": "Oakwood Boulevard is engineered as an eco-conscious urban oasis. Designed on a biophilic master plan with 45% conserved green canopies, the development includes automated underground utility networks, zero-discharge wastewater recycling, 12 kilometers of pedestrian-first walking and cycling avenues, an international K-12 academic campus, and a 40,000 sq.ft equestrian and sports club.",
+      "imageUrl": "https://images.unsplash.com/photo-1613490493576-7fde63acd811?w=1200&q=80",
+      "images": [
+        "https://images.unsplash.com/photo-1613490493576-7fde63acd811?w=1200&q=80",
+        "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=1200&q=80",
+        "https://images.unsplash.com/photo-1580587771525-78b9dba3b914?w=1200&q=80"
+      ],
+      "category": "Realities",
+      "status": "Ongoing",
       "year": 2024,
-      "order": 6
+      "order": 6,
+      "client": "Karnataka Urban Infrastructure Development Corporation & Private JDA",
+      "location": "Whitefield Prime Corridor, Bengaluru, Karnataka",
+      "value": "₹1,120 Crore ($135M)",
+      "scale": "110 Acres | 1,200 Signature Villas & Townhomes",
+      "scope": "Master Community Planning, Civil Infrastructure, Residential Construction & Landscape Architecture",
+      "highlights": [
+        "45% Preserved Green Canopy & Decentralized Rainwater Reservoirs",
+        "Complete Underground Smart Power, Fiber-Optic & Irrigation Ducts",
+        "Zero-Liquid Discharge (ZLD) Advanced Sequencing Batch Reactor STP",
+        "GRIHA 5-Star Green Township Certification"
+      ]
     },
     {
       "id": "7",
-      "title": "EcoActive Sustainable Performance Apparel",
-      "description": "Manufacturing 3.6M units of recycled ocean-polymer sportswear for international athletic retail brands.",
-      "imageUrl": "https://images.unsplash.com/photo-1509631179647-0177331693ae?w=800&q=80",
+      "title": "FinEdge Core Banking Cloud Migration",
+      "description": "A high-security, multi-region hybrid cloud transformation powering 24 million active accounts and processing 4,200 financial transactions per second.",
+      "longDescription": "Abyss Technologies engineered the mission-critical cloud modernization of a premier scheduled commercial bank. The transition migrated legacy mainframe architectures to a geo-distributed Kubernetes microservices infrastructure running across Mumbai and Chennai Tier-IV data centers. Featuring zero-trust hardware encryption, real-time fraud mitigation powered by neural models, and instant active-active failover with sub-200ms RPO.",
+      "imageUrl": "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=1200&q=80",
+      "images": [
+        "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=1200&q=80",
+        "https://images.unsplash.com/photo-1551836022-d5d88e9218df?w=1200&q=80",
+        "https://images.unsplash.com/photo-1504384308090-c894fdcc538d?w=1200&q=80"
+      ],
+      "category": "Technologies",
+      "status": "Completed",
+      "year": 2024,
+      "order": 7,
+      "client": "Top-Tier Scheduled Commercial Banking Group",
+      "location": "Tier-IV Dual Hyper-Scale Data Centers, Mumbai & Chennai",
+      "value": "₹195 Crore ($24M)",
+      "scale": "24 Million Active Accounts | 4,200 TPS Peak Throughput",
+      "scope": "Enterprise Cloud Architecture, Microservices Re-platforming, Zero-Trust Security & SOC Compliance",
+      "highlights": [
+        "Zero Transaction Data Loss During 36-Hour Cutover Window",
+        "99.999% High Availability with Active-Active Disaster Recovery",
+        "42% Reduction in Annual Compute & Infrastructure Licensing Outlay",
+        "RBI & SOC 2 Type II Cyber-Security Regulatory Compliance"
+      ]
+    },
+    {
+      "id": "8",
+      "title": "Cognitive AI Supply Chain Orchestration Platform",
+      "description": "Enterprise-grade artificial intelligence platform coordinating 1,800 nationwide nodes, optimizing dynamic freight routing, and saving 14% fuel expenditure.",
+      "longDescription": "Commissioned for an industrial conglomerate moving 85,000 consignments daily, this enterprise software suite combines edge IoT telematics, predictive machine learning demand forecasting, and automated yard management. The system processes billions of telemetry data points to automatically adjust distribution routes in real-time against weather disruptions and highway congestion.",
+      "imageUrl": "https://images.unsplash.com/photo-1518770660439-4636190af475?w=1200&q=80",
+      "images": [
+        "https://images.unsplash.com/photo-1518770660439-4636190af475?w=1200&q=80",
+        "https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?w=1200&q=80",
+        "https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=1200&q=80"
+      ],
+      "category": "Technologies",
+      "status": "Ongoing",
+      "year": 2024,
+      "order": 8,
+      "client": "Bharat Heavy Logistics & Industrial Distribution Consortium",
+      "location": "Pan-India Command & Cloud Telematics Center, Bengaluru",
+      "value": "₹125 Crore ($15M)",
+      "scale": "1,800 Logistics Hubs | 85,000 Daily Commercial Consignments",
+      "scope": "Custom Neural AI Engine, Real-Time Edge IoT Telematics, Cloud Dashboarding & Driver Apps",
+      "highlights": [
+        "14.2% Measurable Reduction in Nationwide Fleet Fuel Expenditure",
+        "32% Decrease in Unplanned Vehicle Downtime Through Predictive Telematics",
+        "Sub-Second Cargo Manifest Verification via Computer Vision",
+        "Seamless SAP & Oracle ERP Bi-Directional Synchronization"
+      ]
+    },
+    {
+      "id": "9",
+      "title": "GreenTransit Commercial EV Fleet Logistics",
+      "description": "Deployment of 650 custom-engineered zero-emission electric delivery vans backed by 32 dedicated automated 120kW DC fast-charging depots.",
+      "longDescription": "GreenTransit is our urban clean-mobility initiative designed to eliminate tailpipe emissions from last-mile metropolitan delivery fleets. Abyss Automobiles oversaw the customized commercial chassis procurement, high-density LFP battery pack integration, telematics-enabled route optimization, and the complete civil construction of 32 proprietary fast-charging depots across the National Capital Region and Mumbai Metropolitan Area.",
+      "imageUrl": "https://images.unsplash.com/photo-1563720223185-11003d516935?w=1200&q=80",
+      "images": [
+        "https://images.unsplash.com/photo-1563720223185-11003d516935?w=1200&q=80",
+        "https://images.unsplash.com/photo-1593941707882-a5bba14938c7?w=1200&q=80",
+        "https://images.unsplash.com/photo-1619642751034-765dfdf7c58e?w=1200&q=80"
+      ],
+      "category": "Automobiles",
+      "status": "Ongoing",
+      "year": 2024,
+      "order": 9,
+      "client": "Metro E-Commerce & Retail Supply Networks Ltd.",
+      "location": "Delhi NCR, Mumbai & Pune Metropolitan Corridors",
+      "value": "₹210 Crore ($25M)",
+      "scale": "650 Electric Commercial Vans | 32 Fast-Charging Transit Plazas",
+      "scope": "EV Fleet Customization, Charging Infrastructure EPC, IoT Battery Health Monitoring & Fleet Maintenance",
+      "highlights": [
+        "Over 18,500 Metric Tons of Carbon Dioxide Offset Annually",
+        "99.2% Scheduled Fleet Dispatch Reliability Rate",
+        "Smart Load Balancing Charging Software Preventing Local Grid Strain",
+        "120kW DC Fast-Charging Replenishing 80% Range in 38 Minutes"
+      ]
+    },
+    {
+      "id": "10",
+      "title": "Armored Tactical Mobility Platforms",
+      "description": "Design, ballistic hardening, and precision fabrication of 120 specialized all-terrain armored vehicles for specialized high-threat transit operations.",
+      "longDescription": "Engineered at our specialized automotive engineering center near Chennai, these armored vehicles are built to withstand severe ballistic threats and mine blast events. Featuring certified high-hardness armor steel plating, composite spall liners, multi-layer bullet-resistant glass, blast-attenuating floor geometries, and specialized central tire inflation systems (CTIS) capable of driving out of danger zones even after full ballistic puncture.",
+      "imageUrl": "https://images.unsplash.com/photo-1533473359331-0135ef1b58bf?w=1200&q=80",
+      "images": [
+        "https://images.unsplash.com/photo-1533473359331-0135ef1b58bf?w=1200&q=80",
+        "https://images.unsplash.com/photo-1542282088-72c9c27ed0cd?w=1200&q=80",
+        "https://images.unsplash.com/photo-1486006920555-c77dce18193b?w=1200&q=80"
+      ],
+      "category": "Automobiles",
+      "status": "Completed",
+      "year": 2023,
+      "order": 10,
+      "client": "Institutional Defense Agencies & Diplomatic Security Divisions",
+      "location": "Specialty Mobility Assembly Plant, Chennai, Tamil Nadu",
+      "value": "₹175 Crore ($21M)",
+      "scale": "120 Heavy Armored Platforms Delivered",
+      "scope": "Ballistic Steel Engineering, Suspension Heavy-Rating, Off-Road Testing & Lifecycle Maintenance",
+      "highlights": [
+        "Certified STANAG Level II Ballistic & Blast Protection Standards",
+        "Military-Grade Run-Flat System Driving 80km at 50km/h with Zero Tire Pressure",
+        "Reinforced Heavy-Duty Independent Air Suspension for Extreme Terrains",
+        "Specialized Floor V-Hull Blast Deflection Architecture"
+      ]
+    },
+    {
+      "id": "11",
+      "title": "Trans-Regional Coastal Highway Earthworks",
+      "description": "Massive precision excavation, deep cut-and-fill, and rock slope stabilization moving 6.8 million cubic meters across a high-gradient 115km coastal corridor.",
+      "longDescription": "Executing high-tonnage earth moving through challenging coastal ghat topography, Abyss Earth Movers operated 85 high-capacity crawler excavators, 45-ton off-highway dump trucks, and satellite-guided GPS motor graders. The scope required controlled rock excavation through hard basalt, heavy stabilization of 45-degree monsoon-prone hillsides using pre-stressed soil nails and geogrid reinforcement, completed 4 months ahead of the state deadline.",
+      "imageUrl": "https://images.unsplash.com/photo-1578328819058-b69f3a3b0f6b?w=1200&q=80",
+      "images": [
+        "https://images.unsplash.com/photo-1578328819058-b69f3a3b0f6b?w=1200&q=80",
+        "https://images.unsplash.com/photo-1508873696983-2df5293cb39f?w=1200&q=80",
+        "https://images.unsplash.com/photo-1581094794329-c8112a89af12?w=1200&q=80"
+      ],
+      "category": "Earth Movers",
+      "status": "Completed",
+      "year": 2024,
+      "order": 11,
+      "client": "National Highways Authority of India & Public Works Department",
+      "location": "Konkan Coastal Highway Corridor, Maharashtra",
+      "value": "₹440 Crore ($53M)",
+      "scale": "6,800,000 Cubic Meters Excavation | 115km Mountainous Highway",
+      "scope": "Heavy Earthmoving Fleet Deployment, Deep Rock Cut-and-Fill, Soil Nailing & Slope Stabilization",
+      "highlights": [
+        "Zero Lost-Time Environmental Spills Along Sensitive Coastal Watersheds",
+        "GPS-Guided Grade Control Achieving Sub-15mm Formation Accuracy",
+        "Over 85 Heavy Machines Coordinated via Unified Satellite Telemetry",
+        "Completed 4 Months Ahead of Contractual Execution Milestone"
+      ]
+    },
+    {
+      "id": "12",
+      "title": "Singrauli Mineral Mining Fleet Operations",
+      "description": "Continuous overburden extraction and heavy earthmoving operations handling 12.5 million bulk cubic meters annually with 94% machine availability.",
+      "longDescription": "Under a 5-year mining support contract, Abyss Earth Movers provides 24/7 heavy machinery extraction and overburden removal. Deploying 90-ton hydraulic excavators, 60-ton mining dumpers, water mist cannon environmental dust suppression units, and on-site mobile component rebuild workshops that maintain industry-leading mechanical asset uptime in grueling open-cast conditions.",
+      "imageUrl": "https://images.unsplash.com/photo-1518709268805-4e9042af9f23?w=1200&q=80",
+      "images": [
+        "https://images.unsplash.com/photo-1518709268805-4e9042af9f23?w=1200&q=80",
+        "https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?w=1200&q=80",
+        "https://images.unsplash.com/photo-1589939705384-5185137a7f0f?w=1200&q=80"
+      ],
+      "category": "Earth Movers",
+      "status": "Ongoing",
+      "year": 2024,
+      "order": 12,
+      "client": "Central Mineral & Energy Resources Development Corporation",
+      "location": "Singrauli Industrial Coal & Minerals Belt, Madhya Pradesh",
+      "value": "₹580 Crore ($70M)",
+      "scale": "12.5 Million BCM Overburden Per Annum | 120 Heavy Mining Machines",
+      "scope": "24/7 Heavy Surface Mining, Overburden Stripping, In-Pit Workshop Engineering & Mine Safety",
+      "highlights": [
+        "94.2% Fleet Mechanical Availability Maintained Across 3 Shift Cycles",
+        "Over 2.4 Million Safe Operational Man-Hours Recorded",
+        "Real-Time Wireless Payload & Fuel Consumption Telematics on Every Hauler",
+        "Comprehensive Mine Dust Suppression with High-Pressure Mist Cannons"
+      ]
+    },
+    {
+      "id": "13",
+      "title": "EcoActive Zero-Liquid Discharge Technical Apparel Facility",
+      "description": "A 250,000 sq.ft state-of-the-art textile manufacturing hub producing 4.8 million technical performance sportswear units with 100% closed-loop water recycling.",
+      "longDescription": "The EcoActive technical apparel plant represents a paradigm shift in responsible industrial fashion manufacturing. Built to serve international sportswear brands, the facility integrates automated laser pattern cutting, high-speed computerized bonding, eco-friendly waterless fabric dyeing systems, and a biological membrane bioreactor effluent treatment plant (ETP) that recycles 100% of industrial process water back into production.",
+      "imageUrl": "https://images.unsplash.com/photo-1509631179647-0177331693ae?w=1200&q=80",
+      "images": [
+        "https://images.unsplash.com/photo-1509631179647-0177331693ae?w=1200&q=80",
+        "https://images.unsplash.com/photo-1558769132-cb1aea458c5e?w=1200&q=80",
+        "https://images.unsplash.com/photo-1620799140408-edc6dcb6d633?w=1200&q=80"
+      ],
+      "category": "Apparels",
+      "status": "Completed",
+      "year": 2024,
+      "order": 13,
+      "client": "Global Athletic Brands Consortium (European & North American Exports)",
+      "location": "Tirupur Mega Textile & Garment Hub, Tamil Nadu",
+      "value": "₹165 Crore ($20M)",
+      "scale": "250,000 Sq.Ft Factory Area | 4,800,000 Performance Units Annually",
+      "scope": "Greenfield Facility EPC, Automated Cutting & Sewing Lines, Zero-Liquid Discharge Water Plant",
+      "highlights": [
+        "100% Closed-Loop Industrial Water Recycling (Zero Liquid Discharge)",
+        "OEKO-TEX Standard 100 & HIGG FEM Level 3 Environmental Certification",
+        "60% Energy Derived from Captive On-Site Wind & Solar Power",
+        "Full RFID-Enabled Traceability from Recycled Polymer Yarn to Final Garment"
+      ]
+    },
+    {
+      "id": "14",
+      "title": "Heritage Weaves High-Tenacity Technical Textiles",
+      "description": "High-speed air-jet weaving production lines engineering 14 million linear meters of flame-retardant and ballistic aramid protective fabrics.",
+      "longDescription": "Specializing in extreme-performance technical textiles, this manufacturing unit produces protective fabrics for defense tactical apparel, automotive airbag assemblies, and petrochemical flash-fire safety wear. Operating 180 European high-speed air-jet looms within a humidity-controlled clean weave environment, supported by in-house vertical flame testing and tensile burst strength diagnostic laboratories.",
+      "imageUrl": "https://images.unsplash.com/photo-1618220179428-22790b461013?w=1200&q=80",
+      "images": [
+        "https://images.unsplash.com/photo-1618220179428-22790b461013?w=1200&q=80",
+        "https://images.unsplash.com/photo-1584917865442-de89df76afd3?w=1200&q=80",
+        "https://images.unsplash.com/photo-1544816155-12df9643f363?w=1200&q=80"
+      ],
       "category": "Apparels",
       "status": "Ongoing",
       "year": 2024,
-      "order": 7
+      "order": 14,
+      "client": "Industrial Safety Equipment & Automotive Tier-1 Manufacturers",
+      "location": "Surat Textile Innovation Corridor, Gujarat",
+      "value": "₹190 Crore ($23M)",
+      "scale": "14 Million Linear Meters Annual Capacity | 180 High-Speed Looms",
+      "scope": "Air-Jet Weaving Installation, Chemical Coating Finishing Lines, Flame Testing Lab & Warehouse",
+      "highlights": [
+        "Certified ISO 9001, ISO 14001, and NFPA 2112 Flame-Resistant Standards",
+        "Supplying Automotive Tier-1 Airbag Modules with Sub-0.01% Defect Tolerance",
+        "Specialized Ballistic Aramid & Carbon Hybrid Weave Capabilities",
+        "Direct Export Integration Serving 22 Countries Worldwide"
+      ]
     }
   ],
   "messages": []

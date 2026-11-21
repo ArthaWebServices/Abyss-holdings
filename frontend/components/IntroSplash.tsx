@@ -256,24 +256,7 @@ export default function IntroSplash({ onComplete, forceShow = false }: IntroSpla
       </div>
 
       {/* Skip Button (Top Right) */}
-      <button
-        onClick={dismiss}
-        type="button"
-        className="absolute top-6 right-6 sm:top-8 sm:right-8 z-50 flex items-center gap-2 px-4 py-2 rounded-full
-                   bg-white/5 hover:bg-white/10 active:bg-white/15 text-gray-300 hover:text-white
-                   border border-white/10 backdrop-blur-md text-xs font-medium tracking-wider uppercase
-                   transition-all duration-200 group shadow-lg"
-      >
-        <span>Skip Intro</span>
-        <svg
-          className="w-3.5 h-3.5 text-gray-400 group-hover:text-white group-hover:translate-x-0.5 transition-all"
-          fill="none"
-          viewBox="0 0 24 24"
-          stroke="currentColor"
-        >
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 5l7 7-7 7M5 5l7 7-7 7" />
-        </svg>
-      </button>
+     
 
       {/* Center Cinematic Stage */}
       <div className="relative z-10 flex flex-col items-center justify-center px-4 max-w-xl w-full text-center">

@@ -138,6 +138,160 @@ export default async function HomePage() {
         </div>
       </section>
 
+      {/* ── Featured Landmark Projects Photographic Showcase ── */}
+      <section className="px-6 sm:px-12 lg:px-16 py-20 bg-white border-t border-gray-100">
+        <div className="max-w-7xl mx-auto">
+          <div className="mb-12 flex flex-col md:flex-row md:items-end justify-between gap-4">
+            <div>
+              <p className="text-xs text-primary font-bold tracking-widest uppercase mb-2">
+                Portfolio In Action
+              </p>
+              <h2 className="text-3xl sm:text-4xl font-black text-dark tracking-tight">
+                Featured Landmark Projects
+              </h2>
+              <p className="text-gray-500 text-sm mt-2 max-w-xl">
+                Explore signature infrastructure developments, technology deployments, and institutional capital mandates across India.
+              </p>
+            </div>
+            <Link
+              href="/projects"
+              className="inline-flex items-center gap-2 text-sm font-bold text-dark hover:text-primary transition-colors self-start md:self-auto"
+            >
+              <span>Explore All {projectCount} Projects</span>
+              <span className="w-7 h-7 rounded-full bg-primary text-white flex items-center justify-center text-xs">
+                →
+              </span>
+            </Link>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+            {projects.slice(0, 4).map((proj, idx) => (
+              <Link
+                key={proj.id}
+                href="/projects"
+                className="group rounded-3xl overflow-hidden bg-gray-50 border border-gray-200/80 hover:border-red-200 hover:shadow-2xl transition-all duration-500 flex flex-col justify-between"
+              >
+                <div>
+                  <div className="relative h-56 w-full overflow-hidden bg-slate-900">
+                    <Image
+                      src={proj.imageUrl || 'https://images.unsplash.com/photo-1541888946425-d0fbb18615f8?w=800&q=80'}
+                      alt={proj.title}
+                      fill
+                      className="object-cover group-hover:scale-108 transition-transform duration-700 brightness-[0.93]"
+                      sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 25vw"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-transparent to-black/20" />
+                    
+                    <span className="absolute top-3 left-3 px-2.5 py-1 rounded-full bg-white/95 backdrop-blur-md text-[10px] font-bold text-dark uppercase tracking-wider shadow-sm">
+                      {proj.category || 'Flagship'}
+                    </span>
+
+                    {proj.images && proj.images.length > 1 && (
+                      <span className="absolute top-3 right-3 px-2 py-0.5 rounded-full bg-black/60 backdrop-blur-md text-[10px] font-semibold text-white">
+                        📷 {proj.images.length} Photos
+                      </span>
+                    )}
+
+                    <div className="absolute bottom-3 left-3 right-3 text-white">
+                      <p className="text-[11px] text-red-300 font-medium">{proj.location || 'India'}</p>
+                      <h3 className="font-bold text-base leading-snug line-clamp-1">{proj.title}</h3>
+                    </div>
+                  </div>
+
+                  <div className="p-5">
+                    <p className="text-xs text-gray-600 line-clamp-2 leading-relaxed">
+                      {proj.description}
+                    </p>
+                    {proj.client && (
+                      <p className="mt-3 text-[11px] text-gray-400 font-medium">
+                        Client: <span className="text-gray-700 font-semibold">{proj.client}</span>
+                      </p>
+                    )}
+                  </div>
+                </div>
+
+                <div className="px-5 pb-5 pt-2 border-t border-gray-100 flex items-center justify-between text-xs font-bold text-primary">
+                  <span>Inspect Dossier</span>
+                  <span className="w-6 h-6 rounded-full bg-red-50 group-hover:bg-primary group-hover:text-white flex items-center justify-center transition-all">
+                    →
+                  </span>
+                </div>
+              </Link>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ── Operational Scale & Engineering In Action (Photo Strip) ── */}
+      <section className="py-16 bg-slate-950 text-white overflow-hidden">
+        <div className="max-w-7xl mx-auto px-6 sm:px-12 lg:px-16 mb-8 flex flex-col sm:flex-row sm:items-end justify-between gap-4">
+          <div>
+            <span className="text-[10px] font-bold px-3 py-1 rounded-full bg-red-500/10 border border-red-500/20 text-red-400 uppercase tracking-wider mb-2 inline-block">
+              Field Execution
+            </span>
+            <h2 className="text-2xl sm:text-3xl font-black text-white">
+              Industrial Scale & Engineering In Action
+            </h2>
+          </div>
+          <p className="text-xs text-gray-400 max-w-md">
+            Realizing high-precision capital projects across heavy civil works, hyperscale data networks, and industrial manufacturing plants.
+          </p>
+        </div>
+
+        {/* 5-Photo High-Impact Panoramic Gallery Strip */}
+        <div className="grid grid-cols-2 md:grid-cols-5 gap-2 px-4 sm:px-8 max-w-[1600px] mx-auto">
+          {[
+            {
+              title: 'Heavy Civil Infrastructure',
+              sub: 'Precision concrete & deep foundation engineering',
+              img: 'https://images.unsplash.com/photo-1541888946425-d0fbb18615f8?w=800&q=80',
+            },
+            {
+              title: 'Autonomous Robotics',
+              sub: 'High-throughput electric vehicle assembly lines',
+              img: 'https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?w=800&q=80',
+            },
+            {
+              title: 'Mission-Critical Cloud',
+              sub: 'Tier-IV hyperscale edge datacenter facilities',
+              img: 'https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=800&q=80',
+            },
+            {
+              title: 'Heavy Mining Fleets',
+              sub: 'GPS-guided hydraulic earth moving equipment',
+              img: 'https://images.unsplash.com/photo-1578328819058-b69f3a3b0f6b?w=800&q=80',
+            },
+            {
+              title: 'Sustainable Textile Plants',
+              sub: 'Circular spinning mills & export apparel lines',
+              img: 'https://images.unsplash.com/photo-1558769132-cb1aea458c5e?w=800&q=80',
+            },
+          ].map((item, i) => (
+            <div
+              key={i}
+              className="group relative h-64 sm:h-72 rounded-2xl overflow-hidden bg-slate-900 border border-white/5"
+            >
+              <Image
+                src={item.img}
+                alt={item.title}
+                fill
+                className="object-cover group-hover:scale-110 transition-transform duration-700 brightness-[0.85] group-hover:brightness-100"
+                sizes="(max-width: 768px) 50vw, 20vw"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/30 to-transparent" />
+              <div className="absolute bottom-4 left-4 right-4 text-white">
+                <p className="text-xs font-bold leading-tight group-hover:text-red-400 transition-colors">
+                  {item.title}
+                </p>
+                <p className="text-[10px] text-gray-400 mt-0.5 line-clamp-1">
+                  {item.sub}
+                </p>
+              </div>
+            </div>
+          ))}
+        </div>
+      </section>
+
       {/* ── Corporate Heritage & Visual Narrative ──────────── */}
       <section className="px-6 sm:px-12 lg:px-16 py-20 bg-white">
         <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
