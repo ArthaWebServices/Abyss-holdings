@@ -53,3 +53,13 @@ body {
 }
 .fade-in { animation: fadeInUp 0.6s ease forwards; }
 
+/* Immediate frame-0 backdrop preloader that prevents ANY flash of the main page */
+html.splash-active body {
+  overflow: hidden !important;
+}
+
+html.splash-active #splash-backdrop-preloader {
+  display: flex !important;
+}
+
+

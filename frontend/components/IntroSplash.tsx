@@ -61,7 +61,10 @@ export default function IntroSplash({ onComplete, forceShow = false }: IntroSpla
         // Ignore storage errors in private browsing modes
       }
       if (typeof document !== 'undefined') {
+        document.documentElement.classList.remove('splash-active');
         document.body.style.overflow = '';
+        const preloader = document.getElementById('splash-backdrop-preloader');
+        if (preloader) preloader.style.display = 'none';
       }
       if (onComplete) onComplete();
     }, 700);
@@ -75,6 +78,7 @@ export default function IntroSplash({ onComplete, forceShow = false }: IntroSpla
     setState({ status: 'entering', progress: 0 });
 
     if (typeof document !== 'undefined') {
+      document.documentElement.classList.add('splash-active');
       document.body.style.overflow = 'hidden';
     }
 
@@ -177,11 +181,18 @@ export default function IntroSplash({ onComplete, forceShow = false }: IntroSpla
 
     if (forceShow || hasParam || !hasSeen) {
       startSequence();
+    } else {
+      if (typeof document !== 'undefined') {
+        document.documentElement.classList.remove('splash-active');
+        const preloader = document.getElementById('splash-backdrop-preloader');
+        if (preloader) preloader.style.display = 'none';
+      }
     }
 
     return () => {
       clearAllTimers();
       if (typeof document !== 'undefined') {
+        document.documentElement.classList.remove('splash-active');
         document.body.style.overflow = '';
       }
     };
