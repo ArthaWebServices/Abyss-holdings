@@ -123,13 +123,13 @@ export default async function HomePage() {
             </Link>
           </div>
 
-          {/* Grid of all active sectors with links */}
+          {/* Grid of all active sectors with links - 7th item centered on 3-col desktop */}
           {services.length === 0 ? (
             <div className="text-center py-12 bg-white rounded-3xl border border-gray-100 text-gray-500 text-sm">
               No active business sectors available at the moment.
             </div>
           ) : (
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 [&>*:nth-child(7)]:lg:col-start-2">
               {services.map((s, i) => (
                 <ServiceCard key={s.id} service={s} index={i} />
               ))}
@@ -174,7 +174,7 @@ export default async function HomePage() {
                 <div>
                   <div className="relative h-56 w-full overflow-hidden bg-slate-900">
                     <Image
-                      src={proj.imageUrl || 'https://images.unsplash.com/photo-1541888946425-d0fbb18615f8?w=800&q=80'}
+                      src={proj.imageUrl || '/images/sectors/construction.webp'}
                       alt={proj.title}
                       fill
                       className="object-cover group-hover:scale-108 transition-transform duration-700 brightness-[0.93]"
@@ -224,71 +224,73 @@ export default async function HomePage() {
 
       {/* ── Operational Scale & Engineering In Action (Photo Strip) ── */}
       <section className="py-16 bg-slate-950 text-white overflow-hidden">
-        <div className="max-w-7xl mx-auto px-6 sm:px-12 lg:px-16 mb-8 flex flex-col sm:flex-row sm:items-end justify-between gap-4">
-          <div>
-            <span className="text-[10px] font-bold px-3 py-1 rounded-full bg-red-500/10 border border-red-500/20 text-red-400 uppercase tracking-wider mb-2 inline-block">
-              Field Execution
-            </span>
-            <h2 className="text-2xl sm:text-3xl font-black text-white">
-              Industrial Scale & Engineering In Action
-            </h2>
-          </div>
-          <p className="text-xs text-gray-400 max-w-md">
-            Realizing high-precision capital projects across heavy civil works, hyperscale data networks, and industrial manufacturing plants.
-          </p>
-        </div>
-
-        {/* 5-Photo High-Impact Panoramic Gallery Strip */}
-        <div className="grid grid-cols-2 md:grid-cols-5 gap-2 px-4 sm:px-8 max-w-[1600px] mx-auto">
-          {[
-            {
-              title: 'Heavy Civil Infrastructure',
-              sub: 'Precision concrete & deep foundation engineering',
-              img: 'https://images.unsplash.com/photo-1541888946425-d0fbb18615f8?w=800&q=80',
-            },
-            {
-              title: 'Autonomous Robotics',
-              sub: 'High-throughput electric vehicle assembly lines',
-              img: 'https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?w=800&q=80',
-            },
-            {
-              title: 'Mission-Critical Cloud',
-              sub: 'Tier-IV hyperscale edge datacenter facilities',
-              img: 'https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=800&q=80',
-            },
-            {
-              title: 'Heavy Mining Fleets',
-              sub: 'GPS-guided hydraulic earth moving equipment',
-              img: 'https://images.unsplash.com/photo-1578328819058-b69f3a3b0f6b?w=800&q=80',
-            },
-            {
-              title: 'Sustainable Textile Plants',
-              sub: 'Circular spinning mills & export apparel lines',
-              img: 'https://images.unsplash.com/photo-1558769132-cb1aea458c5e?w=800&q=80',
-            },
-          ].map((item, i) => (
-            <div
-              key={i}
-              className="group relative h-64 sm:h-72 rounded-2xl overflow-hidden bg-slate-900 border border-white/5"
-            >
-              <Image
-                src={item.img}
-                alt={item.title}
-                fill
-                className="object-cover group-hover:scale-110 transition-transform duration-700 brightness-[0.85] group-hover:brightness-100"
-                sizes="(max-width: 768px) 50vw, 20vw"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/30 to-transparent" />
-              <div className="absolute bottom-4 left-4 right-4 text-white">
-                <p className="text-xs font-bold leading-tight group-hover:text-red-400 transition-colors">
-                  {item.title}
-                </p>
-                <p className="text-[10px] text-gray-400 mt-0.5 line-clamp-1">
-                  {item.sub}
-                </p>
-              </div>
+        <div className="max-w-7xl mx-auto px-6 sm:px-12 lg:px-16">
+          <div className="mb-8 flex flex-col sm:flex-row sm:items-end justify-between gap-4">
+            <div>
+              <span className="text-xs font-semibold px-3 py-1 rounded-full bg-red-500/10 border border-red-500/20 text-red-400 tracking-wide mb-2 inline-block">
+                Field Execution
+              </span>
+              <h2 className="text-2xl sm:text-3xl font-black text-white">
+                Industrial Scale & Engineering In Action
+              </h2>
             </div>
-          ))}
+            <p className="text-xs text-gray-400 max-w-md">
+              Realizing high-precision capital projects across heavy civil works, hyperscale data networks, and industrial manufacturing plants.
+            </p>
+          </div>
+
+          {/* 5-Photo High-Impact Panoramic Gallery Strip - Perfectly aligned with section header */}
+          <div className="grid grid-cols-2 md:grid-cols-5 gap-3">
+            {[
+              {
+                title: 'Heavy Civil Infrastructure',
+                sub: 'Precision concrete & deep foundation engineering',
+                img: '/images/sectors/construction.webp',
+              },
+              {
+                title: 'Autonomous Robotics',
+                sub: 'High-throughput electric vehicle assembly lines',
+                img: '/images/sectors/automobiles.webp',
+              },
+              {
+                title: 'Mission-Critical Cloud',
+                sub: 'Tier-IV hyperscale edge datacenter facilities',
+                img: '/images/sectors/technologies.webp',
+              },
+              {
+                title: 'Heavy Mining Fleets',
+                sub: 'GPS-guided hydraulic earth moving equipment',
+                img: '/images/sectors/earth-movers.webp',
+              },
+              {
+                title: 'Sustainable Textile Plants',
+                sub: 'Circular spinning mills & export apparel lines',
+                img: '/images/sectors/apparels.webp',
+              },
+            ].map((item, i) => (
+              <div
+                key={i}
+                className="group relative h-64 sm:h-72 rounded-2xl overflow-hidden bg-slate-900 border border-white/5"
+              >
+                <Image
+                  src={item.img}
+                  alt={item.title}
+                  fill
+                  className="object-cover group-hover:scale-110 transition-transform duration-700 brightness-[0.85] group-hover:brightness-100"
+                  sizes="(max-width: 768px) 50vw, 20vw"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/30 to-transparent" />
+                <div className="absolute bottom-4 left-4 right-4 text-white">
+                  <p className="text-xs font-bold leading-tight group-hover:text-red-400 transition-colors">
+                    {item.title}
+                  </p>
+                  <p className="text-xs text-gray-300 mt-1 line-clamp-1">
+                    {item.sub}
+                  </p>
+                </div>
+              </div>
+            ))}
+          </div>
         </div>
       </section>
 
@@ -306,7 +308,7 @@ export default async function HomePage() {
               />
               <div className="absolute inset-0 bg-gradient-to-t from-dark/90 via-dark/30 to-transparent" />
               <div className="absolute bottom-8 left-8 right-8 text-white">
-                <span className="px-3 py-1 rounded-full bg-primary text-white text-[10px] font-bold uppercase tracking-wider mb-2 inline-block">
+                <span className="px-3 py-1 rounded-full bg-primary text-white text-xs font-semibold tracking-wide mb-2 inline-block">
                   Corporate Governance
                 </span>
                 <h3 className="text-2xl font-bold text-white mb-2">
@@ -341,7 +343,7 @@ export default async function HomePage() {
                     ✓
                   </span>
                   <div>
-                    <h4 className="font-bold text-dark text-sm">{item.title}</h4>
+                    <h3 className="font-bold text-dark text-sm">{item.title}</h3>
                     <p className="text-xs text-gray-500 mt-0.5">{item.desc}</p>
                   </div>
                 </div>
@@ -355,9 +357,9 @@ export default async function HomePage() {
       <section className="bg-slate-950 text-white px-6 sm:px-12 lg:px-16 py-16 border-t border-slate-900 relative overflow-hidden">
         <div className="absolute top-0 right-0 w-96 h-96 rounded-full bg-primary/10 blur-3xl pointer-events-none" />
         <div className="max-w-7xl mx-auto">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
-            <div className="lg:col-span-6">
-              <span className="text-[10px] font-bold px-3 py-1 rounded-full bg-white/10 text-red-400 uppercase tracking-wider mb-3 inline-block">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
+            <div className="lg:col-span-5">
+              <span className="text-xs font-semibold px-3 py-1 rounded-full bg-white/10 text-red-400 tracking-wide mb-3 inline-block">
                 Direct Corporate Correspondence
               </span>
               <h3 className="text-3xl font-black text-white mb-2">
@@ -369,7 +371,7 @@ export default async function HomePage() {
               </p>
             </div>
 
-            <div className="lg:col-span-6 grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div className="lg:col-span-7 grid grid-cols-1 sm:grid-cols-2 gap-4">
               {/* Email Desk 1 */}
               <div className="p-6 rounded-2xl bg-white/5 border border-white/10 hover:border-primary/50 transition-colors">
                 <span className="text-xs text-gray-400 font-semibold uppercase tracking-wider block mb-1">
@@ -410,7 +412,7 @@ export default async function HomePage() {
 
       {/* ── Key Metrics & Track Record ─────────────────────── */}
       <section className="bg-dark text-white px-6 sm:px-12 lg:px-16 py-14">
-        <div className="max-w-7xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
+        <div className="max-w-7xl mx-auto grid grid-cols-2 lg:grid-cols-4 gap-8 text-center">
           {[
             { value: String(sectorCount), label: 'Business Sectors' },
             { value: String(locationCount), label: 'Indian Office Hubs' },

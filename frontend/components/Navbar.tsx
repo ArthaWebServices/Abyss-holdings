@@ -140,7 +140,7 @@ export default function Navbar() {
     <>
       <header className="fixed top-0 left-0 right-0 z-50 shadow-sm">
         {/* ── Corporate Utility Micro-Bar ───────────────────── */}
-        <div className="bg-slate-950 text-gray-300 text-[11px] border-b border-slate-800/80 px-4 sm:px-8 py-2 font-medium">
+        <div className="bg-slate-950 text-gray-300 text-xs border-b border-slate-800/80 px-4 sm:px-8 py-2 font-medium">
           <div className="max-w-7xl mx-auto flex items-center justify-between gap-4">
             {/* Left: Dual Official Inboxes */}
             <div className="flex items-center gap-4 sm:gap-6 flex-wrap">
@@ -167,13 +167,12 @@ export default function Navbar() {
               </a>
             </div>
 
-            {/* Right: Corporate HQ, Hotline & Replay Intro */}
+            {/* Right: Corporate HQ, Hotline & Clean Location Label */}
             <div className="hidden md:flex items-center gap-4 text-gray-400">
-
               <span className="text-slate-700">|</span>
-              <span className="inline-flex items-center gap-1 max-w-[260px] truncate">
+              <span className="inline-flex items-center gap-1 text-xs" title={hqText}>
                 <span className="text-primary">📍</span>
-                <span className="truncate">{hqText}</span>
+                <span>Fort, Mumbai – 400001</span>
               </span>
               <span className="text-slate-700">|</span>
               <a href={`tel:${phone.replace(/\s+/g, '')}`} className="inline-flex items-center gap-1 hover:text-white transition-colors shrink-0">
@@ -203,7 +202,7 @@ export default function Navbar() {
                 <p className="font-black text-sm sm:text-base leading-tight tracking-wide text-dark uppercase group-hover:text-primary transition-colors">
                   {companyName}
                 </p>
-                <p className="text-[7.5px] sm:text-[8px] text-gray-400 tracking-widest uppercase mt-0.5">
+                <p className="text-xs text-gray-500 font-medium tracking-wide mt-0.5">
                   {tagline}
                 </p>
               </div>

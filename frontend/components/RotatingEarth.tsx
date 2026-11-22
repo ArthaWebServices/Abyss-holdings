@@ -344,7 +344,7 @@ export default function RotatingEarth() {
       {/* Office Location Selector Bar: Clicking any office highlights it on the 3D Earth */}
       <div className="w-full mt-2 bg-white/90 backdrop-blur-md border border-gray-100 rounded-2xl p-3 shadow-md">
         <div className="flex items-center justify-between mb-2 px-1">
-          <p className="text-[11px] font-bold text-gray-400 tracking-wider uppercase">
+          <p className="text-xs font-semibold text-gray-400 tracking-wide">
             Click Location to Highlight on Globe
           </p>
           {selectedOffice && (

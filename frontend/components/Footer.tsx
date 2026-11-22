@@ -165,7 +165,7 @@ export default function Footer() {
 
           {/* Business Sectors Links (Col 2 - 3) */}
           <div className="lg:col-span-3">
-            <h4 className="font-bold text-sm mb-4 text-white tracking-wide uppercase text-xs">
+            <h4 className="font-bold text-sm mb-4 text-white tracking-wide">
               Business Sectors
             </h4>
             <div className="flex flex-col gap-2">
@@ -184,7 +184,7 @@ export default function Footer() {
 
           {/* Quick Links (Col 3 - 2) */}
           <div className="lg:col-span-2">
-            <h4 className="font-bold text-sm mb-4 text-white tracking-wide uppercase text-xs">
+            <h4 className="font-bold text-sm mb-4 text-white tracking-wide">
               Quick Links
             </h4>
             <div className="flex flex-col gap-2">
@@ -201,39 +201,24 @@ export default function Footer() {
             </div>
           </div>
 
-          {/* Official Inboxes & Contact (Col 4 - 3) */}
+          {/* Corporate Contact Details (Col 4 - 3) - Non-redundant */}
           <div className="lg:col-span-3">
-            <h4 className="font-bold text-sm mb-4 text-white tracking-wide uppercase text-xs">
-              Official Inboxes
+            <h4 className="font-bold text-sm mb-4 text-white tracking-wide">
+              Corporate Contact
             </h4>
-            <div className="space-y-4 text-xs">
-              <div className="p-3.5 rounded-xl bg-white/5 border border-white/10">
-                <p className="text-[10px] font-bold text-gray-400 uppercase tracking-wider mb-1">
-                  Administration & Corporate
-                </p>
-                <a
-                  href={`mailto:${adminEmail}`}
-                  className="text-white hover:text-primary font-medium transition-colors block text-sm break-all"
-                >
-                  {adminEmail}
+            <div className="space-y-3 text-xs text-gray-400">
+              <p className="text-white font-medium leading-relaxed">{address}</p>
+              <p>
+                <span className="text-gray-500">Tel:</span>{' '}
+                <a href={`tel:${phone.replace(/\s+/g, '')}`} className="text-gray-300 hover:text-white transition-colors">
+                  {phone}
                 </a>
-              </div>
-
-              <div className="p-3.5 rounded-xl bg-white/5 border border-white/10">
-                <p className="text-[10px] font-bold text-gray-400 uppercase tracking-wider mb-1">
-                  Human Resources & Careers
-                </p>
-                <a
-                  href={`mailto:${hrEmail}`}
-                  className="text-white hover:text-primary font-medium transition-colors block text-sm break-all"
-                >
-                  {hrEmail}
-                </a>
-              </div>
-
-              <div className="text-gray-400 space-y-1 pt-1">
-                <p className="text-white font-medium">{address}</p>
-                <p className="text-gray-300">Tel: {phone}</p>
+              </p>
+              <div className="pt-2 flex flex-col gap-1.5">
+                <Link href="/contact" className="text-primary hover:underline font-semibold flex items-center gap-1">
+                  <span>Corporate Desk Directory</span>
+                  <span>→</span>
+                </Link>
               </div>
             </div>
           </div>
