@@ -202,18 +202,19 @@ export default async function SectorDetailPage({ params }: { params: { slug: str
 
         {/* ── Hero Banner ─────────────────────────────────────── */}
         <section className="relative min-h-[580px] lg:min-h-[640px] flex items-center px-6 lg:px-16 py-20 overflow-hidden bg-slate-950 text-white">
-          {/* Background Photo with Corporate Gradient */}
+          {/* Background Photo with Corporate Gradient & Enhanced Brightness */}
           <div className="absolute inset-0">
             <Image
               src={sector.heroImage}
               alt={sector.title}
               fill
               priority
-              className="object-cover object-center opacity-40 scale-105 transition-transform duration-1000"
+              className="object-cover object-center opacity-85 scale-105 transition-transform duration-1000 filter brightness-110 contrast-105 saturate-110"
               sizes="100vw"
             />
-            <div className="absolute inset-0 bg-gradient-to-r from-slate-950 via-slate-950/85 to-transparent" />
-            <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-transparent to-black/30" />
+            {/* Lighter, balanced gradient scrim so the photo is vibrant and clearly visible while keeping text ultra-legible */}
+            <div className="absolute inset-0 bg-gradient-to-r from-slate-950/90 via-slate-950/50 to-slate-950/20" />
+            <div className="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-transparent to-black/20" />
           </div>
 
           <div className="relative max-w-7xl mx-auto w-full grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">

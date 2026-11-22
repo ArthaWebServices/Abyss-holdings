@@ -28,11 +28,11 @@ const SECTORS_META: Record<string, { defaultTitle: string; label: string; icon: 
 };
 
 const MAIN_NAV_LINKS = [
-  { label: 'Home',       href: '/' },
-  { label: 'About Us',   href: '/about' },
-  { label: 'Sectors',    href: '/services', hasDropdown: true },
-  { label: 'Projects',   href: '/projects' },
-  { label: 'Locations',  href: '/locations' },
+  { label: 'Home', href: '/' },
+  { label: 'About Us', href: '/about' },
+  { label: 'Sectors', href: '/services', hasDropdown: true },
+  { label: 'Projects', href: '/projects' },
+  { label: 'Locations', href: '/locations' },
   { label: 'Contact Us', href: '/contact' },
 ];
 
@@ -169,15 +169,7 @@ export default function Navbar() {
 
             {/* Right: Corporate HQ, Hotline & Replay Intro */}
             <div className="hidden md:flex items-center gap-4 text-gray-400">
-              <button
-                type="button"
-                onClick={() => window.dispatchEvent(new CustomEvent('abyss:replay-intro'))}
-                className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-rose-950/40 hover:bg-[#A6192E]/30 text-rose-300 hover:text-white border border-rose-900/60 transition-all text-[10.5px] font-medium group/btn shadow-sm"
-                title="Watch Opening Globe Animation"
-              >
-                <span className="w-1.5 h-1.5 rounded-full bg-[#A6192E] group-hover/btn:scale-125 transition-transform animate-pulse" />
-                <span>Globe Animation</span>
-              </button>
+
               <span className="text-slate-700">|</span>
               <span className="inline-flex items-center gap-1 max-w-[260px] truncate">
                 <span className="text-primary">📍</span>
@@ -241,9 +233,8 @@ export default function Navbar() {
                       >
                         <span>{label}</span>
                         <svg
-                          className={`w-3.5 h-3.5 transition-transform duration-200 ${
-                            isDropdownOpen ? 'rotate-180 text-primary' : 'text-gray-400'
-                          }`}
+                          className={`w-3.5 h-3.5 transition-transform duration-200 ${isDropdownOpen ? 'rotate-180 text-primary' : 'text-gray-400'
+                            }`}
                           fill="none"
                           viewBox="0 0 24 24"
                           stroke="currentColor"
@@ -337,19 +328,16 @@ export default function Navbar() {
                 className="w-10 h-10 rounded-xl bg-gray-50 hover:bg-gray-100 border border-gray-200/80 flex flex-col items-center justify-center gap-1.5 transition-colors focus:outline-none"
               >
                 <span
-                  className={`w-5 h-0.5 bg-dark rounded transition-all duration-300 ${
-                    isMobileOpen ? 'rotate-45 translate-y-2' : ''
-                  }`}
+                  className={`w-5 h-0.5 bg-dark rounded transition-all duration-300 ${isMobileOpen ? 'rotate-45 translate-y-2' : ''
+                    }`}
                 />
                 <span
-                  className={`w-5 h-0.5 bg-dark rounded transition-all duration-300 ${
-                    isMobileOpen ? 'opacity-0' : ''
-                  }`}
+                  className={`w-5 h-0.5 bg-dark rounded transition-all duration-300 ${isMobileOpen ? 'opacity-0' : ''
+                    }`}
                 />
                 <span
-                  className={`w-5 h-0.5 bg-dark rounded transition-all duration-300 ${
-                    isMobileOpen ? '-rotate-45 -translate-y-2' : ''
-                  }`}
+                  className={`w-5 h-0.5 bg-dark rounded transition-all duration-300 ${isMobileOpen ? '-rotate-45 -translate-y-2' : ''
+                    }`}
                 />
               </button>
             </div>
@@ -440,11 +428,10 @@ export default function Navbar() {
                   key={href}
                   href={href}
                   onClick={closeMenu}
-                  className={`flex items-center justify-between text-base font-semibold py-3 px-4 rounded-xl transition-all duration-200 ${
-                    active
+                  className={`flex items-center justify-between text-base font-semibold py-3 px-4 rounded-xl transition-all duration-200 ${active
                       ? 'bg-red-50 text-primary border border-red-100'
                       : 'text-gray-700 hover:bg-gray-50'
-                  }`}
+                    }`}
                 >
                   <span>{label}</span>
                   {active ? (

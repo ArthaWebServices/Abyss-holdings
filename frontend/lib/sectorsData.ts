@@ -51,7 +51,7 @@ export const SECTORS_DATA: Record<string, SectorDetail> = {
     title: 'Investments & Capital',
     badge: 'Private Equity & Asset Management',
     tagline: 'Strategic Capital Allocation, Venture Growth, and High-Yield Institutional Asset Stewardship',
-    heroImage: 'https://images.unsplash.com/photo-1507679799987-c73779587ccf?w=1800&q=85',
+    heroImage: 'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=1800&q=85',
     keyStats: [
       { value: '$350M+', label: 'Capital Under Advisory' },
       { value: '22+', label: 'Global Portfolio Assets' },
@@ -151,7 +151,7 @@ export const SECTORS_DATA: Record<string, SectorDetail> = {
     title: 'Construction & Engineering',
     badge: 'Civil Engineering & Mega EPC Delivery',
     tagline: 'Engineering Landmark Mega-Structures, Urban Infrastructure, and Sustainable Civil Works',
-    heroImage: 'https://images.unsplash.com/photo-1503387762-592deb58ef4e?w=1800&q=85',
+    heroImage: 'https://images.unsplash.com/photo-1541888946425-d0fbb18615f8?w=1800&q=85',
     keyStats: [
       { value: '12M+', label: 'Sq.Ft. Built & Commissioned' },
       { value: '45+', label: 'Flagship Mega Projects' },
@@ -351,7 +351,7 @@ export const SECTORS_DATA: Record<string, SectorDetail> = {
     title: 'Technologies & Digital Systems',
     badge: 'Enterprise AI & Cloud Infrastructure',
     tagline: 'Enterprise Digital Transformation, Scalable Cloud Systems, Artificial Intelligence, and Zero-Trust Cybersecurity',
-    heroImage: 'https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=1800&q=85',
+    heroImage: 'https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=1800&q=85',
     keyStats: [
       { value: '140+', label: 'Enterprise Deployments' },
       { value: '99.99%', label: 'Mission-Critical SLA Uptime' },
@@ -451,7 +451,7 @@ export const SECTORS_DATA: Record<string, SectorDetail> = {
     title: 'Automobiles & Mobility',
     badge: 'Fleet Intelligence & Clean Mobility',
     tagline: 'Next-Generation Commercial Fleet Logistics, Electric Mobility Solutions, and Precision Vehicle Systems',
-    heroImage: 'https://images.unsplash.com/photo-1503376780353-7e6692767b70?w=1800&q=85',
+    heroImage: 'https://images.unsplash.com/photo-1617788138017-80ad40651399?w=1800&q=85',
     keyStats: [
       { value: '4,500+', label: 'Active Commercial Fleets' },
       { value: '68%', label: 'Electric & Hybrid Composition' },
@@ -551,7 +551,7 @@ export const SECTORS_DATA: Record<string, SectorDetail> = {
     title: 'Earth Movers & Heavy Machinery',
     badge: 'Heavy Earthwork & Quarrying Equipment',
     tagline: 'High-Tonnage Hydraulic Excavators, Mining Equipment, Terrain Grading, and Deep Infrastructure Fleets',
-    heroImage: 'https://images.unsplash.com/photo-1581094794329-c8112a89af12?w=1800&q=85',
+    heroImage: 'https://images.unsplash.com/photo-1581092160607-ee22621dd758?w=1800&q=85',
     keyStats: [
       { value: '380+', label: 'Heavy Machinery Fleet Units' },
       { value: '28M+', label: 'Metric Tons Excavated' },
@@ -651,7 +651,7 @@ export const SECTORS_DATA: Record<string, SectorDetail> = {
     title: 'Apparels & Textile Manufacturing',
     badge: 'Textile Innovation & Global Export',
     tagline: 'Sustainable Garment Engineering, Precision Textile Innovation, and High-Volume Global Brand Supply',
-    heroImage: 'https://images.unsplash.com/photo-1620799140408-edc6dcb6d633?w=1800&q=85',
+    heroImage: 'https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=1800&q=85',
     keyStats: [
       { value: '18M+', label: 'Garments Exported Annually' },
       { value: '100%', label: 'OEKO-TEX & GOTS Certified' },

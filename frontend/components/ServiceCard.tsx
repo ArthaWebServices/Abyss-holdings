@@ -7,15 +7,15 @@ interface Props {
   index: number;
 }
 
-// Unique dedicated background images for every business sector
+// Unique dedicated bright high-resolution background images for every business sector
 const SECTOR_BACKGROUNDS: Record<string, string> = {
-  construction: 'https://images.unsplash.com/photo-1503387762-592deb58ef4e?w=1200&q=80',
-  investments: 'https://images.unsplash.com/photo-1507679799987-c73779587ccf?w=1200&q=80',
+  construction: 'https://images.unsplash.com/photo-1541888946425-d0fbb18615f8?w=1200&q=80',
+  investments: 'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=1200&q=80',
   realities: 'https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=1200&q=80',
-  automobiles: 'https://images.unsplash.com/photo-1503376780353-7e6692767b70?w=1200&q=80',
-  'earth-movers': 'https://images.unsplash.com/photo-1581094794329-c8112a89af12?w=1200&q=80',
-  technologies: 'https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=1200&q=80',
-  apparels: 'https://images.unsplash.com/photo-1620799140408-edc6dcb6d633?w=1200&q=80',
+  automobiles: 'https://images.unsplash.com/photo-1617788138017-80ad40651399?w=1200&q=80',
+  'earth-movers': 'https://images.unsplash.com/photo-1581092160607-ee22621dd758?w=1200&q=80',
+  technologies: 'https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=1200&q=80',
+  apparels: 'https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=1200&q=80',
 };
 
 export default function ServiceCard({ service, index }: Props) {
@@ -57,17 +57,17 @@ export default function ServiceCard({ service, index }: Props) {
 
       {/* Service Content Body with Unique Sector Background Image */}
       <div className="p-6 sm:p-7 flex-1 flex flex-col justify-between relative overflow-hidden bg-white">
-        {/* Prominent Unique Sector Background Photo Layer */}
+        {/* Prominent Unique Sector Background Photo Layer with High Brightness */}
         <div className="absolute inset-0 z-0 overflow-hidden pointer-events-none">
           <Image
             src={bgImage}
             alt=""
             fill
-            className="object-cover object-center opacity-20 group-hover:opacity-35 group-hover:scale-108 transition-all duration-700 filter saturate-125"
+            className="object-cover object-center opacity-30 group-hover:opacity-45 group-hover:scale-108 transition-all duration-700 filter brightness-110 saturate-125"
             sizes="(max-width: 768px) 100vw, 33vw"
           />
-          {/* Subtle gradient overlay to keep text ultra-crisp while letting the background photo shine */}
-          <div className="absolute inset-0 bg-gradient-to-b from-white/90 via-white/80 to-white/92 group-hover:from-white/80 group-hover:via-white/70 group-hover:to-white/85 transition-colors duration-500" />
+          {/* Subtle gradient overlay to keep text ultra-crisp while letting the background photo shine brightly */}
+          <div className="absolute inset-0 bg-gradient-to-b from-white/85 via-white/75 to-white/88 group-hover:from-white/75 group-hover:via-white/65 group-hover:to-white/80 transition-colors duration-500" />
         </div>
 
         {/* Foreground Content */}
