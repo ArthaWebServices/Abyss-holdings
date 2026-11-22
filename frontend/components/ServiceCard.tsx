@@ -9,13 +9,13 @@ interface Props {
 
 // Unique dedicated bright high-resolution background images for every business sector
 const SECTOR_BACKGROUNDS: Record<string, string> = {
-  construction: 'https://images.unsplash.com/photo-1541888946425-d0fbb18615f8?w=1200&q=80',
-  investments: 'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=1200&q=80',
-  realities: 'https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=1200&q=80',
-  automobiles: 'https://images.unsplash.com/photo-1617788138017-80ad40651399?w=1200&q=80',
-  'earth-movers': 'https://images.unsplash.com/photo-1581092160607-ee22621dd758?w=1200&q=80',
-  technologies: 'https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=1200&q=80',
-  apparels: 'https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=1200&q=80',
+  construction: 'https://images.unsplash.com/photo-1541888946425-d0fbb18615f8?w=800&q=75&auto=format&fit=crop',
+  investments: 'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=800&q=75&auto=format&fit=crop',
+  realities: 'https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=800&q=75&auto=format&fit=crop',
+  automobiles: 'https://images.unsplash.com/photo-1617788138017-80ad40651399?w=800&q=75&auto=format&fit=crop',
+  'earth-movers': 'https://images.unsplash.com/photo-1581092160607-ee22621dd758?w=800&q=75&auto=format&fit=crop',
+  technologies: 'https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=800&q=75&auto=format&fit=crop',
+  apparels: 'https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=800&q=75&auto=format&fit=crop',
 };
 
 export default function ServiceCard({ service, index }: Props) {

@@ -130,6 +130,10 @@ export default async function RootLayout({ children }: { children: React.ReactNo
       }
     >
       <head>
+        {/* Preconnect to Unsplash Image CDN for instant TLS handshake and rapid image delivery */}
+        <link rel="preconnect" href="https://images.unsplash.com" />
+        <link rel="dns-prefetch" href="https://images.unsplash.com" />
+
         {/* Synchronous Frame-0 Script: Prevents flashing the homepage before the intro splash */}
         <script
           dangerouslySetInnerHTML={{
