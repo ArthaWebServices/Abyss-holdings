@@ -161,7 +161,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
         <div
           id="splash-backdrop-preloader"
           suppressHydrationWarning
-          className="fixed inset-0 z-[99998] items-center justify-center select-none"
+          className="fixed inset-0 z-[99998] items-center justify-center select-none transition-opacity duration-500"
           style={{
             display: 'none',
             background: 'radial-gradient(ellipse 95% 85% at 50% 45%, #180509 0%, #0d0812 45%, #06070c 85%, #020305 100%)',
@@ -183,7 +183,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
               <img
                 src="/images/abyss-logo-square.png"
                 alt=""
-                className="w-36 h-36 object-contain animate-[spin_10s_linear_infinite] drop-shadow-[0_0_35px_rgba(166,25,46,0.75)]"
+                className="w-36 h-36 object-contain drop-shadow-[0_0_35px_rgba(166,25,46,0.75)]"
               />
             </div>
             <div className="mt-6">
