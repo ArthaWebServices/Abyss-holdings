@@ -7,15 +7,15 @@ interface Props {
   index: number;
 }
 
-// Unique dedicated bright high-resolution background images for every business sector
+// Unique dedicated self-hosted high-speed background images for every business sector
 const SECTOR_BACKGROUNDS: Record<string, string> = {
-  construction: 'https://images.unsplash.com/photo-1541888946425-d0fbb18615f8?w=800&q=75&auto=format&fit=crop',
-  investments: 'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=800&q=75&auto=format&fit=crop',
-  realities: 'https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=800&q=75&auto=format&fit=crop',
-  automobiles: 'https://images.unsplash.com/photo-1617788138017-80ad40651399?w=800&q=75&auto=format&fit=crop',
-  'earth-movers': 'https://images.unsplash.com/photo-1581092160607-ee22621dd758?w=800&q=75&auto=format&fit=crop',
-  technologies: 'https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=800&q=75&auto=format&fit=crop',
-  apparels: 'https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=800&q=75&auto=format&fit=crop',
+  construction: '/images/sectors/construction.webp',
+  investments: '/images/sectors/investments.webp',
+  realities: '/images/sectors/realities.webp',
+  automobiles: '/images/sectors/automobiles.webp',
+  'earth-movers': '/images/sectors/earth-movers.webp',
+  technologies: '/images/sectors/technologies.webp',
+  apparels: '/images/sectors/apparels.webp',
 };
 
 export default function ServiceCard({ service, index }: Props) {
